@@ -15,6 +15,14 @@
 		C7433DA429E17AF600B16B52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7433DA229E17AF600B16B52 /* LaunchScreen.storyboard */; };
 		C7433DAF29E17B3900B16B52 /* ChooseNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */; };
 		C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */; };
+		C7433DB729E17E5600B16B52 /* ShroomModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7433DB529E17E5600B16B52 /* ShroomModel.xcdatamodeld */; };
+		C7433DBC29E17F2F00B16B52 /* Player+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DB829E17F2F00B16B52 /* Player+CoreDataClass.swift */; };
+		C7433DBD29E17F2F00B16B52 /* Player+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DB929E17F2F00B16B52 /* Player+CoreDataProperties.swift */; };
+		C7433DBE29E17F2F00B16B52 /* Character+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DBA29E17F2F00B16B52 /* Character+CoreDataClass.swift */; };
+		C7433DBF29E17F2F00B16B52 /* Character+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DBB29E17F2F00B16B52 /* Character+CoreDataProperties.swift */; };
+		C7433DC129E17FBD00B16B52 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DC029E17FBD00B16B52 /* DatabaseProtocol.swift */; };
+		C7433DC329E1815200B16B52 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DC229E1815200B16B52 /* MulticastDelegate.swift */; };
+		C7433DC529E1818800B16B52 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DC429E1818800B16B52 /* CoreDataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +36,14 @@
 		C7433DA529E17AF600B16B52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNameViewController.swift; sourceTree = "<group>"; };
 		C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCharacterViewController.swift; sourceTree = "<group>"; };
+		C7433DB629E17E5600B16B52 /* ShroomModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShroomModel.xcdatamodel; sourceTree = "<group>"; };
+		C7433DB829E17F2F00B16B52 /* Player+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7433DB929E17F2F00B16B52 /* Player+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7433DBA29E17F2F00B16B52 /* Character+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7433DBB29E17F2F00B16B52 /* Character+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7433DC029E17FBD00B16B52 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		C7433DC229E1815200B16B52 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		C7433DC429E1818800B16B52 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +76,9 @@
 		C7433D9629E17AF400B16B52 /* Shroom */ = {
 			isa = PBXGroup;
 			children = (
+				C7433DB429E17DDD00B16B52 /* Database */,
+				C7433DB329E17DD500B16B52 /* DataModel */,
+				C7433DB229E17DCB00B16B52 /* Font */,
 				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
 				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
 				C7433D9729E17AF400B16B52 /* AppDelegate.swift */,
@@ -71,6 +90,35 @@
 				C7433DA529E17AF600B16B52 /* Info.plist */,
 			);
 			path = Shroom;
+			sourceTree = "<group>";
+		};
+		C7433DB229E17DCB00B16B52 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		C7433DB329E17DD500B16B52 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				C7433DB829E17F2F00B16B52 /* Player+CoreDataClass.swift */,
+				C7433DB929E17F2F00B16B52 /* Player+CoreDataProperties.swift */,
+				C7433DBA29E17F2F00B16B52 /* Character+CoreDataClass.swift */,
+				C7433DBB29E17F2F00B16B52 /* Character+CoreDataProperties.swift */,
+				C7433DB529E17E5600B16B52 /* ShroomModel.xcdatamodeld */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		C7433DB429E17DDD00B16B52 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				C7433DC029E17FBD00B16B52 /* DatabaseProtocol.swift */,
+				C7433DC229E1815200B16B52 /* MulticastDelegate.swift */,
+				C7433DC429E1818800B16B52 /* CoreDataController.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,9 +194,17 @@
 			files = (
 				C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */,
 				C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */,
+				C7433DBD29E17F2F00B16B52 /* Player+CoreDataProperties.swift in Sources */,
 				C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */,
+				C7433DBE29E17F2F00B16B52 /* Character+CoreDataClass.swift in Sources */,
+				C7433DC129E17FBD00B16B52 /* DatabaseProtocol.swift in Sources */,
+				C7433DB729E17E5600B16B52 /* ShroomModel.xcdatamodeld in Sources */,
 				C7433DAF29E17B3900B16B52 /* ChooseNameViewController.swift in Sources */,
+				C7433DC529E1818800B16B52 /* CoreDataController.swift in Sources */,
+				C7433DBC29E17F2F00B16B52 /* Player+CoreDataClass.swift in Sources */,
 				C7433D9A29E17AF400B16B52 /* SceneDelegate.swift in Sources */,
+				C7433DBF29E17F2F00B16B52 /* Character+CoreDataProperties.swift in Sources */,
+				C7433DC329E1815200B16B52 /* MulticastDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +420,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C7433DB529E17E5600B16B52 /* ShroomModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C7433DB629E17E5600B16B52 /* ShroomModel.xcdatamodel */,
+			);
+			currentVersion = C7433DB629E17E5600B16B52 /* ShroomModel.xcdatamodel */;
+			path = ShroomModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7433D8C29E17AF400B16B52 /* Project object */;
 }

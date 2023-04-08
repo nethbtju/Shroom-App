@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21G217" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Character" representedClassName="Character" syncable="YES">
+        <attribute name="exp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="health" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="level" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="chosenPlayer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playingCharacter" inverseEntity="Player"/>
+    </entity>
+    <entity name="Player" representedClassName="Player" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="uniqueID" optional="YES" attributeType="String"/>
+        <relationship name="playingCharacter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="chosenPlayer" inverseEntity="Character"/>
+    </entity>
+</model>

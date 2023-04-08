@@ -7,11 +7,26 @@
 
 import UIKit
 
-class ChooseNameViewController: UIViewController {
-
+class ChooseNameViewController: UIViewController, DatabaseListener {
+    
+    var listenerType: ListenerType
+    
+    var currentPlayer = [Player]()
+    
+    func onPlayerChange(change: DatabaseChange, player: [Player]) {
+        currentPlayer = player
+    }
+    
+    func onCharacterChange(change: DatabaseChange, character: [Character]) {
+        // do nothing
+    }
+    
+    weak var databaseController: DatabaseProtocol?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         // Do any additional setup after loading the view.
     }
     
