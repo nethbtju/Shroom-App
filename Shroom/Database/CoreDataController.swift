@@ -12,10 +12,9 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     var listeners = MulticastDelegate<DatabaseListener>()
     var persistentContainer: NSPersistentContainer
-    var playerFetchedResultsController: NSFetchedResultsController<Player>?
     var characterFetchedResultsController: NSFetchedResultsController<Character>?
-    
-    var currentCharacter: Character?
+    var playerFetchedResultsController: NSFetchedResultsController<Player>?
+    var currentPlayer: Player?
     
     override init() {
         persistentContainer = NSPersistentContainer(name: "ShroomModel")
@@ -27,12 +26,9 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         super.init()
     }
     
-    func fetchPlayerDetails() -> [Player] {
+    func fetchPlayerDetails() -> Player {
         if playerFetchedResultsController == nil {
             let fetchRequest: NSFetchRequest<Player> = Player.fetchRequest()
-            let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-            fetchRequest.sortDescriptors = [nameSortDescriptor]
-            
             playerFetchedResultsController = NSFetchedResultsController<Player>(
             fetchRequest:fetchRequest, managedObjectContext:
             persistentContainer.viewContext, sectionNameKeyPath: nil,
@@ -45,9 +41,9 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             }
         }
         if let player = playerFetchedResultsController?.fetchedObjects{
-        return player
+            return player.first ?? Player()
         }
-        return [Player]()
+        return Player()
     }
     
     func fetchCharacterDetails() -> [Character] {
@@ -103,12 +99,23 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
     }
-
-    func addPlayer(playerName: String) -> Player {
+    
+    func addCharacter(charName: String, level: Int32, exp: Int32, health: Int32, player: Player?) -> Character {
+        let char = NSEntityDescription.insertNewObject(forEntityName:
+        "Character", into: persistentContainer.viewContext) as! Character
+        char.name = charName
+        char.level = level
+        char.exp = exp
+        char.health = health
+        char.chosenPlayer = player
+        return char
+        
+    }
+    func addPlayer(name: String) -> Player {
         let player = NSEntityDescription.insertNewObject(forEntityName:
         "Player", into: persistentContainer.viewContext) as! Player
-        player.name = playerName
-        player.uniqueID = playerName + "2345"
+        player.name = name
+        player.uniqueID = name + "2345"
         return player
     }
 

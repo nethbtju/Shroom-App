@@ -23,6 +23,8 @@
 		C7433DC129E17FBD00B16B52 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DC029E17FBD00B16B52 /* DatabaseProtocol.swift */; };
 		C7433DC329E1815200B16B52 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DC229E1815200B16B52 /* MulticastDelegate.swift */; };
 		C7433DC529E1818800B16B52 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DC429E1818800B16B52 /* CoreDataController.swift */; };
+		C7433DC729E18AC300B16B52 /* ConnectionBold-ER1g.otf in Resources */ = {isa = PBXBuildFile; fileRef = C7433DC629E18AC300B16B52 /* ConnectionBold-ER1g.otf */; };
+		C7433DC929E18AD800B16B52 /* PixelGameFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7433DC829E18AD800B16B52 /* PixelGameFont.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		C7433DC029E17FBD00B16B52 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		C7433DC229E1815200B16B52 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		C7433DC429E1818800B16B52 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		C7433DC629E18AC300B16B52 /* ConnectionBold-ER1g.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ConnectionBold-ER1g.otf"; sourceTree = "<group>"; };
+		C7433DC829E18AD800B16B52 /* PixelGameFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PixelGameFont.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 		C7433DB229E17DCB00B16B52 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				C7433DC829E18AD800B16B52 /* PixelGameFont.ttf */,
+				C7433DC629E18AC300B16B52 /* ConnectionBold-ER1g.otf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -181,7 +187,9 @@
 			files = (
 				C7433DA429E17AF600B16B52 /* LaunchScreen.storyboard in Resources */,
 				C7433DA129E17AF600B16B52 /* Assets.xcassets in Resources */,
+				C7433DC929E18AD800B16B52 /* PixelGameFont.ttf in Resources */,
 				C7433D9F29E17AF400B16B52 /* Main.storyboard in Resources */,
+				C7433DC729E18AC300B16B52 /* ConnectionBold-ER1g.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

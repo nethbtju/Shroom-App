@@ -7,18 +7,19 @@
 
 import UIKit
 
-class ChooseNameViewController: UIViewController, DatabaseListener {
+class ChooseNameViewController: UIViewController {
     
-    var listenerType: ListenerType
+    @IBOutlet weak var playerName: UITextField!
     
-    var currentPlayer = [Player]()
-    
-    func onPlayerChange(change: DatabaseChange, player: [Player]) {
-        currentPlayer = player
-    }
-    
-    func onCharacterChange(change: DatabaseChange, character: [Character]) {
-        // do nothing
+    // TODO: Make sure to check database for existing name/id
+    @IBAction func chooseName(_ sender: Any) {
+        guard let name = playerName.text, name.isEmpty == false else {
+            displayMessage(title: "Invalid Name", message: "Nickname cannot be empty")
+            return
+        }
+        let player = databaseController?.addPlayer(name: name)
+        databaseController?.currentPlayer = player
+        navigationController?.popViewController(animated: true)
     }
     
     weak var databaseController: DatabaseProtocol?
@@ -27,9 +28,19 @@ class ChooseNameViewController: UIViewController, DatabaseListener {
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
+        databaseController = appDelegate?.databaseController
         // Do any additional setup after loading the view.
     }
     
+    func displayMessage(title: String, message: String){
+        let alertController = UIAlertController(title: title, message: message,
+        preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default,
+        handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation
