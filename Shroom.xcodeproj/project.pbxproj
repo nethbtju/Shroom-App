@@ -13,6 +13,8 @@
 		C7433D9F29E17AF400B16B52 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7433D9D29E17AF400B16B52 /* Main.storyboard */; };
 		C7433DA129E17AF600B16B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7433DA029E17AF600B16B52 /* Assets.xcassets */; };
 		C7433DA429E17AF600B16B52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7433DA229E17AF600B16B52 /* LaunchScreen.storyboard */; };
+		C7433DAF29E17B3900B16B52 /* ChooseNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */; };
+		C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		C7433DA029E17AF600B16B52 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7433DA329E17AF600B16B52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7433DA529E17AF600B16B52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChooseNameViewController.swift; path = Shroom/ChooseNameViewController.swift; sourceTree = "<group>"; };
+		C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PickCharacterViewController.swift; path = Shroom/PickCharacterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,8 @@
 		C7433D8B29E17AF400B16B52 = {
 			isa = PBXGroup;
 			children = (
+				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
+				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
 				C7433D9629E17AF400B16B52 /* Shroom */,
 				C7433D9529E17AF400B16B52 /* Products */,
 			);
@@ -56,6 +62,9 @@
 		C7433D9629E17AF400B16B52 /* Shroom */ = {
 			isa = PBXGroup;
 			children = (
+				C7433DAD29E17B1D00B16B52 /* Database */,
+				C7433DAC29E17B1100B16B52 /* DataModel */,
+				C7433DAB29E17AFF00B16B52 /* Fonts */,
 				C7433D9729E17AF400B16B52 /* AppDelegate.swift */,
 				C7433D9929E17AF400B16B52 /* SceneDelegate.swift */,
 				C7433D9B29E17AF400B16B52 /* ViewController.swift */,
@@ -65,6 +74,27 @@
 				C7433DA529E17AF600B16B52 /* Info.plist */,
 			);
 			path = Shroom;
+			sourceTree = "<group>";
+		};
+		C7433DAB29E17AFF00B16B52 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C7433DAC29E17B1100B16B52 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		C7433DAD29E17B1D00B16B52 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +169,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */,
+				C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */,
 				C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */,
+				C7433DAF29E17B3900B16B52 /* ChooseNameViewController.swift in Sources */,
 				C7433D9A29E17AF400B16B52 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
