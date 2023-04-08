@@ -26,8 +26,8 @@
 		C7433DA029E17AF600B16B52 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7433DA329E17AF600B16B52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7433DA529E17AF600B16B52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChooseNameViewController.swift; path = Shroom/ChooseNameViewController.swift; sourceTree = "<group>"; };
-		C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PickCharacterViewController.swift; path = Shroom/PickCharacterViewController.swift; sourceTree = "<group>"; };
+		C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNameViewController.swift; sourceTree = "<group>"; };
+		C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCharacterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,8 +44,6 @@
 		C7433D8B29E17AF400B16B52 = {
 			isa = PBXGroup;
 			children = (
-				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
-				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
 				C7433D9629E17AF400B16B52 /* Shroom */,
 				C7433D9529E17AF400B16B52 /* Products */,
 			);
@@ -62,6 +60,8 @@
 		C7433D9629E17AF400B16B52 /* Shroom */ = {
 			isa = PBXGroup;
 			children = (
+				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
+				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
 				C7433DAD29E17B1D00B16B52 /* Database */,
 				C7433DAC29E17B1100B16B52 /* DataModel */,
 				C7433DAB29E17AFF00B16B52 /* Fonts */,
