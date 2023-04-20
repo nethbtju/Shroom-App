@@ -15,6 +15,7 @@
 		C735D4E329EFBEAE009DF770 /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4E229EFBEAE009DF770 /* TaskItem.swift */; };
 		C735D4E529EFC0FC009DF770 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4E429EFC0FC009DF770 /* FirebaseController.swift */; };
 		C735D4E729F0F2F5009DF770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C735D4E629F0F2F5009DF770 /* GoogleService-Info.plist */; };
+		C735D4ED29F12DB2009DF770 /* BreakdownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */; };
 		C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433D9729E17AF400B16B52 /* AppDelegate.swift */; };
 		C7433D9A29E17AF400B16B52 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433D9929E17AF400B16B52 /* SceneDelegate.swift */; };
 		C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433D9B29E17AF400B16B52 /* ViewController.swift */; };
@@ -36,6 +37,7 @@
 		C735D4E229EFBEAE009DF770 /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 		C735D4E429EFC0FC009DF770 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		C735D4E629F0F2F5009DF770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownViewController.swift; sourceTree = "<group>"; };
 		C7433D9429E17AF400B16B52 /* Shroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7433D9729E17AF400B16B52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7433D9929E17AF400B16B52 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				C735D4E229EFBEAE009DF770 /* TaskItem.swift */,
 				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
 				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
+				C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C735D4E529EFC0FC009DF770 /* FirebaseController.swift in Sources */,
+				C735D4ED29F12DB2009DF770 /* BreakdownViewController.swift in Sources */,
 				C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */,
 				C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */,
 				C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */,

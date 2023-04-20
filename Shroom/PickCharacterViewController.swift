@@ -25,7 +25,7 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
             return
         }
         databaseController?.createNewStarter(charName: chosenChar, level: 1, exp: 0, health: 100, player: databaseController?.currentUser)
-        performSegue(withIdentifier: "mainScreenSegue", sender: nil)
+        self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
     }
     
     @IBOutlet weak var buttonText: UIButton!
