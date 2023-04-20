@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ChooseNameViewController: UIViewController {
     
@@ -17,31 +18,38 @@ class ChooseNameViewController: UIViewController {
             displayMessage(title: "Invalid Name", message: "Nickname cannot be empty")
             return
         }
-        let player = databaseController?.addPlayer(name: name)
-        databaseController?.currentPlayer = player
-        navigationController?.popViewController(animated: true)
+        databaseController?.createNewUser(name: name)
+        self.performSegue(withIdentifier: "chooseCharSegue", sender: nil)
     }
     
     weak var databaseController: DatabaseProtocol?
     
+    var authHandle: AuthStateDidChangeListenerHandle?
+    
+    var authController: Auth?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
+        authController = Auth.auth()
         // Do any additional setup after loading the view.
-    }
-    
-    func displayMessage(title: String, message: String){
-        let alertController = UIAlertController(title: title, message: message,
-        preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default,
-        handler: nil))
-        
-        self.present(alertController, animated: true, completion: nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        authHandle = authController?.addStateDidChangeListener{ auth, user in
+            if self.databaseController?.currentUser != nil {
+                self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        authController?.removeStateDidChangeListener(authHandle!)
+    }
     /*
     // MARK: - Navigation
 

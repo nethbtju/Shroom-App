@@ -3,8 +3,10 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -41,7 +43,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="chooseName:" destination="kJB-KL-ZYr" eventType="touchUpInside" id="QRz-u4-Kwp"/>
-                                    <segue destination="2NP-Dd-SLt" kind="show" id="aM4-iT-qlw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qg1-ZM-OI7">
@@ -100,6 +101,7 @@
                     <navigationItem key="navigationItem" id="tvh-Va-jPk"/>
                     <connections>
                         <outlet property="playerName" destination="aTr-vs-g5I" id="GjI-ds-d3i"/>
+                        <segue destination="2NP-Dd-SLt" kind="show" identifier="chooseCharSegue" id="oqc-PC-X98"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9na-bI-IRA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -243,11 +245,124 @@
                         <outlet property="purpleShroom" destination="wKt-dq-rbJ" id="VP1-hX-0TN"/>
                         <outlet property="redShroom" destination="Ih7-g1-tDb" id="d2R-jl-iTh"/>
                         <outlet property="welcomeLabel" destination="9Tr-Pg-54Y" id="BAx-Zr-Lod"/>
+                        <segue destination="25q-1l-own" kind="custom" identifier="mainScreenSegue" id="TIe-WO-Qjq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51N-fg-if2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2748.8549618320608" y="36.619718309859159"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="9PH-jp-z0f">
+            <objects>
+                <tableViewController id="dBM-zb-XBL" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="kMm-J0-BbP">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4u7-jp-2Qz">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4u7-jp-2Qz" id="uri-mb-Zns">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dBM-zb-XBL" id="753-Mw-Krv"/>
+                            <outlet property="delegate" destination="dBM-zb-XBL" id="6a8-sz-9Fv"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="" id="Q0W-2f-1ZB">
+                        <imageReference key="selectedImage" image="list.bullet.circle.fill" catalog="system" variableValue="0.0"/>
+                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="2RA-Wc-2pd"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FQJ-66-zAc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5608.3969465648852" y="36.619718309859159"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="GAN-6c-xFI">
+            <objects>
+                <viewController id="kQv-Jx-1cL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Txu-mP-SGd">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="B6B-7d-lLL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" selectedImage="chart.bar.xaxis" catalog="system" id="uvy-gG-LgN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FxG-Zw-a40" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2747" y="818"/>
+        </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="DX0-fr-MFL">
+            <objects>
+                <collectionViewController id="ySz-RQ-iAW" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="MZ7-Js-Iea">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Vq1-eE-1kS">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="aqe-Le-T2Q">
+                                <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="x6m-SE-hRv">
+                                    <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionViewCellContentView>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="ySz-RQ-iAW" id="U4Q-x7-rea"/>
+                            <outlet property="delegate" destination="ySz-RQ-iAW" id="cfb-QA-78T"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" title="" selectedImage="archivebox.fill" catalog="system" id="Bx1-f8-MSz"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qIh-5Y-GVA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4164" y="818"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="Ff8-Gy-gx9">
+            <objects>
+                <tableViewController id="Twe-9A-UIM" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="LMw-qg-7o9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cmS-uD-LwN">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cmS-uD-LwN" id="Iyu-jN-wL6">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Twe-9A-UIM" id="JMB-Pt-90d"/>
+                            <outlet property="delegate" destination="Twe-9A-UIM" id="ThZ-gt-aNi"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="" selectedImage="person.2.fill" catalog="system" id="5nB-1P-Uk9"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ALy-2N-Zja" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6639" y="818"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Mgw-zF-bSr">
@@ -267,10 +382,34 @@
             </objects>
             <point key="canvasLocation" x="962.59541984732823" y="37.323943661971832"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="ATY-l1-nTv">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="25q-1l-own" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vf8-lM-3hd">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="dBM-zb-XBL" kind="relationship" relationship="viewControllers" id="yMo-wb-m3n"/>
+                        <segue destination="Twe-9A-UIM" kind="relationship" relationship="viewControllers" id="k3o-3l-0xx"/>
+                        <segue destination="kQv-Jx-1cL" kind="relationship" relationship="viewControllers" id="gcC-eo-ZQt"/>
+                        <segue destination="ySz-RQ-iAW" kind="relationship" relationship="viewControllers" id="1Gi-vF-dGP"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xW9-qd-UhR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4164" y="37"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ShroomLogo" width="2498" height="371"/>
+        <image name="archivebox.fill" catalog="system" width="128" height="107"/>
         <image name="blueShroom" width="659" height="782"/>
+        <image name="chart.bar.xaxis" catalog="system" width="128" height="99"/>
+        <image name="list.bullet.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <image name="pinkShroom" width="659" height="782"/>
         <image name="purpleShroom" width="659" height="782"/>
         <image name="redShroom" width="659" height="782"/>

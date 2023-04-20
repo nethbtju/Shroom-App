@@ -8,14 +8,26 @@
 import UIKit
 
 class PickCharacterViewController: UIViewController, DatabaseListener {
-    func onPlayerChange(change: DatabaseChange, player: Player) {
-        //do nothing
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        // do nothing
     }
+    
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        // do nothing
+    }
+    
     
     @IBOutlet weak var welcomeLabel: UILabel?
     
     @IBAction func chooseCharacter(_ sender: Any) {
+        guard let chosenChar = chosenCharName, chosenChar.isEmpty == false else{
+            displayMessage(title: "No Starter Shroom Selected", message: "Please select a starter shroom!")
+            return
+        }
+        databaseController?.createNewStarter(charName: chosenChar, level: 1, exp: 0, health: 100, player: databaseController?.currentUser)
+        performSegue(withIdentifier: "mainScreenSegue", sender: nil)
     }
+    
     @IBOutlet weak var buttonText: UIButton!
     
     @IBOutlet weak var purpleShroom: UIImageView!
@@ -27,7 +39,7 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
     
     var listenerType = ListenerType.player
     
-    var chosenCharName: String
+    var chosenCharName: String?
     
     func onCharacterChange(change: DatabaseChange, character: [Character]) {
         // do nothing
@@ -58,7 +70,7 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
         
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
-        welcomeLabel!.text = "Welcome, \((databaseController?.currentPlayer?.name)!)"
+        welcomeLabel!.text = "Welcome, \((databaseController?.currentUser?.name)!)"
         // Do any additional setup after loading the view.
     }
     
@@ -84,7 +96,7 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
                     image = redShroom.image!
                 }
                 chosenChar.image = image
-                buttonText.setTitle("Choose \(chosenCharName)", for: buttonText.state)
+                buttonText.setTitle("Choose \(chosenCharName!)", for: buttonText.state)
                 //Here you can initiate your new ViewController
             }
         }

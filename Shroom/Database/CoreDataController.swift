@@ -5,7 +5,7 @@
 //  Created by Neth Botheju on 8/4/2023.
 //
 
-import UIKit
+/*import UIKit
 import CoreData
 
 class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
@@ -119,4 +119,4 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return player
     }
 
-}
+}*/
