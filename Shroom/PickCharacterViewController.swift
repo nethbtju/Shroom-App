@@ -25,6 +25,7 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
             return
         }
         databaseController?.createNewStarter(charName: chosenChar, level: 1, exp: 0, health: 100, player: databaseController?.currentUser)
+        databaseController?.currentCharImage = image
         self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
     }
     
@@ -40,6 +41,8 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
     var listenerType = ListenerType.player
     
     var chosenCharName: String?
+    
+    var image: UIImage?
     
     func onCharacterChange(change: DatabaseChange, character: [Character]) {
         // do nothing
@@ -78,7 +81,6 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
             // if the tapped view is a UIImageView then set it to imageview
             if (gesture.view as? UIImageView) != nil {
                 let imageTag = gesture.view!.tag
-                var image: UIImage
                 switch imageTag {
                     case 0:
                         image = redShroom.image!

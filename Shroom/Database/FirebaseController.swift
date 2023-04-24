@@ -14,12 +14,16 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var listeners = MulticastDelegate<DatabaseListener>()
     
     var currentCharacter: Character?
+    var currentCharImage: UIImage?
+    
     var taskList: [TaskItem]
     var authController: Auth
     var database: Firestore
+    
     var tasksRef: CollectionReference?
     var characterRef: CollectionReference?
     var userRef: CollectionReference?
+    
     var currentUser: User?
     
     override init(){
@@ -46,6 +50,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32, player: User?){
+        characterRef = database.collection("characters")
         let starterChar = addCharacter(charName: charName, level: level, exp: exp, health: health, player: currentUser)
         currentCharacter = starterChar
     }

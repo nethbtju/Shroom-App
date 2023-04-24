@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import UIKit
 
 enum DatabaseChange {
     case add
@@ -36,6 +37,7 @@ protocol DatabaseProtocol: AnyObject {
     
     var currentUser: User? {get}
     var currentCharacter: Character? {get}
+    var currentCharImage: UIImage? {set get}
     
     func addTask(name: String, dueDate: String, priority: Int32, repeatTask: Bool, unit: String) -> TaskItem
     func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32, player: User?)
