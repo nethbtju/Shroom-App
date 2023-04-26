@@ -40,7 +40,7 @@ class ChooseNameViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         authHandle = authController?.addStateDidChangeListener{ auth, user in
-            if self.databaseController?.currentUser != nil {
+            if self.authController?.currentUser != nil {
                 self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
             }
         }

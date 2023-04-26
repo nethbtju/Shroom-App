@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     weak var databaseController: DatabaseProtocol?
     
@@ -102,7 +102,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
             return allTasksCell;
         }
     }
-    
+    /*
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //do nothing
         return 1
@@ -112,7 +112,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         let allTasksCell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_ALL, for: indexPath)
         // do nothin
         return allTasksCell
-    }
+    }*/
     
 
     /*
