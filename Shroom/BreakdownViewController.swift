@@ -43,20 +43,20 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
         self.navigationItem.setHidesBackButton(true, animated: true)
-        /*
+        
         let player = databaseController?.currentUser
         let shroom = databaseController?.currentCharacter
         let shroomImage = databaseController?.currentCharImage
         
         // Lets assume for now the user has JUST set their things up and the current character is in current Char variable
-        currentCharacterImage.image = shroomImage
+        //currentCharacterImage.image = shroomImage
         shroomNameLabel.text = shroom?.charName
         levelLabel.text = "lvl \(shroom?.level ?? 1)"
         expLabel.text = "\(shroom?.exp ?? 0)/\((shroom?.level)! * 100)"
         hpLabel.text = "\(shroom?.health ?? 0)/\((shroom?.level)! * 100)"
         hpProgressBar.progress = 100
         expProgressBar.progress = 0
-        playerNameLabel.text = player?.name*/
+        playerNameLabel.text = player?.displayName
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -14,4 +14,5 @@ class TaskItem: NSObject, Codable {
     var priority: Int32?
     var repeatTask: Bool?
     var unit: String?
+    var user: String?
 }

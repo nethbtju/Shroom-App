@@ -35,21 +35,23 @@ protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
     
-    var currentUser: User? {get}
+    var currentUser: FirebaseAuth.User? {get}
     var currentCharacter: Character? {get}
     var currentCharImage: UIImage? {set get}
     
     func addTask(name: String, dueDate: String, priority: Int32, repeatTask: Bool, unit: String) -> TaskItem
-    func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32, player: User?)
-    func createNewUser(name: String)
+    func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32)
+    func createNewAccount(email: String, password: String) async throws
+    func logInToAccount(email: String, password: String) async throws
+    func setUpUser() async throws
     
     func deleteTask(task: TaskItem)
     func getTaskByID(_ id: String) -> TaskItem?
-    
+
     func setupTaskListener()
     func setupCharacterListener()
     
     func parseTaskSnapshot(snapshot: QuerySnapshot)
-    func parseCharacterSnapshot(snapshot: QueryDocumentSnapshot)
+    func parseCharacterSnapshot(snapshot: QuerySnapshot)
 }
 

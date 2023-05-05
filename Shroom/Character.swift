@@ -13,5 +13,5 @@ class Character: NSObject, Codable {
     var level: Int32?
     var exp: Int32?
     var health: Int32?
-    var player: User?
+    var player: String?
 }

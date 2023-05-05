@@ -12,22 +12,25 @@ class ChooseNameViewController: UIViewController {
     
     @IBOutlet weak var playerName: UITextField!
     
+    var authController: Auth?
+    
     // TODO: Make sure to check database for existing name/id
     @IBAction func chooseName(_ sender: Any) {
         guard let name = playerName.text, name.isEmpty == false else {
             displayMessage(title: "Invalid Name", message: "Nickname cannot be empty")
             return
         }
-        databaseController?.createNewUser(name: name)
+        
+        let changeRequest = authController?.currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = name
+        changeRequest?.commitChanges { error in
+            print("Display Name change failed with error \(String(describing: error))")
+        }
         self.performSegue(withIdentifier: "chooseCharSegue", sender: nil)
     }
     
     weak var databaseController: DatabaseProtocol?
-    
-    var authHandle: AuthStateDidChangeListenerHandle?
-    
-    var authController: Auth?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
@@ -35,20 +38,6 @@ class ChooseNameViewController: UIViewController {
         authController = Auth.auth()
         // Do any additional setup after loading the view.
         
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        authHandle = authController?.addStateDidChangeListener{ auth, user in
-            if self.authController?.currentUser != nil {
-                self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
-            }
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        authController?.removeStateDidChangeListener(authHandle!)
     }
     /*
     // MARK: - Navigation

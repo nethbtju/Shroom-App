@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PickCharacterViewController: UIViewController, DatabaseListener {
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
@@ -16,7 +17,8 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
         // do nothing
     }
     
-    
+    var authController: Auth?
+
     @IBOutlet weak var welcomeLabel: UILabel?
     
     @IBAction func chooseCharacter(_ sender: Any) {
@@ -24,9 +26,9 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
             displayMessage(title: "No Starter Shroom Selected", message: "Please select a starter shroom!")
             return
         }
-        databaseController?.createNewStarter(charName: chosenChar, level: 1, exp: 0, health: 100, player: databaseController?.currentUser)
+        databaseController?.createNewStarter(charName: chosenChar, level: 1, exp: 0, health: 100)
         databaseController?.currentCharImage = image
-        self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBOutlet weak var buttonText: UIButton!
@@ -52,6 +54,7 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        authController = Auth.auth()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
         let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
@@ -73,7 +76,7 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
         
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
-        welcomeLabel!.text = "Welcome, \((databaseController?.currentUser?.name)!)"
+        welcomeLabel!.text = "Welcome, \(authController?.currentUser?.displayName ?? "Stranger!")"
         // Do any additional setup after loading the view.
     }
     

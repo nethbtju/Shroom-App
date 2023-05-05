@@ -24,7 +24,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var characterRef: CollectionReference?
     var userRef: CollectionReference?
     
-    var currentUser: User?
+    var currentUser: FirebaseAuth.User?
     
     var DefaultTaks: String = "DefaultUser"
     
@@ -35,34 +35,47 @@ class FirebaseController: NSObject, DatabaseProtocol {
         currentCharacter = Character()
         taskList = [TaskItem]()
         super.init()
-        // For testing purposes
-        /*Task {
-            do {
-                _ = try authController.signOut()
-            }
-            catch {
-                fatalError("Firebase Sign Out Failed with Error\(String(describing: error))")
-                }
-        }*/
     }
     
-    func createNewUser(name: String){
-        Task {
+    func setUpUser() async throws {
+        currentUser = authController.currentUser
+        setupCharacterListener()
+        tasksRef = database.collection("tasks")
+        //addTask(name: "Final Mobile Application", dueDate: "09/06/2023", priority: 3, repeatTask: false, unit: "FIT3178")
+        setupTaskListener()
+    }
+    
+    func createNewAccount(email: String, password: String) async throws {
+        Task{
             do {
-                _ = try await authController.signInAnonymously()
+                let authDetails = try await authController.createUser(withEmail: email, password: password)
+                print("User creation successfully completed")
+                currentUser = authDetails.user
+                setupTaskListener()
             }
             catch {
-                fatalError("Firebase Authentication Failed with Error\(String(describing: error))")
-                }
+                print("User creation failed with error \(String(describing: error))")
+            }
         }
-        userRef = database.collection("users")
-        let user = addUser(name: name)
-        currentUser = user
     }
     
-    func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32, player: User?){
+    func logInToAccount(email: String, password: String) async throws {
+        Task{
+            do {
+                let authDetail = try await authController.signIn(withEmail: email, password: password)
+                print("User Logged in")
+                currentUser = authDetail.user
+                setupCharacterListener()
+            }
+            catch {
+                print("Log in failed with error \(String(describing: error))")
+            }
+        }
+    }
+    
+    func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32){
         characterRef = database.collection("characters")
-        let starterChar = addCharacter(charName: charName, level: level, exp: exp, health: health, player: currentUser)
+        let starterChar = addCharacter(charName: charName, level: level, exp: exp, health: health, player: currentUser?.uid)
         currentCharacter = starterChar
     }
     
@@ -79,17 +92,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func removeListener(listener: DatabaseListener){
         listeners.removeDelegate(listener)
     }
-    
-    func addUser(name: String) -> User{
-        let user = User()
-        user.name = name
-        if let usersRef = userRef?.addDocument(data: ["name" : name, "tasks": []]) {
-            user.id = usersRef.documentID
-        }
-        return user
-    }
      
-    func addCharacter(charName: String, level: Int32, exp: Int32, health: Int32, player: User?) -> Character {
+    func addCharacter(charName: String, level: Int32, exp: Int32, health: Int32, player: String?) -> Character {
         let char = Character()
         char.charName = charName
         char.level = level
@@ -97,8 +101,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
         char.health = health
         char.player = player
         do {
-            if let charRef = try characterRef?.addDocument(from: char) {
-                char.id = charRef.documentID
+            if let charRef = try characterRef?.document(currentUser!.uid).setData(from: char) {
+                char.id = currentUser?.uid
             }
         } catch {
             print("Failed to serialize character")
@@ -113,12 +117,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
         task.priority = priority
         task.repeatTask = repeatTask
         task.unit = unit
+        task.user = authController.currentUser?.uid
         do {
             if let taskRef = try tasksRef?.addDocument(from: task) {
                 task.id = taskRef.documentID
             }
         } catch {
-            print("Failed to serialize hero")
+            print("Failed to serialize task")
         }
         return task
     }
@@ -127,6 +132,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
         if let TaskID = task.id {
             tasksRef?.document(TaskID).delete()
         }
+    }
+    
+    /*func getUserByID(_ id: String) -> User? {
+        userRef?.whereField("name", isEqualTo: DEFAULT_TEAM_NAME)
+    }*/
+    
+    func getCharacterbyID(){
+        
     }
     
     func cleanup() {
@@ -156,7 +169,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func setupTaskListener() {
         tasksRef = database.collection("tasks")
-        
         tasksRef?.addSnapshotListener() {
             (querySnapshot, error) in
             guard let querySnapshot = querySnapshot else {
@@ -168,7 +180,15 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func setupCharacterListener() {
-        
+        characterRef = database.collection("characters")
+        characterRef?.whereField("player", isEqualTo: currentUser!.uid)
+            .addSnapshotListener() { (querySnapshot, error) in
+            guard let querySnapshot = querySnapshot else {
+                print("Error fetching teams: \(error!)")
+                return
+            }
+            self.parseCharacterSnapshot(snapshot: querySnapshot)
+        }
     }
     
     func parseTaskSnapshot(snapshot: QuerySnapshot) {
@@ -177,7 +197,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             do {
                 parsedTask = try change.document.data(as: TaskItem.self)
             } catch {
-                print("Unable to decode hero. Is the task malformed?")
+                print("Unable to decode task. Is the task malformed?")
                 return
             }
             guard let task = parsedTask else {
@@ -191,6 +211,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             } else if change.type == .removed {
                 taskList.remove(at: Int(change.oldIndex))
             }
+        
         }
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.task || listener.listenerType == ListenerType.all {
@@ -199,12 +220,33 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func parseCharacterSnapshot(snapshot: QueryDocumentSnapshot) {
-        
+    func parseCharacterSnapshot(snapshot: QuerySnapshot) {
+        snapshot.documentChanges.forEach { (change) in
+            var parsedCharacter: Character?
+            do {
+                parsedCharacter = try change.document.data(as: Character.self)
+            } catch {
+                print("Unable to decode hero. Is the hero malformed?")
+                return
+            }
+            guard let char = parsedCharacter else {
+                print("Document doesn't exist")
+                return;
+            }
+            if parsedCharacter?.player == authController.currentUser?.uid{
+                currentCharacter = char
+            }
+        }
+        listeners.invoke { (listener) in
+            if listener.listenerType == .character || listener.listenerType == .all {
+                listener.onCharacterChange(change: .update, character: currentCharacter!)
+            }
+        }
     }
     
     func parseUserSnapshot(snapshot: QueryDocumentSnapshot){
         
     }
+
     
 }
