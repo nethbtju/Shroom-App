@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class AllTasksTableViewController: UITableViewController, DatabaseListener {
     
@@ -35,7 +36,6 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         self.navigationItem.title = "All Tasks"
-        self.navigationItem.titleView?.tintColor = UIColor.red
     }
 
     // MARK: - Table view data source
@@ -63,14 +63,17 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          // Configure and return a task cell
-         let taskCell = tableView.dequeueReusableCell(withIdentifier: CELL_TASKS, for: indexPath)
-         var content = taskCell.defaultContentConfiguration()
-         let task = allTasks[indexPath.row]
-         content.text = task.name
-         content.secondaryText = task.dueDate
-         taskCell.contentConfiguration = content
-         
-         return taskCell
+        let taskCell = tableView.dequeueReusableCell(withIdentifier: CELL_TASKS, for: indexPath) as! TaskTableViewCell
+        let task = allTasks[indexPath.row]
+        taskCell.nameText.text = task.name
+        taskCell.dueDateText.text = task.dueDate
+        taskCell.expText.text = "100 exp"
+        taskCell.priorityText.text = "!!!"
+        taskCell.reminderText.text = "2 Hours Before"
+        
+        let imageIcon = UIImage(systemName: "circle")?.withTintColor(UIColor(named: "LilacColor")!, renderingMode: .alwaysOriginal)
+        taskCell.imageView?.image = imageIcon
+        return taskCell
     }
     
 
@@ -91,12 +94,6 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
                 databaseController?.deleteTask(task: task)
             }
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let vw = UIView()
-        vw.backgroundColor = UIColor.red
-        return vw
     }
 
     /*
