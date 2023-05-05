@@ -26,6 +26,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     var currentUser: User?
     
+    var DefaultTaks: String = "DefaultUser"
+    
     override init(){
         FirebaseApp.configure()
         authController = Auth.auth()
@@ -34,26 +36,26 @@ class FirebaseController: NSObject, DatabaseProtocol {
         taskList = [TaskItem]()
         super.init()
         // For testing purposes
-        Task {
+        /*Task {
             do {
                 _ = try authController.signOut()
             }
             catch {
                 fatalError("Firebase Sign Out Failed with Error\(String(describing: error))")
                 }
-        }
+        }*/
     }
     
     func createNewUser(name: String){
         Task {
             do {
                 _ = try await authController.signInAnonymously()
-                userRef = database.collection("users")
             }
             catch {
                 fatalError("Firebase Authentication Failed with Error\(String(describing: error))")
                 }
         }
+        userRef = database.collection("users")
         let user = addUser(name: name)
         currentUser = user
     }

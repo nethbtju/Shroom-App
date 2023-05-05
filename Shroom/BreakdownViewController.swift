@@ -42,6 +42,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
+        self.navigationItem.setHidesBackButton(true, animated: true)
         /*
         let player = databaseController?.currentUser
         let shroom = databaseController?.currentCharacter
@@ -68,7 +69,6 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(indexPath.section)
         if sections == 0{
             let todayCell = tableView.dequeueReusableCell(withIdentifier: CELL_TODAY, for: indexPath)
             var content = todayCell.defaultContentConfiguration()
@@ -102,6 +102,25 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
             return allTasksCell;
         }
     }
+    
+    // Override to support conditional editing of the table view.
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = indexPath.row
+        if cell == 0 {
+            self.performSegue(withIdentifier: "todaySegue", sender: nil)
+            }
+        else if cell == 1 {
+            self.performSegue(withIdentifier: "upComingSegue", sender: nil)
+            }
+        else{
+            self.performSegue(withIdentifier: "allTaskSegue", sender: nil)
+            }
+    }
+
     /*
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //do nothing

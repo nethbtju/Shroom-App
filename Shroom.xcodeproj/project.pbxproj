@@ -29,6 +29,7 @@
 		C7433DC529E1818800B16B52 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433DC429E1818800B16B52 /* CoreDataController.swift */; };
 		C7433DC729E18AC300B16B52 /* ConnectionBold-ER1g.otf in Resources */ = {isa = PBXBuildFile; fileRef = C7433DC629E18AC300B16B52 /* ConnectionBold-ER1g.otf */; };
 		C7433DC929E18AD800B16B52 /* PixelGameFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7433DC829E18AD800B16B52 /* PixelGameFont.ttf */; };
+		C757B30229FBAFE700BC8517 /* AllTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C757B30129FBAFE700BC8517 /* AllTasksTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		C7433DC429E1818800B16B52 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		C7433DC629E18AC300B16B52 /* ConnectionBold-ER1g.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ConnectionBold-ER1g.otf"; sourceTree = "<group>"; };
 		C7433DC829E18AD800B16B52 /* PixelGameFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PixelGameFont.ttf; sourceTree = "<group>"; };
+		C757B30129FBAFE700BC8517 /* AllTasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTasksTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
 				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
 				C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */,
+				C757B30129FBAFE700BC8517 /* AllTasksTableViewController.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				C735D4E329EFBEAE009DF770 /* TaskItem.swift in Sources */,
 				C7433DAF29E17B3900B16B52 /* ChooseNameViewController.swift in Sources */,
 				C7433DC529E1818800B16B52 /* CoreDataController.swift in Sources */,
+				C757B30229FBAFE700BC8517 /* AllTasksTableViewController.swift in Sources */,
 				C7433D9A29E17AF400B16B52 /* SceneDelegate.swift in Sources */,
 				C735D4E129EFBEA3009DF770 /* Character.swift in Sources */,
 				C7433DC329E1815200B16B52 /* MulticastDelegate.swift in Sources */,
