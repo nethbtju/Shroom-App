@@ -19,6 +19,7 @@
 		C735D4E529EFC0FC009DF770 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4E429EFC0FC009DF770 /* FirebaseController.swift */; };
 		C735D4E729F0F2F5009DF770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C735D4E629F0F2F5009DF770 /* GoogleService-Info.plist */; };
 		C735D4ED29F12DB2009DF770 /* BreakdownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */; };
+		C741E6EC2A0E60810097AB53 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C741E6EB2A0E60810097AB53 /* AddTaskViewController.swift */; };
 		C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433D9729E17AF400B16B52 /* AppDelegate.swift */; };
 		C7433D9A29E17AF400B16B52 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433D9929E17AF400B16B52 /* SceneDelegate.swift */; };
 		C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433D9B29E17AF400B16B52 /* ViewController.swift */; };
@@ -45,6 +46,7 @@
 		C735D4E429EFC0FC009DF770 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		C735D4E629F0F2F5009DF770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownViewController.swift; sourceTree = "<group>"; };
+		C741E6EB2A0E60810097AB53 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		C7433D9429E17AF400B16B52 /* Shroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7433D9729E17AF400B16B52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7433D9929E17AF400B16B52 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				C732931E2A04AE59006966B7 /* LogInViewController.swift */,
 				C757B30129FBAFE700BC8517 /* AllTasksTableViewController.swift */,
 				C7FBC2832A05281900A1BBE7 /* TaskTableViewCell.swift */,
+				C741E6EB2A0E60810097AB53 /* AddTaskViewController.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */,
 				C7433DC129E17FBD00B16B52 /* DatabaseProtocol.swift in Sources */,
 				C735D4DF29EFBE8F009DF770 /* User.swift in Sources */,
+				C741E6EC2A0E60810097AB53 /* AddTaskViewController.swift in Sources */,
 				C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */,
 				C735D4E329EFBEAE009DF770 /* TaskItem.swift in Sources */,
 				C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */,
