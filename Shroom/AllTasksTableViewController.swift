@@ -10,6 +10,8 @@ import SwiftUI
 
 class AllTasksTableViewController: UITableViewController, DatabaseListener {
     
+    let addTaskViewController = AddTaskViewController()
+    
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         allTasks = tasks
         tableView.reloadData()
@@ -19,6 +21,28 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         // do nothing
     }
     
+    private func presentModal() {
+        let nav = UINavigationController(rootViewController: addTaskViewController)
+        // 1
+        nav.modalPresentationStyle = .pageSheet
+
+        
+        // 2
+        if let sheet = nav.sheetPresentationController {
+
+            // 3
+            sheet.detents = [.medium()]
+
+        }
+        // 4
+        self.present(nav, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func addTaskButton(_ sender: Any) {
+        //self.performSegue(withIdentifier: "addTaskSegue", sender: nil)
+        presentModal()
+    }
     
     let SECTION_TASKS = 0
     
