@@ -39,10 +39,21 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func setUpUser() async throws {
         currentUser = authController.currentUser
-        setupCharacterListener()
-        tasksRef = database.collection("tasks")
-        //addTask(name: "Final Mobile Application", dueDate: "09/06/2023", priority: 3, repeatTask: false, unit: "FIT3178")
-        setupTaskListener()
+        userRef = database.collection("users")
+        let user = userRef!.document(currentUser!.uid)
+        user.getDocument { (document, error) in
+            if let document = document, document.exists {
+                self.setupCharacterListener()
+                self.tasksRef = self.database.collection("tasks")
+                self.setupTaskListener()
+            } else {
+                self.userRef!.document(self.currentUser!.uid).setData(["taskList": []])
+                self.setupCharacterListener()
+                self.tasksRef = self.database.collection("tasks")
+                self.setupTaskListener()
+            }
+        }
+        
     }
     
     func createNewAccount(email: String, password: String) async throws {
@@ -51,7 +62,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 let authDetails = try await authController.createUser(withEmail: email, password: password)
                 print("User creation successfully completed")
                 currentUser = authDetails.user
-                setupTaskListener()
+                try await setUpUser()
             }
             catch {
                 print("User creation failed with error \(String(describing: error))")
@@ -65,7 +76,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 let authDetail = try await authController.signIn(withEmail: email, password: password)
                 print("User Logged in")
                 currentUser = authDetail.user
-                setupCharacterListener()
+                try await setUpUser()
             }
             catch {
                 print("Log in failed with error \(String(describing: error))")
@@ -110,13 +121,27 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return char
     }
     
-    func addTask(name: String, dueDate: String, priority: Int32, repeatTask: Bool, unit: String) -> TaskItem {
+    func addTaskToList(task: TaskItem, user: String) -> Bool{
+        guard let taskID = task.id, taskID.isEmpty == false else{
+            return false
+        }
+        let userID = user
+        if let newTaskRef = tasksRef?.document(taskID) {
+            userRef?.document(userID).updateData(["taskList" : FieldValue.arrayUnion([newTaskRef])])
+        }
+        return true
+    }
+    
+    func addTask(name: String, quickDes: String, dueDate: Date, priority: Int32, repeatTask: String, reminder: String, unit: String) -> TaskItem {
         let task = TaskItem()
         task.name = name
+        task.quickDes = quickDes
         task.dueDate = dueDate
         task.priority = priority
         task.repeatTask = repeatTask
+        task.reminder = reminder
         task.unit = unit
+        task.expPoints = 100 * priority
         task.user = authController.currentUser?.uid
         do {
             if let taskRef = try tasksRef?.addDocument(from: task) {
@@ -139,12 +164,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }*/
     
     func getCharacterbyID(){
-        
+        // do nothing
     }
     
     func cleanup() {
-        
+        // do nothing
     }
+    
     // MARK: - Firebase Controller Specific m=Methods
     func getTaskByID(_ id: String) -> TaskItem? {
         for task in taskList {
@@ -155,17 +181,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return nil
     }
     
-    /*func setupUserListener(){
-        userRef = database.collection("users")
-        userRef?.whereField("name", isEqualTo: currentUser.name).addSnapshotListener {
-            (querySnapshot, error) in
-            guard let querySnapshot = querySnapshot, let userSnapshot = querySnapshot.documents.first else {
-                print("Error fetching teams: \(error!)")
-                return
+    func removeTaskFromList(task: TaskItem, user: String) {
+        if taskList.contains(task), let taskID = task.id {
+            if let removedTaskRef = tasksRef?.document(taskID) {
+            userRef?.document(user).updateData(["taskList": FieldValue.arrayRemove([removedTaskRef])])
             }
-            self.parseUserSnapshot(snapshot: userSnapshot)
         }
-    }*/
+    }
+    
     
     func setupTaskListener() {
         tasksRef = database.collection("tasks")

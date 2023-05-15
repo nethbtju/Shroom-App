@@ -136,8 +136,8 @@
 		C7433DB429E17DDD00B16B52 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				C7433DC029E17FBD00B16B52 /* DatabaseProtocol.swift */,
 				C7433DC229E1815200B16B52 /* MulticastDelegate.swift */,
+				C7433DC029E17FBD00B16B52 /* DatabaseProtocol.swift */,
 				C735D4E429EFC0FC009DF770 /* FirebaseController.swift */,
 			);
 			path = Database;

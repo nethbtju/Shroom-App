@@ -10,8 +10,6 @@ import SwiftUI
 
 class AllTasksTableViewController: UITableViewController, DatabaseListener {
     
-    let addTaskViewController = AddTaskViewController()
-    
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         allTasks = tasks
         tableView.reloadData()
@@ -21,27 +19,18 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         // do nothing
     }
     
-    private func presentModal() {
-        let nav = UINavigationController(rootViewController: addTaskViewController)
-        // 1
-        nav.modalPresentationStyle = .pageSheet
-
-        
-        // 2
-        if let sheet = nav.sheetPresentationController {
-
-            // 3
-            sheet.detents = [.medium()]
-
-        }
-        // 4
-        self.present(nav, animated: true, completion: nil)
-        
+    func showMyViewControllerInACustomizedSheet() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "addTaskController")
+        if let presentationController = vc.presentationController as? UISheetPresentationController {
+                    presentationController.detents = [.medium()]
+                }
+        self.present(vc, animated: true)
     }
     
     @IBAction func addTaskButton(_ sender: Any) {
         //self.performSegue(withIdentifier: "addTaskSegue", sender: nil)
-        presentModal()
+        showMyViewControllerInACustomizedSheet()
     }
     
     let SECTION_TASKS = 0
@@ -90,16 +79,33 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         let taskCell = tableView.dequeueReusableCell(withIdentifier: CELL_TASKS, for: indexPath) as! TaskTableViewCell
         let task = allTasks[indexPath.row]
         taskCell.nameText.text = task.name
-        taskCell.dueDateText.text = task.dueDate
-        taskCell.expText.text = "100 exp"
-        taskCell.priorityText.text = "!!!"
-        taskCell.reminderText.text = "2 Hours Before"
+        
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "dd.MM.yyyy"
+        var date = inputFormatter.string(from: task.dueDate!)
+        taskCell.dueDateText.text = date
+        taskCell.expText.text = "\(task.expPoints ?? 0) exp"
+        taskCell.descriptionText.text = task.quickDes
+        taskCell.priorityText.text = formatPriority(priority: task.priority)
+        taskCell.reminderText.text = task.reminder
         
         let imageIcon = UIImage(systemName: "circle")?.withTintColor(UIColor(named: "LilacColor")!, renderingMode: .alwaysOriginal)
         taskCell.imageView?.image = imageIcon
         return taskCell
     }
     
+    func formatPriority(priority: Int32?) -> String? {
+        switch priority {
+        case 1:
+            return "!"
+        case 2:
+           return "!!"
+        case 3:
+            return "!!!"
+        default:
+            return "None"
+        }
+    }
 
     
     // Override to support conditional editing of the table view.
@@ -115,6 +121,8 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         if editingStyle == .delete {
             if editingStyle == .delete && indexPath.section == SECTION_TASKS {
                 let task = allTasks[indexPath.row]
+                let user = databaseController?.currentUser?.uid
+                self.databaseController?.removeTaskFromList(task: allTasks[indexPath.row], user: (databaseController?.currentUser!.uid)!)
                 databaseController?.deleteTask(task: task)
             }
         }
