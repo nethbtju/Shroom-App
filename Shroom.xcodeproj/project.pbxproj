@@ -124,11 +124,11 @@
 				C732931C2A04AE4B006966B7 /* SignUpViewController.swift */,
 				C732931E2A04AE59006966B7 /* LogInViewController.swift */,
 				C779D9092A19F56000D96570 /* TaskTableViewCell.swift */,
+				C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */,
 				C779D90D2A19F58D00D96570 /* AllTasksTableViewController.swift */,
 				C741E6EB2A0E60810097AB53 /* AddTaskViewController.swift */,
 				C779D9072A19F51300D96570 /* TodayTableViewController.swift */,
 				C779D90B2A19F57A00D96570 /* UpcomingViewController.swift */,
-				C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";

@@ -17,6 +17,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var currentCharImage: UIImage?
     
     var taskList: [TaskItem]
+    var unitList: [String: [TaskItem]] = [:]
     var authController: Auth
     var database: Firestore
     
@@ -94,6 +95,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         listeners.addDelegate(listener)
         if listener.listenerType == .task || listener.listenerType == .all {
             listener.onTaskChange(change: .update, tasks: taskList)
+        }
+        if listener.listenerType == .task || listener.listenerType == .all {
+            listener.onListChange(change: .update, unitList: unitList)
         }
         if listener.listenerType == .character || listener.listenerType == .all {
             listener.onCharacterChange(change: .update, character: currentCharacter!)
@@ -233,6 +237,17 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 taskList[Int(change.oldIndex)] = task
             } else if change.type == .removed {
                 taskList.remove(at: Int(change.oldIndex))
+            }
+            
+            guard let unit = task.unit, unit.isEmpty == false else {
+                return;
+            }
+            if unitList.contains(where: {$0.key == unit}){
+                var tasks = unitList[unit]
+                unitList.updateValue(tasks!, forKey: unit)
+                
+            } else {
+                unitList[unit] = [task]
             }
         
         }

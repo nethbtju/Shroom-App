@@ -8,6 +8,10 @@
 import UIKit
 
 class TodayTableViewController: UITableViewController, DatabaseListener {
+    func onListChange(change: DatabaseChange, unitList: [String : [TaskItem]]) {
+        // do nothing
+    }
+    
     var listenerType = ListenerType.task
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {

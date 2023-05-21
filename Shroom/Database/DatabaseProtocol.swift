@@ -26,6 +26,7 @@ enum ListenerType {
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem])
+    func onListChange(change: DatabaseChange, unitList: [String: [TaskItem]])
     func onCharacterChange(change: DatabaseChange, character: Character)
 }
 

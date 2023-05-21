@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     weak var databaseController: DatabaseProtocol?
     
@@ -34,6 +34,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     
     var sections = 0
     
+    let CELL_LIST = "listCell"
     let CELL_TODAY = "allTasksCell"
     let CELL_UPCOMING = "upComingCell"
     let CELL_ALL = "allTasksCell"
@@ -121,18 +122,22 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
             }
     }
 
-    /*
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //do nothing
-        return 1
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let allTasksCell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_ALL, for: indexPath)
-        // do nothin
-        return allTasksCell
-    }*/
+        let unitCell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_LIST, for: indexPath) as! UnitCollectionViewCell
+        unitCell.unitCode.text = "FIT3178"
+        unitCell.unitName.text = "iOS Development"
+        return unitCell
+    }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "unitPageSegue", sender: nil)
+    }
 
     /*
     // MARK: - Navigation
