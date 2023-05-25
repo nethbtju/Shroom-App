@@ -37,6 +37,8 @@
 		C779D90C2A19F57B00D96570 /* UpcomingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779D90B2A19F57A00D96570 /* UpcomingViewController.swift */; };
 		C779D90E2A19F58D00D96570 /* AllTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779D90D2A19F58D00D96570 /* AllTasksTableViewController.swift */; };
 		C779D9102A1A2F8800D96570 /* UnitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */; };
+		C779D9122A1A464F00D96570 /* UnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779D9112A1A464F00D96570 /* UnitTableViewController.swift */; };
+		C779D9142A1B73DD00D96570 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779D9132A1B73DD00D96570 /* Unit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		C779D90B2A19F57A00D96570 /* UpcomingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpcomingViewController.swift; sourceTree = "<group>"; };
 		C779D90D2A19F58D00D96570 /* AllTasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllTasksTableViewController.swift; path = ../../../ShroomIssue/Shroom/AllTasksTableViewController.swift; sourceTree = "<group>"; };
 		C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitCollectionViewCell.swift; sourceTree = "<group>"; };
+		C779D9112A1A464F00D96570 /* UnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTableViewController.swift; sourceTree = "<group>"; };
+		C779D9132A1B73DD00D96570 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 				C7433DA529E17AF600B16B52 /* Info.plist */,
 				C735D4DE29EFBE8F009DF770 /* User.swift */,
 				C735D4E029EFBEA3009DF770 /* Character.swift */,
+				C779D9132A1B73DD00D96570 /* Unit.swift */,
 				C735D4E229EFBEAE009DF770 /* TaskItem.swift */,
 				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
 				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
@@ -124,11 +129,12 @@
 				C732931C2A04AE4B006966B7 /* SignUpViewController.swift */,
 				C732931E2A04AE59006966B7 /* LogInViewController.swift */,
 				C779D9092A19F56000D96570 /* TaskTableViewCell.swift */,
-				C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */,
 				C779D90D2A19F58D00D96570 /* AllTasksTableViewController.swift */,
 				C741E6EB2A0E60810097AB53 /* AddTaskViewController.swift */,
 				C779D9072A19F51300D96570 /* TodayTableViewController.swift */,
 				C779D90B2A19F57A00D96570 /* UpcomingViewController.swift */,
+				C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */,
+				C779D9112A1A464F00D96570 /* UnitTableViewController.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -237,6 +243,7 @@
 				C735D4E529EFC0FC009DF770 /* FirebaseController.swift in Sources */,
 				C735D4ED29F12DB2009DF770 /* BreakdownViewController.swift in Sources */,
 				C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */,
+				C779D9122A1A464F00D96570 /* UnitTableViewController.swift in Sources */,
 				C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */,
 				C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */,
 				C7433DC129E17FBD00B16B52 /* DatabaseProtocol.swift in Sources */,
@@ -247,6 +254,7 @@
 				C779D90E2A19F58D00D96570 /* AllTasksTableViewController.swift in Sources */,
 				C735D4E329EFBEAE009DF770 /* TaskItem.swift in Sources */,
 				C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */,
+				C779D9142A1B73DD00D96570 /* Unit.swift in Sources */,
 				C7433DAF29E17B3900B16B52 /* ChooseNameViewController.swift in Sources */,
 				C779D90A2A19F56000D96570 /* TaskTableViewCell.swift in Sources */,
 				C779D9082A19F51300D96570 /* TodayTableViewController.swift in Sources */,

@@ -8,13 +8,30 @@
 import UIKit
 import Firebase
 
-class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, DatabaseListener {
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        units = unitList
+    }
+    
+    
+    var listenerType = ListenerType.task
+    
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        // do nothing
+    }
+    
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        // do nothing
+    }
+    
     
     weak var databaseController: DatabaseProtocol?
     
     var currentChar: Character?
     
     var currentPlayer: User?
+    
+    var units: [Unit] = []
 
     @IBOutlet weak var currentCharacterImage: UIImageView!
     
@@ -122,10 +139,13 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
             }
     }
 
+    @IBAction func addUnitButton(_ sender: Any) {
+        
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //do nothing
-        return 4
+        return units.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

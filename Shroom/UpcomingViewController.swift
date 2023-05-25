@@ -8,7 +8,8 @@
 import UIKit
 
 class UpcomingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DatabaseListener  {
-    func onListChange(change: DatabaseChange, unitList: [String : [TaskItem]]) {
+    
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
     

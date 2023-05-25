@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 class AuthenticationViewController: UIViewController, DatabaseListener {
-    func onListChange(change: DatabaseChange, unitList: [String : [TaskItem]]) {
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
     

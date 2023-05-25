@@ -20,13 +20,14 @@ enum ListenerType {
     case player
     case character
     case task
+    case unit
     case all
 }
 
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem])
-    func onListChange(change: DatabaseChange, unitList: [String: [TaskItem]])
+    func onListChange(change: DatabaseChange, unitList: [Unit])
     func onCharacterChange(change: DatabaseChange, character: Character)
 }
 

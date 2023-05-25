@@ -8,7 +8,7 @@
 import UIKit
 
 class TodayTableViewController: UITableViewController, DatabaseListener {
-    func onListChange(change: DatabaseChange, unitList: [String : [TaskItem]]) {
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
     
