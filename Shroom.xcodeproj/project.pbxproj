@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C70F4E482A1F52BD009696BB /* AddUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */; };
 		C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931A2A049E48006966B7 /* AuthenticationViewController.swift */; };
 		C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931C2A04AE4B006966B7 /* SignUpViewController.swift */; };
 		C732931F2A04AE59006966B7 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931E2A04AE59006966B7 /* LogInViewController.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUnitViewController.swift; sourceTree = "<group>"; };
 		C732931A2A049E48006966B7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		C732931C2A04AE4B006966B7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C732931E2A04AE59006966B7 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				C779D90B2A19F57A00D96570 /* UpcomingViewController.swift */,
 				C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */,
 				C779D9112A1A464F00D96570 /* UnitTableViewController.swift */,
+				C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				C7433D9A29E17AF400B16B52 /* SceneDelegate.swift in Sources */,
 				C779D9102A1A2F8800D96570 /* UnitCollectionViewCell.swift in Sources */,
 				C735D4E129EFBEA3009DF770 /* Character.swift in Sources */,
+				C70F4E482A1F52BD009696BB /* AddUnitViewController.swift in Sources */,
 				C7433DC329E1815200B16B52 /* MulticastDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

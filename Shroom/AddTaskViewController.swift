@@ -115,6 +115,8 @@ class AddTaskViewController: UIViewController {
         var task = (databaseController?.addTask(name: taskName, quickDes: quickDescTextField.text ?? "", dueDate: datePicker, priority: priority, repeatTask: repeatFreq, reminder: reminder, unit: "None"))!
         var user = (databaseController?.currentUser?.uid)!
         databaseController?.addTaskToList(task: task, user: user)
+        self.dismiss(animated: true, completion: nil)
+
     }
     
     

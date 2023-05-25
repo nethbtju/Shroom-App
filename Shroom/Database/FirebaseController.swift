@@ -140,10 +140,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return true
     }
     
-    func addUnit(code: String?, name: String?) -> Unit{
+    func addUnit(code: String?, name: String?, color: Int?) -> Unit {
         let unit = Unit()
         unit.unitCode = code
         unit.unitName = name
+        unit.colour = color
         unit.userid = authController.currentUser?.uid
         do {
             if let unitsRef = try unitRef?.addDocument(from: unit) {
@@ -154,8 +155,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         return unit
     }
-    
-    func addUnitToList(unit: User, user: String) -> Bool {
+    func addUnitToList(unit: Unit, user: String) -> Bool {
         guard let unitID = unit.id, unitID.isEmpty == false else{
             return false
         }
