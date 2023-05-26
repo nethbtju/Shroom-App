@@ -14,7 +14,9 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
     var listenerType = ListenerType.task
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
-        //
+        allTasks = tasks
+        getUnitTasks()
+        tableView.reloadData()
     }
     
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
@@ -35,8 +37,24 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
     
     var unitDisplayer = BreakdownViewController()
     
+    var allTasks: [TaskItem] = []
+    
+    var CELL_TASK = "taskCell"
+    
+    var unitTasks: [TaskItem] = []
+    
+    func getUnitTasks(){
+        let unitCode = current?.unitCode
+        for task in allTasks {
+            if task.unit == unitCode{
+                unitTasks.append(task)
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         guard let currentUnit = current else {
             return
         }
@@ -52,23 +70,37 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return unitTasks.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+        let taskCell = tableView.dequeueReusableCell(withIdentifier: CELL_TASK, for: indexPath) as! TaskTableViewCell
+        let task = unitTasks[indexPath.row]
+        taskCell.nameText.text = task.name
+        
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "dd.MM.yyyy"
+        var date = inputFormatter.string(from: task.dueDate!)
+        taskCell.dueDateText.text = date
+        taskCell.expText.text = "\(task.expPoints ?? 0) exp"
+        taskCell.descriptionText.text = task.quickDes
+        taskCell.priorityText.text = taskCell.formatPriority(priority: task.priority)
+        taskCell.reminderText.text = task.reminder
+        
+        let color = (current?.getColor(index: current?.colour))!
+        let imageIcon = UIImage(systemName: "circle")?.withTintColor(color)
+        taskCell.imageView?.image = imageIcon
+        
+        // put in the sorted Cell
+        return taskCell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
