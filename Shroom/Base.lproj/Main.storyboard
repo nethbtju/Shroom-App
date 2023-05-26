@@ -504,7 +504,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3eJ-ax-Jk1"/>
-                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="eGV-ns-BtG" firstAttribute="top" secondItem="3eJ-ax-Jk1" secondAttribute="top" id="0h5-t0-dZh"/>
                             <constraint firstItem="HGl-ca-Jcm" firstAttribute="top" secondItem="ib5-pc-ijW" secondAttribute="bottom" constant="2" id="2I5-fT-YhQ"/>
@@ -549,6 +549,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="peP-ZT-jae"/>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="cDq-KC-1b8"/>
                     <connections>
+                        <outlet property="collectionView" destination="dWl-xd-5h5" id="oms-Lh-SRm"/>
                         <outlet property="currentCharacterImage" destination="80g-TT-10L" id="JR4-df-csb"/>
                         <outlet property="expLabel" destination="HGl-ca-Jcm" id="gy1-dM-gBL"/>
                         <outlet property="expProgressBar" destination="ib5-pc-ijW" id="tIQ-4x-gDv"/>

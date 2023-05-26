@@ -7,11 +7,40 @@
 
 import UIKit
 
-class UnitTableViewController: UITableViewController {
-
+class UnitTableViewController: UITableViewController, UnitDetailsDelgate, DatabaseListener {
+    
+    var delegate: UnitDetailsDelgate?
+    
+    var listenerType = ListenerType.task
+    
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        //
+    }
+    
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        //
+    }
+    
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        //
+    }
+    
+    weak var databaseController: DatabaseProtocol?
+    
+    func currentUnitIs(_ unit: Unit) {
+        current = unit
+    }
+    
+    var current: Unit?
+    
+    var unitDisplayer = BreakdownViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        guard let currentUnit = current else {
+            return
+        }
+        navigationItem.title = "\(currentUnit.unitCode!) • \(currentUnit.unitName!)"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -76,6 +105,17 @@ class UnitTableViewController: UITableViewController {
     }
     */
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+        unitDisplayer.delegate = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+    
     /*
     // MARK: - Navigation
 

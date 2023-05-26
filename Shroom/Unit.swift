@@ -39,8 +39,10 @@ extension Unit{
         case 8:
             return .systemIndigo
         case 9:
-            return .gray
+            return .systemGray
         case 10:
+            return .gray
+        case 11:
             return .black
         default:
             return .systemBlue

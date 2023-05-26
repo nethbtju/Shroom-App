@@ -163,10 +163,12 @@ class AddUnitViewController: UIViewController {
             colour = 7
         case .systemIndigo:
             colour = 8
-        case .gray:
+        case .systemGray:
             colour = 9
-        case .black:
+        case .gray:
             colour = 10
+        case .black:
+            colour = 11
         default:
             colour = 0
         }
