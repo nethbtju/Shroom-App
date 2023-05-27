@@ -512,6 +512,9 @@
                                 <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
                                     <color key="baseBackgroundColor" name="LilacColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="addTask:" destination="b2l-Aa-CKR" eventType="touchUpInside" id="GPX-OL-xvJ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMX-Mx-XK9">
                                 <rect key="frame" x="332" y="750" width="40" height="40"/>
