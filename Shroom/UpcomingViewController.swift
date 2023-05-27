@@ -91,6 +91,9 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         let task = alltask![index]
         taskCell.nameText.text = task.name
         taskCell.descriptionText.text = task.quickDes
+        taskCell.expText.text = "\(task.expPoints ?? 0) exp"
+        taskCell.reminderText.text = task.reminder
+        taskCell.priorityText.text = taskCell.formatPriority(priority: task.priority)
         return taskCell
     }
     

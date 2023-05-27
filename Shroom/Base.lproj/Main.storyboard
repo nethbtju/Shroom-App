@@ -585,7 +585,7 @@
                         <outlet property="shroomNameLabel" destination="tA9-Ce-CJW" id="rTl-iz-73A"/>
                         <segue destination="cYM-O1-y11" kind="show" identifier="todaySegue" id="pfZ-JX-bsv"/>
                         <segue destination="bSb-s3-VK2" kind="show" identifier="allTaskSegue" id="zdh-pz-XcF"/>
-                        <segue destination="xZ8-BW-cBc" kind="show" id="tPX-bi-RYC"/>
+                        <segue destination="xZ8-BW-cBc" kind="show" identifier="upComingSegue" id="tPX-bi-RYC"/>
                         <segue destination="G7r-B2-hK8" kind="show" identifier="unitPageSegue" id="yIF-S7-P4h"/>
                     </connections>
                 </viewController>
@@ -1407,6 +1407,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="xZ8-BW-cBc" id="ple-Zo-Gmp"/>
+                                    <outlet property="delegate" destination="xZ8-BW-cBc" id="plQ-hV-jFH"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hx0-BF-JVa">
                                 <rect key="frame" x="293" y="113" width="70" height="25"/>
