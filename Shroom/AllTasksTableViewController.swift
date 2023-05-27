@@ -24,18 +24,9 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         // do nothing
     }
     
-    func showMyViewControllerInACustomizedSheet() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "addTaskController")
-        if let presentationController = vc.presentationController as? UISheetPresentationController {
-                    presentationController.detents = [.medium()]
-                }
-        self.present(vc, animated: true)
-    }
-    
     @IBAction func addTaskButton(_ sender: Any) {
         //self.performSegue(withIdentifier: "addTaskSegue", sender: nil)
-        showMyViewControllerInACustomizedSheet()
+        showMyViewControllerInACustomizedSheet(controller: self)
     }
     
     let SECTION_TASKS = 0

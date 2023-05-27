@@ -12,6 +12,9 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
+    @IBAction func addTaskButton(_ sender: Any) {
+        showMyViewControllerInACustomizedSheet(controller: self)
+    }
     
     var listenerType = ListenerType.task
     

@@ -24,7 +24,7 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     }
     
     @IBAction func addTasks(_ sender: Any) {
-        //
+        showMyViewControllerInACustomizedSheet(controller: self)
     }
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
