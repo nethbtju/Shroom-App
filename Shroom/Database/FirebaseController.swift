@@ -100,7 +100,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         if listener.listenerType == .task || listener.listenerType == .all {
             listener.onTaskChange(change: .update, tasks: taskList)
         }
-        if listener.listenerType == .task || listener.listenerType == .all {
+        if listener.listenerType == .unit || listener.listenerType == .all {
             listener.onListChange(change: .update, unitList: unitList)
         }
         if listener.listenerType == .character || listener.listenerType == .all {

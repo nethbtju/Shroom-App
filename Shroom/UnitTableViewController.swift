@@ -45,8 +45,9 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
     
     func getUnitTasks(){
         let unitCode = current?.unitCode
+        let unitName = current?.unitName
         for task in allTasks {
-            if task.unit == unitCode{
+            if task.unit == "\(unitCode ?? "") - \(unitName ?? "")"{
                 unitTasks.append(task)
             }
         }

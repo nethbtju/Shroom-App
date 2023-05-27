@@ -94,6 +94,10 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         taskCell.expText.text = "\(task.expPoints ?? 0) exp"
         taskCell.reminderText.text = task.reminder
         taskCell.priorityText.text = taskCell.formatPriority(priority: task.priority)
+        
+        let imageIcon = UIImage(systemName: "circle")?.withTintColor(UIColor(named: "LilacColor")!, renderingMode: .alwaysOriginal)
+        taskCell.imageView?.image = imageIcon
+        
         return taskCell
     }
     

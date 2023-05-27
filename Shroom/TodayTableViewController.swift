@@ -104,6 +104,9 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
             cell.priorityText.text = cell.formatPriority(priority: task.priority)
             cell.expText.text = "\(task.expPoints ?? 0) exp"
             cell.reminderText.text = task.reminder
+            
+            let imageIcon = UIImage(systemName: "circle")?.withTintColor(UIColor(named: "LilacColor")!, renderingMode: .alwaysOriginal)
+            cell.imageView?.image = imageIcon
             return cell
         } else if indexPath.section == SECTION_NO && todayTasks.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "noTaskCell", for: indexPath) as! TaskTableViewCell

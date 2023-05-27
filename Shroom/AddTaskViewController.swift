@@ -8,7 +8,26 @@
 import UIKit
 import SwiftUI
 
-class AddTaskViewController: UIViewController {
+class AddTaskViewController: UIViewController, DatabaseListener {
+    
+    var listenerType = ListenerType.unit
+    
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        //
+    }
+    
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        units = unitList
+        setupUnitButton()
+    }
+    
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        //
+    }
+    
+    @IBOutlet weak var dueDateLabel: UILabel!
+    
+    @IBOutlet weak var unitLabel: UILabel!
     
     @IBOutlet weak var taskNameTextField: UITextField!
     
@@ -22,7 +41,11 @@ class AddTaskViewController: UIViewController {
     
     @IBOutlet weak var repeatButton: UIButton!
     
+    @IBOutlet weak var unitButton: UIButton!
+    
     weak var databaseController: DatabaseProtocol?
+    
+    var units: [Unit] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +55,9 @@ class AddTaskViewController: UIViewController {
         setUpPriorityButton()
         setUpRepeatButton()
         setUpReminderButton()
+        
+        dueDateLabel.layer.cornerRadius = 5
+        dueDateLabel.layer.masksToBounds = true
     }
 
     func setUpPriorityButton(){
@@ -93,6 +119,27 @@ class AddTaskViewController: UIViewController {
         repeatButton.layer.cornerRadius = 5
         repeatButton.layer.masksToBounds = true
     }
+    
+    func setupUnitButton(){
+        unitButton.showsMenuAsPrimaryAction = true
+        unitButton.changesSelectionAsPrimaryAction = true
+        
+        let optionClosure = {(action: UIAction) in
+            if ((action.index(ofAccessibilityElement: (Any).self)) != 0){
+                
+            }
+        }
+        var childList: [UIAction] = []
+        for unit in units{
+            let action = UIAction(title: "\(unit.unitCode ?? "") - \(unit.unitName ?? "")", handler: optionClosure)
+            childList.append(action)
+        }
+        
+        unitButton.menu = UIMenu(children: childList)
+        
+        unitLabel.layer.cornerRadius = 5
+        unitLabel.layer.masksToBounds = true
+    }
 
     // When the user clicked the addTaskButton, the button will check if the specific fields are empty or
     // invalid before adding the task to the task list. If the input is invalid it will display an error message
@@ -108,13 +155,13 @@ class AddTaskViewController: UIViewController {
             return
         }
         
-        guard let priority = setPriority(priority: priorButton.currentTitle), let reminder = reminderButton.currentTitle, let repeatFreq = repeatButton.currentTitle else {
+        guard let priority = setPriority(priority: priorButton.currentTitle), let reminder = reminderButton.currentTitle, let repeatFreq = repeatButton.currentTitle, let unit = unitButton.currentTitle else {
             return
         }
-        
-        var task = (databaseController?.addTask(name: taskName, quickDes: quickDescTextField.text ?? "", dueDate: datePicker, priority: priority, repeatTask: repeatFreq, reminder: reminder, unit: "None"))!
-        var user = (databaseController?.currentUser?.uid)!
-        databaseController?.addTaskToList(task: task, user: user)
+
+        let task = (databaseController?.addTask(name: taskName, quickDes: quickDescTextField.text ?? "", dueDate: datePicker, priority: priority, repeatTask: repeatFreq, reminder: reminder, unit: unit))!
+        let user = (databaseController?.currentUser?.uid)!
+        let _ = databaseController?.addTaskToList(task: task, user: user)
         self.dismiss(animated: true, completion: nil)
 
     }
@@ -134,6 +181,16 @@ class AddTaskViewController: UIViewController {
         default:
             return 0
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
     }
     
     /*

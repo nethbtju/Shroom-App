@@ -908,11 +908,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="85" id="krx-ch-sqh" customClass="TaskTableViewCell" customModule="Shroom" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="85" id="krx-ch-sqh" customClass="TaskTableViewCell" customModule="Shroom" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="393" height="85"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="krx-ch-sqh" id="Cq9-s1-2uZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="85"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tutorial 3" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvJ-nO-MZt">
@@ -1043,7 +1043,7 @@
                                 </date>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Oi-5m-2I4">
-                                <rect key="frame" x="30" y="264.66666666666669" width="333" height="35"/>
+                                <rect key="frame" x="30" y="309.66666666666669" width="333" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add Task" cornerStyle="capsule"/>
                                 <connections>
@@ -1095,11 +1095,32 @@
                                     <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oM4-tM-N4B">
+                                <rect key="frame" x="50" y="249.66666666666663" width="293" height="30"/>
+                                <menu key="menu" id="5ou-dR-Q2T">
+                                    <children>
+                                        <command title="Item 1" id="U08-5g-E1d"/>
+                                        <command title="Item 2" id="wTT-xM-IIS"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XkL-2M-xYR">
+                                <rect key="frame" x="30" y="249.66666666666663" width="333" height="30"/>
+                                <color key="backgroundColor" red="0.39729952439999999" green="0.70576803480000005" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Fhe-5F-JjM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qcb-Cq-Puz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="0Oi-5m-2I4" firstAttribute="top" secondItem="Ss7-FF-lnj" secondAttribute="bottom" constant="30" id="27l-JZ-4Ll"/>
                             <constraint firstItem="qcb-Cq-Puz" firstAttribute="trailing" secondItem="eh9-cf-QE2" secondAttribute="trailing" constant="30" id="3uB-fU-3Jc"/>
                             <constraint firstItem="5eD-Pz-J5Y" firstAttribute="leading" secondItem="3yM-9Q-e8U" secondAttribute="trailing" constant="10" id="4WZ-aJ-CpZ"/>
                             <constraint firstItem="Ss7-FF-lnj" firstAttribute="top" secondItem="GgL-Nv-nzX" secondAttribute="bottom" constant="15" id="4xf-d8-DL0"/>
@@ -1107,35 +1128,45 @@
                             <constraint firstItem="3yM-9Q-e8U" firstAttribute="bottom" secondItem="Ss7-FF-lnj" secondAttribute="bottom" id="9PF-UI-OP9"/>
                             <constraint firstItem="eh9-cf-QE2" firstAttribute="top" secondItem="qcb-Cq-Puz" secondAttribute="top" constant="20" id="DUR-o6-gIM"/>
                             <constraint firstItem="eh9-cf-QE2" firstAttribute="leading" secondItem="BkR-Ne-23W" secondAttribute="leading" constant="30" id="EgY-Wv-wsk"/>
+                            <constraint firstItem="0Oi-5m-2I4" firstAttribute="top" secondItem="XkL-2M-xYR" secondAttribute="bottom" constant="30" id="Etu-sv-Kkn"/>
                             <constraint firstItem="qcb-Cq-Puz" firstAttribute="trailing" secondItem="5eD-Pz-J5Y" secondAttribute="trailing" constant="20" id="G3b-0g-Qa1"/>
                             <constraint firstItem="0Oi-5m-2I4" firstAttribute="leading" secondItem="qcb-Cq-Puz" secondAttribute="leading" constant="30" id="NBN-lp-2vP"/>
                             <constraint firstItem="smb-5e-BVQ" firstAttribute="centerY" secondItem="GgL-Nv-nzX" secondAttribute="centerY" id="Pvh-vN-oDK"/>
                             <constraint firstItem="5eD-Pz-J5Y" firstAttribute="top" secondItem="Ss7-FF-lnj" secondAttribute="top" id="QcP-rG-7Qe"/>
+                            <constraint firstItem="qcb-Cq-Puz" firstAttribute="trailing" secondItem="XkL-2M-xYR" secondAttribute="trailing" constant="30" id="S1o-w5-q0E"/>
                             <constraint firstItem="Ss7-FF-lnj" firstAttribute="leading" secondItem="qcb-Cq-Puz" secondAttribute="leading" constant="20" id="S32-SO-2gn"/>
                             <constraint firstItem="dTF-hJ-hem" firstAttribute="top" secondItem="eh9-cf-QE2" secondAttribute="bottom" constant="5" id="Vff-cd-6NO"/>
                             <constraint firstItem="qcb-Cq-Puz" firstAttribute="trailing" secondItem="GgL-Nv-nzX" secondAttribute="trailing" constant="30" id="bTR-Um-wIJ"/>
+                            <constraint firstItem="XkL-2M-xYR" firstAttribute="leading" secondItem="qcb-Cq-Puz" secondAttribute="leading" constant="30" id="cdq-hA-TzN"/>
                             <constraint firstItem="3yM-9Q-e8U" firstAttribute="leading" secondItem="Ss7-FF-lnj" secondAttribute="trailing" constant="10" id="eFc-5R-ckv"/>
+                            <constraint firstItem="oM4-tM-N4B" firstAttribute="leading" secondItem="qcb-Cq-Puz" secondAttribute="leading" constant="50" id="ewk-5n-9yW"/>
+                            <constraint firstItem="qcb-Cq-Puz" firstAttribute="trailing" secondItem="oM4-tM-N4B" secondAttribute="trailing" constant="50" id="fty-0C-D8r"/>
                             <constraint firstItem="GgL-Nv-nzX" firstAttribute="leading" secondItem="qcb-Cq-Puz" secondAttribute="leading" constant="30" id="lVZ-CS-Vd1"/>
                             <constraint firstItem="smb-5e-BVQ" firstAttribute="leading" secondItem="qcb-Cq-Puz" secondAttribute="leading" constant="135" id="opf-8u-Qa4"/>
                             <constraint firstItem="GgL-Nv-nzX" firstAttribute="top" secondItem="dTF-hJ-hem" secondAttribute="bottom" constant="20" id="pJi-NC-wtk"/>
+                            <constraint firstItem="XkL-2M-xYR" firstAttribute="top" secondItem="Ss7-FF-lnj" secondAttribute="bottom" constant="15" id="qJR-za-440"/>
                             <constraint firstItem="3yM-9Q-e8U" firstAttribute="top" secondItem="Ss7-FF-lnj" secondAttribute="top" id="tRd-Fv-40p"/>
                             <constraint firstItem="5eD-Pz-J5Y" firstAttribute="bottom" secondItem="Ss7-FF-lnj" secondAttribute="bottom" id="tot-Ki-I25"/>
+                            <constraint firstItem="XkL-2M-xYR" firstAttribute="centerY" secondItem="oM4-tM-N4B" secondAttribute="centerY" id="uZS-1A-4ii"/>
                             <constraint firstItem="qcb-Cq-Puz" firstAttribute="trailing" secondItem="smb-5e-BVQ" secondAttribute="trailing" constant="35" id="vNF-xB-uh5"/>
                             <constraint firstItem="qcb-Cq-Puz" firstAttribute="trailing" secondItem="0Oi-5m-2I4" secondAttribute="trailing" constant="30" id="w9L-iH-NOk"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dueDateLabel" destination="GgL-Nv-nzX" id="iGF-Cc-mgo"/>
                         <outlet property="dueDateTextField" destination="smb-5e-BVQ" id="yp2-LQ-nYD"/>
                         <outlet property="priorButton" destination="Ss7-FF-lnj" id="slM-bK-faJ"/>
                         <outlet property="quickDescTextField" destination="dTF-hJ-hem" id="ulJ-j3-ao8"/>
                         <outlet property="reminderButton" destination="3yM-9Q-e8U" id="bcS-Q4-D4m"/>
                         <outlet property="repeatButton" destination="5eD-Pz-J5Y" id="YqT-lp-RVM"/>
                         <outlet property="taskNameTextField" destination="eh9-cf-QE2" id="PzE-rB-hlp"/>
+                        <outlet property="unitButton" destination="oM4-tM-N4B" id="bFd-12-Nqe"/>
+                        <outlet property="unitLabel" destination="XkL-2M-xYR" id="hDa-IB-1cV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNn-8N-Xh2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6024" y="2608"/>
+            <point key="canvasLocation" x="5552" y="906"/>
         </scene>
         <!--Today-->
         <scene sceneID="UrV-lW-Yn4">
@@ -1181,11 +1212,11 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="91" id="DQz-c2-nCO" customClass="TaskTableViewCell" customModule="Shroom" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="91" id="DQz-c2-nCO" customClass="TaskTableViewCell" customModule="Shroom" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="95" width="393" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DQz-c2-nCO" id="EFX-j9-Laf">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="91"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="91"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tutorial 3" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x55-gm-AFo">
@@ -1320,11 +1351,11 @@
                                 <rect key="frame" x="0.0" y="148" width="393" height="670"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="taskCell" rowHeight="88" id="J71-wn-RBd" customClass="TaskTableViewCell" customModule="Shroom" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="taskCell" rowHeight="88" id="J71-wn-RBd" customClass="TaskTableViewCell" customModule="Shroom" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J71-wn-RBd" id="n1A-Uw-6rd">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="88"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="88"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tutorial 3" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSa-We-w1e">
@@ -1426,15 +1457,23 @@
                                     <action selector="addTaskButton:" destination="bSb-s3-VK2" eventType="touchUpInside" id="ToP-Xi-b4R"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Tasks Due Soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iA-gA-mN3">
+                                <rect key="frame" x="30" y="114.66666666666667" width="162" height="22.000000000000014"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" red="0.35385792529999999" green="0.35385792529999999" blue="0.35385792529999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nBq-hf-IGy"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="nBq-hf-IGy" firstAttribute="bottom" secondItem="YYz-Nz-k70" secondAttribute="bottom" id="G5j-e0-M5k"/>
                             <constraint firstItem="nBq-hf-IGy" firstAttribute="trailing" secondItem="hx0-BF-JVa" secondAttribute="trailing" constant="30" id="HLF-js-oxa"/>
                             <constraint firstItem="hx0-BF-JVa" firstAttribute="top" secondItem="nBq-hf-IGy" secondAttribute="top" constant="10" id="ILc-9r-uWz"/>
                             <constraint firstItem="YYz-Nz-k70" firstAttribute="leading" secondItem="nBq-hf-IGy" secondAttribute="leading" id="N7r-MO-wsX"/>
                             <constraint firstItem="YYz-Nz-k70" firstAttribute="top" secondItem="hx0-BF-JVa" secondAttribute="bottom" constant="10" id="fgA-mg-aCw"/>
+                            <constraint firstItem="7iA-gA-mN3" firstAttribute="leading" secondItem="nBq-hf-IGy" secondAttribute="leading" constant="30" id="g19-Ja-r3X"/>
+                            <constraint firstItem="hx0-BF-JVa" firstAttribute="centerY" secondItem="7iA-gA-mN3" secondAttribute="centerY" id="mOw-nz-IV9"/>
                             <constraint firstItem="nBq-hf-IGy" firstAttribute="trailing" secondItem="YYz-Nz-k70" secondAttribute="trailing" id="zcp-ED-pPd"/>
                         </constraints>
                     </view>
@@ -1600,7 +1639,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4a-96-pXy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3888" y="1748"/>
+            <point key="canvasLocation" x="3887.7862595419847" y="1747.8873239436621"/>
         </scene>
         <!--Authentication View Controller-->
         <scene sceneID="ofq-F1-f1q">
