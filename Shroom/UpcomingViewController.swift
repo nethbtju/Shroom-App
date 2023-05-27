@@ -26,13 +26,6 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         // none
     }
     
-    var DAY_1 = 0
-    var DAY_2 = 1
-    var DAY_3 = 2
-    var DAY_4 = 3
-    var DAY_5 = 4
-    
-    
     let CELL_TASKS = "taskCell"
     
     var allTasks: [TaskItem] = []

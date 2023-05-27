@@ -12,6 +12,8 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         // do nothing
     }
     
+    @IBOutlet weak var todayDate: UILabel!
+    
     var listenerType = ListenerType.task
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
@@ -19,6 +21,10 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         sortedTasks = allTasks.sorted(by: {$0.dueDate! < $1.dueDate!})
         getTodayTasks()
         tableView.reloadData()
+    }
+    
+    @IBAction func addTasks(_ sender: Any) {
+        //
     }
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
@@ -55,45 +61,59 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     
     var todayTasks: [TaskItem] = []
     
+    var CELL_TASK = "taskCell"
+    var CELL_NO = "noTaskCell"
+    
+    let SECTION_TASK = 0
+    let SECTION_NO = 1
+    
     weak var databaseController: DatabaseProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        todayDate.text = formatDate(currentDate)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return todayTasks.count
+        switch section {
+        case SECTION_NO:
+            return 1
+        case SECTION_TASK:
+            return todayTasks.count
+        default:
+            return 0
+        }
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TaskTableViewCell
-        if todayTasks.isEmpty{
-            cell.nameText.text = "No Tasks Due Today"
-        } else{
+        if indexPath.section == SECTION_TASK{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TaskTableViewCell
             let task = todayTasks[indexPath.row]
             cell.nameText.text = task.name
             cell.descriptionText.text = task.quickDes
             cell.priorityText.text = cell.formatPriority(priority: task.priority)
             cell.expText.text = "\(task.expPoints ?? 0) exp"
             cell.reminderText.text = task.reminder
+            return cell
+        } else if indexPath.section == SECTION_NO && todayTasks.count == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "noTaskCell", for: indexPath) as! TaskTableViewCell
+            cell.noTasks.text = "There are no tasks today. Add them using the + button!"
+            return cell
+        } else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "noTaskCell", for: indexPath) as! TaskTableViewCell
+            cell.noTasks.text = ""
+            return cell
         }
-        return cell
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,10 +124,6 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection sectionIndex: Int) -> String? {
-        return formatDate(currentDate)
     }
     
     func formatDate(_ today: Date) -> String? {
