@@ -9,6 +9,9 @@ import UIKit
 import Firebase
 
 class LogInViewController: UIViewController, DatabaseListener{
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        // do nothing
+    }
     
     var listenerType = ListenerType.character
     

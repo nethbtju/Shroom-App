@@ -9,6 +9,10 @@ import UIKit
 import Firebase
 
 class PickCharacterViewController: UIViewController, DatabaseListener {
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        // do nothing
+    }
+    
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         // do nothing
     }

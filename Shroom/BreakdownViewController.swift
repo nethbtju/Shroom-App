@@ -8,13 +8,46 @@
 import UIKit
 import Firebase
 
-class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+protocol UnitDetailsDelgate: AnyObject {
+func currentUnitIs(_ unit: Unit)
+}
+
+class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, DatabaseListener, UnitDetailsDelgate {
+    func currentUnitIs(_ unit: Unit) {
+        //
+    }
+    
+    
+    weak var delegate: UnitDetailsDelgate?
+    
+    var unitSend: UnitTableViewController?
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        units = unitList
+        collectionView.reloadData()
+    }
+    
+    var listenerType = ListenerType.unit
+    
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        // do nothing
+    }
+    
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        // do nothing
+    }
     
     weak var databaseController: DatabaseProtocol?
     
     var currentChar: Character?
     
     var currentPlayer: User?
+    
+    var currentUnit: Unit?
+    
+    var units: [Unit] = []
 
     @IBOutlet weak var currentCharacterImage: UIImageView!
     
@@ -34,6 +67,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     
     var sections = 0
     
+    let CELL_LIST = "listCell"
     let CELL_TODAY = "allTasksCell"
     let CELL_UPCOMING = "upComingCell"
     let CELL_ALL = "allTasksCell"
@@ -120,20 +154,46 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
             self.performSegue(withIdentifier: "allTaskSegue", sender: nil)
             }
     }
-
-    /*
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //do nothing
-        return 1
+        return units.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let allTasksCell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_ALL, for: indexPath)
-        // do nothin
-        return allTasksCell
-    }*/
+        let unitCell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_LIST, for: indexPath) as! UnitCollectionViewCell
+        let cell = units[indexPath.row]
+        unitCell.unitCode.text = cell.unitCode
+        unitCell.unitName.text = cell.unitName
+        unitCell.progressBar.tintColor = cell.getColor(index: cell.colour)
+        return unitCell
+    }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = units[indexPath.row]
+        currentUnit = cell
+        delegate?.currentUnitIs(cell)
+        self.performSegue(withIdentifier: "unitPageSegue", sender: nil)
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+        collectionView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "unitPageSegue" {
+            let destination = segue.destination as! UnitTableViewController
+            destination.delegate = self
+            destination.current = currentUnit
+        }
+    }
     /*
     // MARK: - Navigation
 

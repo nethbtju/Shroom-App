@@ -17,12 +17,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var currentCharImage: UIImage?
     
     var taskList: [TaskItem]
+    var unitList: [Unit]
     var authController: Auth
     var database: Firestore
     
     var tasksRef: CollectionReference?
     var characterRef: CollectionReference?
     var userRef: CollectionReference?
+    var unitRef: CollectionReference?
     
     var currentUser: FirebaseAuth.User?
     
@@ -34,15 +36,29 @@ class FirebaseController: NSObject, DatabaseProtocol {
         database = Firestore.firestore()
         currentCharacter = Character()
         taskList = [TaskItem]()
+        unitList = [Unit]()
         super.init()
     }
     
     func setUpUser() async throws {
         currentUser = authController.currentUser
-        setupCharacterListener()
-        tasksRef = database.collection("tasks")
-        //addTask(name: "Final Mobile Application", dueDate: "09/06/2023", priority: 3, repeatTask: false, unit: "FIT3178")
-        setupTaskListener()
+        userRef = database.collection("users")
+        let user = userRef!.document(currentUser!.uid)
+        user.getDocument { (document, error) in
+            if let document = document, document.exists {
+                self.setupCharacterListener()
+                self.tasksRef = self.database.collection("tasks")
+                self.setupTaskListener()
+                self.setupUnitListener()
+            } else {
+                self.userRef!.document(self.currentUser!.uid).setData(["taskList": [], "unitList": []])
+                self.setupCharacterListener()
+                self.tasksRef = self.database.collection("tasks")
+                self.setupTaskListener()
+                self.setupUnitListener()
+            }
+        }
+        
     }
     
     func createNewAccount(email: String, password: String) async throws {
@@ -51,7 +67,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 let authDetails = try await authController.createUser(withEmail: email, password: password)
                 print("User creation successfully completed")
                 currentUser = authDetails.user
-                setupTaskListener()
+                try await setUpUser()
             }
             catch {
                 print("User creation failed with error \(String(describing: error))")
@@ -65,7 +81,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 let authDetail = try await authController.signIn(withEmail: email, password: password)
                 print("User Logged in")
                 currentUser = authDetail.user
-                setupCharacterListener()
+                try await setUpUser()
             }
             catch {
                 print("Log in failed with error \(String(describing: error))")
@@ -83,6 +99,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         listeners.addDelegate(listener)
         if listener.listenerType == .task || listener.listenerType == .all {
             listener.onTaskChange(change: .update, tasks: taskList)
+        }
+        if listener.listenerType == .task || listener.listenerType == .all {
+            listener.onListChange(change: .update, unitList: unitList)
         }
         if listener.listenerType == .character || listener.listenerType == .all {
             listener.onCharacterChange(change: .update, character: currentCharacter!)
@@ -110,13 +129,53 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return char
     }
     
-    func addTask(name: String, dueDate: String, priority: Int32, repeatTask: Bool, unit: String) -> TaskItem {
+    func addTaskToList(task: TaskItem, user: String) -> Bool{
+        guard let taskID = task.id, taskID.isEmpty == false else{
+            return false
+        }
+        let userID = user
+        if let newTaskRef = tasksRef?.document(taskID) {
+            userRef?.document(userID).updateData(["taskList" : FieldValue.arrayUnion([newTaskRef])])
+        }
+        return true
+    }
+    
+    func addUnit(code: String?, name: String?, color: Int?) -> Unit {
+        let unit = Unit()
+        unit.unitCode = code
+        unit.unitName = name
+        unit.colour = color
+        unit.userid = authController.currentUser?.uid
+        do {
+            if let unitsRef = try unitRef?.addDocument(from: unit) {
+                unit.id = unitsRef.documentID
+            }
+        } catch {
+            print("Failed to serialize task")
+        }
+        return unit
+    }
+    func addUnitToList(unit: Unit, user: String) -> Bool {
+        guard let unitID = unit.id, unitID.isEmpty == false else{
+            return false
+        }
+        let userID = user
+        if let newUnitRef = unitRef?.document(unitID) {
+            unitRef?.document(userID).updateData(["unitList" : FieldValue.arrayUnion([newUnitRef])])
+        }
+        return true
+    }
+    
+    func addTask(name: String, quickDes: String, dueDate: Date, priority: Int32, repeatTask: String, reminder: String, unit: String) -> TaskItem {
         let task = TaskItem()
         task.name = name
+        task.quickDes = quickDes
         task.dueDate = dueDate
         task.priority = priority
         task.repeatTask = repeatTask
+        task.reminder = reminder
         task.unit = unit
+        task.expPoints = 100 * priority
         task.user = authController.currentUser?.uid
         do {
             if let taskRef = try tasksRef?.addDocument(from: task) {
@@ -134,17 +193,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    /*func getUserByID(_ id: String) -> User? {
-        userRef?.whereField("name", isEqualTo: DEFAULT_TEAM_NAME)
-    }*/
-    
     func getCharacterbyID(){
-        
+        // do nothing
     }
     
     func cleanup() {
-        
+        // do nothing
     }
+    
     // MARK: - Firebase Controller Specific m=Methods
     func getTaskByID(_ id: String) -> TaskItem? {
         for task in taskList {
@@ -155,17 +211,25 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return nil
     }
     
-    /*func setupUserListener(){
-        userRef = database.collection("users")
-        userRef?.whereField("name", isEqualTo: currentUser.name).addSnapshotListener {
+    func removeTaskFromList(task: TaskItem, user: String) {
+        if taskList.contains(task), let taskID = task.id {
+            if let removedTaskRef = tasksRef?.document(taskID) {
+            userRef?.document(user).updateData(["taskList": FieldValue.arrayRemove([removedTaskRef])])
+            }
+        }
+    }
+    
+    func setupUnitListener() {
+        unitRef = database.collection("units")
+        unitRef?.addSnapshotListener() {
             (querySnapshot, error) in
-            guard let querySnapshot = querySnapshot, let userSnapshot = querySnapshot.documents.first else {
-                print("Error fetching teams: \(error!)")
+            guard let querySnapshot = querySnapshot else {
+                print("Failed to fetch documents with error: \(String(describing: error))")
                 return
             }
-            self.parseUserSnapshot(snapshot: userSnapshot)
+            self.parseUnitSnapshot(snapshot: querySnapshot)
         }
-    }*/
+    }
     
     func setupTaskListener() {
         tasksRef = database.collection("tasks")
@@ -191,6 +255,35 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    func parseUnitSnapshot(snapshot: QuerySnapshot){
+        snapshot.documentChanges.forEach { (change) in
+            var parsedUnit: Unit?
+            do {
+                parsedUnit = try change.document.data(as: Unit.self)
+            } catch {
+                print("Unable to decode task. Is the task malformed?")
+                return
+            }
+            guard let unit = parsedUnit else {
+                print("Document doesn't exist")
+                return;
+            }
+            if change.type == .added {
+                unitList.insert(unit, at: Int(change.newIndex))
+            } else if change.type == .modified {
+                unitList[Int(change.oldIndex)] = unit
+            } else if change.type == .removed {
+                unitList.remove(at: Int(change.oldIndex))
+            }
+        }
+        listeners.invoke { (listener) in
+            if listener.listenerType == ListenerType.unit || listener.listenerType == ListenerType.all {
+                listener.onListChange(change: .update, unitList: unitList)
+            }
+        }
+
+    }
+    
     func parseTaskSnapshot(snapshot: QuerySnapshot) {
         snapshot.documentChanges.forEach { (change) in
             var parsedTask: TaskItem?
@@ -211,7 +304,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
             } else if change.type == .removed {
                 taskList.remove(at: Int(change.oldIndex))
             }
-        
         }
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.task || listener.listenerType == ListenerType.all {
