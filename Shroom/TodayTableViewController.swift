@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import Siesta
 
 class TodayTableViewController: UITableViewController, DatabaseListener {
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
+    @IBOutlet weak var holidayLabel: UILabel!
+    
+    var holidays: [String] = []
     
     @IBOutlet weak var todayDate: UILabel!
     
@@ -35,6 +39,14 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: originalDate)
         let date = Calendar.current.date(from: components)
         return date!
+    }
+    
+    func setUpHoliday(){
+        var hols = ""
+        for dates in holidays {
+            hols += " \(dates)"
+        }
+        holidayLabel.text = "\(hols) • Australia"
     }
     
     func getTodayTasks(){
@@ -75,6 +87,10 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         databaseController = appDelegate?.databaseController
         
         todayDate.text = formatDate(currentDate)
+        
+        HolidaysAPI.holidaysResource.addObserver(self)
+        HolidaysAPI.holidaysResource.loadIfNeeded()
+        
     }
 
     // MARK: - Table view data source
@@ -191,4 +207,30 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     }
     */
 
+}
+
+extension TodayTableViewController: ResourceObserver {
+    func resourceChanged(_ resource: Resource, event: ResourceEvent) {
+
+        let holidaysName = resource.jsonArray
+            .compactMap { $0 as? [String: Any] }
+            .compactMap { $0["name"] as? String }
+        
+        let holidaysDate = resource.jsonArray
+            .compactMap { $0 as? [String: Any] }
+            .compactMap { $0["date"] as? String }
+        
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+        let today = inputFormatter.string(from: currentDate)
+        
+        for (index, item) in holidaysDate.enumerated() {
+            if item == today {
+                self.holidays.append(holidaysName[index])
+            }
+        }
+        if holidays.isEmpty == false{
+            setUpHoliday()
+        }
+    }
 }

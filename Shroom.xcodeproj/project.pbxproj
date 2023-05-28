@@ -17,6 +17,8 @@
 		C708ADF62A23494300127CB2 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF52A23494300127CB2 /* ShopViewController.swift */; };
 		C708ADF82A2369D900127CB2 /* CompleteTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */; };
 		C708ADFA2A2378EF00127CB2 /* HolidayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */; };
+		C708ADFD2A2379C700127CB2 /* Siesta in Frameworks */ = {isa = PBXBuildFile; productRef = C708ADFC2A2379C700127CB2 /* Siesta */; };
+		C708ADFF2A2379C700127CB2 /* SiestaUI in Frameworks */ = {isa = PBXBuildFile; productRef = C708ADFE2A2379C700127CB2 /* SiestaUI */; };
 		C70F4E482A1F52BD009696BB /* AddUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */; };
 		C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931A2A049E48006966B7 /* AuthenticationViewController.swift */; };
 		C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931C2A04AE4B006966B7 /* SignUpViewController.swift */; };
@@ -98,7 +100,9 @@
 			files = (
 				C735D4D929EFBE41009DF770 /* FirebaseAuth in Frameworks */,
 				C735D4DB29EFBE41009DF770 /* FirebaseFirestore in Frameworks */,
+				C708ADFF2A2379C700127CB2 /* SiestaUI in Frameworks */,
 				C735D4DD29EFBE41009DF770 /* FirebaseFirestoreSwift in Frameworks */,
+				C708ADFD2A2379C700127CB2 /* Siesta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +206,8 @@
 				C735D4D829EFBE41009DF770 /* FirebaseAuth */,
 				C735D4DA29EFBE41009DF770 /* FirebaseFirestore */,
 				C735D4DC29EFBE41009DF770 /* FirebaseFirestoreSwift */,
+				C708ADFC2A2379C700127CB2 /* Siesta */,
+				C708ADFE2A2379C700127CB2 /* SiestaUI */,
 			);
 			productName = Shroom;
 			productReference = C7433D9429E17AF400B16B52 /* Shroom.app */;
@@ -233,6 +239,7 @@
 			mainGroup = C7433D8B29E17AF400B16B52;
 			packageReferences = (
 				C735D4D729EFBE41009DF770 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C708ADFB2A2379C700127CB2 /* XCRemoteSwiftPackageReference "siesta" */,
 			);
 			productRefGroup = C7433D9529E17AF400B16B52 /* Products */;
 			projectDirPath = "";
@@ -512,6 +519,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C708ADFB2A2379C700127CB2 /* XCRemoteSwiftPackageReference "siesta" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bustoutsolutions/siesta";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		C735D4D729EFBE41009DF770 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -523,6 +538,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C708ADFC2A2379C700127CB2 /* Siesta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C708ADFB2A2379C700127CB2 /* XCRemoteSwiftPackageReference "siesta" */;
+			productName = Siesta;
+		};
+		C708ADFE2A2379C700127CB2 /* SiestaUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C708ADFB2A2379C700127CB2 /* XCRemoteSwiftPackageReference "siesta" */;
+			productName = SiestaUI;
+		};
 		C735D4D829EFBE41009DF770 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C735D4D729EFBE41009DF770 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

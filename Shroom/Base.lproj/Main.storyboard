@@ -1232,7 +1232,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="fzM-7L-c30">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="45"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-05-s9f">
@@ -1256,19 +1256,28 @@
                                     <color key="textColor" red="0.35385792529999999" green="0.35385792529999999" blue="0.35385792529999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Public Holidays • Australia" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e88-6L-E2X">
+                                    <rect key="frame" x="30" y="40" width="333" height="19"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" name="LilacColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray6Color"/>
                             <constraints>
                                 <constraint firstItem="X7c-ty-2fA" firstAttribute="top" secondItem="fzM-7L-c30" secondAttribute="top" constant="10" id="EFx-Hz-pa7"/>
-                                <constraint firstAttribute="bottom" secondItem="DDL-05-s9f" secondAttribute="bottom" constant="10" id="HQg-g9-ERD"/>
                                 <constraint firstItem="X7c-ty-2fA" firstAttribute="leading" secondItem="fzM-7L-c30" secondAttribute="leading" constant="30" id="LcB-3Z-6oF"/>
+                                <constraint firstAttribute="bottom" secondItem="e88-6L-E2X" secondAttribute="bottom" constant="5" id="cd7-wA-rmD"/>
+                                <constraint firstItem="e88-6L-E2X" firstAttribute="leading" secondItem="fzM-7L-c30" secondAttribute="leading" constant="30" id="mgT-Ha-Dtr"/>
+                                <constraint firstItem="e88-6L-E2X" firstAttribute="top" secondItem="DDL-05-s9f" secondAttribute="bottom" constant="5" id="oKc-gS-Ceb"/>
                                 <constraint firstAttribute="trailing" secondItem="DDL-05-s9f" secondAttribute="trailing" constant="30" id="sAL-m9-8pR"/>
                                 <constraint firstItem="DDL-05-s9f" firstAttribute="top" secondItem="fzM-7L-c30" secondAttribute="top" constant="10" id="sfB-Ja-AuH"/>
+                                <constraint firstAttribute="trailing" secondItem="e88-6L-E2X" secondAttribute="trailing" constant="30" id="vz3-An-ohS"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="91" id="DQz-c2-nCO" customClass="TaskTableViewCell" customModule="Shroom" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="95" width="393" height="91"/>
+                                <rect key="frame" x="0.0" y="114" width="393" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DQz-c2-nCO" id="EFX-j9-Laf">
                                     <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="91"/>
@@ -1354,7 +1363,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noTaskCell" rowHeight="50" id="ZG1-cs-9Zf" customClass="TaskTableViewCell" customModule="Shroom" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="186" width="393" height="50"/>
+                                <rect key="frame" x="0.0" y="205" width="393" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZG1-cs-9Zf" id="Owp-Pa-m8H">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
@@ -1387,12 +1396,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Today" id="Jnt-19-Zt3"/>
                     <connections>
+                        <outlet property="holidayLabel" destination="e88-6L-E2X" id="40e-6w-fob"/>
                         <outlet property="todayDate" destination="X7c-ty-2fA" id="gnQ-bB-109"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jcS-QR-NHh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3763" y="1748"/>
+            <point key="canvasLocation" x="3762.5954198473282" y="1747.8873239436621"/>
         </scene>
         <!--Up Coming-->
         <scene sceneID="YBN-Pg-4ed">
