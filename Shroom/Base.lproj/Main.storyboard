@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
@@ -261,7 +262,7 @@
             </objects>
             <point key="canvasLocation" x="6796" y="-525"/>
         </scene>
-        <!--Item-->
+        <!--Breakdown View Controller-->
         <scene sceneID="aWd-FP-Ztx">
             <objects>
                 <viewController storyboardIdentifier="BreakdownViewControllerID" id="b2l-Aa-CKR" customClass="BreakdownViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
@@ -419,7 +420,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dWl-xd-5h5">
-                                <rect key="frame" x="10" y="468.33333333333326" width="373" height="349.66666666666674"/>
+                                <rect key="frame" x="10" y="468.33333333333326" width="373" height="300.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NQ8-Ig-o0A">
                                     <size key="itemSize" width="185" height="173"/>
@@ -503,7 +504,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0U7-CB-dj2">
-                                <rect key="frame" x="323" y="748" width="50" height="50"/>
+                                <rect key="frame" x="323" y="699" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="l2R-0U-pQR"/>
                                     <constraint firstAttribute="height" constant="50" id="r5R-6J-1nn"/>
@@ -517,7 +518,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMX-Mx-XK9">
-                                <rect key="frame" x="332" y="750" width="40" height="40"/>
+                                <rect key="frame" x="332" y="701" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="YGl-R5-FGc"/>
                                     <constraint firstAttribute="height" constant="40" id="e01-mx-Fim"/>
@@ -574,7 +575,9 @@
                             <constraint firstItem="pvT-7f-eA9" firstAttribute="top" secondItem="3eJ-ax-Jk1" secondAttribute="top" constant="7" id="z0x-Cu-Bc5"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="peP-ZT-jae"/>
+                    <tabBarItem key="tabBarItem" title="" id="peP-ZT-jae">
+                        <imageReference key="image" image="list.bullet.circle.fill" catalog="system" symbolScale="large" variableValue="0.0"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="cDq-KC-1b8"/>
                     <connections>
                         <outlet property="collectionView" destination="dWl-xd-5h5" id="oms-Lh-SRm"/>
@@ -1008,7 +1011,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vzz-ag-WXu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4867.93893129771" y="1747.8873239436621"/>
+            <point key="canvasLocation" x="6385" y="1748"/>
         </scene>
         <!--Add Task View Controller-->
         <scene sceneID="YoO-xh-WhB">
@@ -1170,6 +1173,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNn-8N-Xh2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5552" y="906"/>
+        </scene>
+        <!--Social View Controller-->
+        <scene sceneID="WCm-Ec-iZ2">
+            <objects>
+                <viewController id="Som-kd-cKL" customClass="SocialViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Ws-Go-e05">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="i3U-Uy-h1N"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="person.2.fill" catalog="system" id="99e-YE-Wt4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RXZ-xx-n98" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1158" y="1748"/>
+        </scene>
+        <!--Shop View Controller-->
+        <scene sceneID="HaC-sK-YJj">
+            <objects>
+                <viewController id="BBi-c3-6Xd" customClass="ShopViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vE7-cG-Rwq">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="s1C-fT-QAr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="archivebox.fill" catalog="system" id="bIv-Zn-rO2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WWi-BN-hcR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2005" y="1748"/>
+        </scene>
+        <!--Productivity Chart View Controller-->
+        <scene sceneID="d05-06-0kP">
+            <objects>
+                <viewController id="M1O-dD-4xj" customClass="ProductivityChartViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lbr-Tz-RZx">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="U7s-90-fOi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="chart.xyaxis.line" catalog="system" id="QO0-Js-drw"/>
+                    <navigationItem key="navigationItem" id="zjl-d0-KdW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2h0-DA-Sef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2882" y="1748"/>
         </scene>
         <!--Today-->
         <scene sceneID="UrV-lW-Yn4">
@@ -1340,7 +1392,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jcS-QR-NHh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1765.6488549618321" y="1747.8873239436621"/>
+            <point key="canvasLocation" x="3763" y="1748"/>
         </scene>
         <!--Up Coming-->
         <scene sceneID="YBN-Pg-4ed">
@@ -1484,7 +1536,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNM-A8-mfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2855.7251908396947" y="1747.8873239436621"/>
+            <point key="canvasLocation" x="4656" y="1748"/>
         </scene>
         <!--All Tasks Table View Controller-->
         <scene sceneID="sK9-Yr-mSY">
@@ -1642,7 +1694,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4a-96-pXy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3887.7862595419847" y="1747.8873239436621"/>
+            <point key="canvasLocation" x="5552" y="1718"/>
         </scene>
         <!--Authentication View Controller-->
         <scene sceneID="ofq-F1-f1q">
@@ -1719,26 +1771,31 @@
                     </view>
                     <navigationItem key="navigationItem" id="AIn-eY-gKE"/>
                     <connections>
-                        <segue destination="b2l-Aa-CKR" kind="show" identifier="mainScreenSegue" id="bWY-BS-FDF"/>
+                        <segue destination="IgL-aI-6q1" kind="show" identifier="mainScreenSegue" id="Lg1-fp-rZ2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nn2-5Z-l4P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3808" y="24"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="OI8-Qx-DW7">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="IgL-aI-6q1" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="IgL-aI-6q1" customClass="TabBarViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Bfe-za-lWX"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2fB-Sp-u6i">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="LilacColor"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="b2l-Aa-CKR" kind="relationship" relationship="viewControllers" id="II7-sZ-rAl"/>
+                        <segue destination="M1O-dD-4xj" kind="relationship" relationship="viewControllers" id="tQt-og-t7m"/>
+                        <segue destination="BBi-c3-6Xd" kind="relationship" relationship="viewControllers" id="ZgF-S4-26r"/>
+                        <segue destination="Som-kd-cKL" kind="relationship" relationship="viewControllers" id="Xzo-fl-hkE"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTS-oS-Xjz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2009,18 +2066,19 @@
             <point key="canvasLocation" x="5002" y="-525"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="bWY-BS-FDF"/>
-    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.39729952439999999" green="0.70576803480000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="BackgroundImage" width="4688" height="1963"/>
         <image name="ShroomLogo" width="2498" height="371"/>
+        <image name="archivebox.fill" catalog="system" width="128" height="107"/>
         <image name="blueshroom" width="659" height="782"/>
         <image name="button.programmable" catalog="system" width="128" height="123"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="chart.xyaxis.line" catalog="system" width="128" height="102"/>
         <image name="checklist" catalog="system" width="128" height="107"/>
+        <image name="list.bullet.circle.fill" catalog="system" width="128" height="123"/>
         <image name="paintpalette.fill" catalog="system" width="128" height="105"/>
+        <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <image name="pinkshroom" width="659" height="782"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="purpleShroom" width="659" height="782"/>

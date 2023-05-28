@@ -79,7 +79,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
-        self.navigationItem.setHidesBackButton(true, animated: true)
+        self.navigationItem.hidesBackButton = true
         
         let player = databaseController?.currentUser
         let shroom = databaseController?.currentCharacter

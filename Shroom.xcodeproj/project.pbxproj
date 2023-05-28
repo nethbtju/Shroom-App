@@ -12,6 +12,11 @@
 		C708ADEC2A21A8D900127CB2 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADEB2A21A8D900127CB2 /* TaskTableViewCell.swift */; };
 		C708ADEE2A21D8EB00127CB2 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADED2A21D8EB00127CB2 /* AddTaskViewController.swift */; };
 		C708ADF02A21E23F00127CB2 /* AddNewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADEF2A21E23F00127CB2 /* AddNewTask.swift */; };
+		C708ADF22A23472300127CB2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF12A23472300127CB2 /* TabBarViewController.swift */; };
+		C708ADF42A23492B00127CB2 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF32A23492B00127CB2 /* SocialViewController.swift */; };
+		C708ADF62A23494300127CB2 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF52A23494300127CB2 /* ShopViewController.swift */; };
+		C708ADF82A2369D900127CB2 /* CompleteTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */; };
+		C708ADFA2A2378EF00127CB2 /* HolidayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */; };
 		C70F4E482A1F52BD009696BB /* AddUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */; };
 		C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931A2A049E48006966B7 /* AuthenticationViewController.swift */; };
 		C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931C2A04AE4B006966B7 /* SignUpViewController.swift */; };
@@ -50,6 +55,11 @@
 		C708ADEB2A21A8D900127CB2 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		C708ADED2A21D8EB00127CB2 /* AddTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		C708ADEF2A21E23F00127CB2 /* AddNewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTask.swift; sourceTree = "<group>"; };
+		C708ADF12A23472300127CB2 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		C708ADF32A23492B00127CB2 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
+		C708ADF52A23494300127CB2 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTaskViewController.swift; sourceTree = "<group>"; };
+		C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayAPI.swift; sourceTree = "<group>"; };
 		C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUnitViewController.swift; sourceTree = "<group>"; };
 		C732931A2A049E48006966B7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		C732931C2A04AE4B006966B7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +130,7 @@
 				C7433D9729E17AF400B16B52 /* AppDelegate.swift */,
 				C7433D9929E17AF400B16B52 /* SceneDelegate.swift */,
 				C7433D9B29E17AF400B16B52 /* ViewController.swift */,
+				C708ADF12A23472300127CB2 /* TabBarViewController.swift */,
 				C7433D9D29E17AF400B16B52 /* Main.storyboard */,
 				C7433DA029E17AF600B16B52 /* Assets.xcassets */,
 				C7433DA229E17AF600B16B52 /* LaunchScreen.storyboard */,
@@ -128,6 +139,7 @@
 				C735D4E029EFBEA3009DF770 /* Character.swift */,
 				C779D9132A1B73DD00D96570 /* Unit.swift */,
 				C735D4E229EFBEAE009DF770 /* TaskItem.swift */,
+				C708ADEF2A21E23F00127CB2 /* AddNewTask.swift */,
 				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
 				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
 				C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */,
@@ -143,7 +155,10 @@
 				C779D9112A1A464F00D96570 /* UnitTableViewController.swift */,
 				C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */,
 				C708ADE72A21A86100127CB2 /* ProductivityChartViewController.swift */,
-				C708ADEF2A21E23F00127CB2 /* AddNewTask.swift */,
+				C708ADF32A23492B00127CB2 /* SocialViewController.swift */,
+				C708ADF52A23494300127CB2 /* ShopViewController.swift */,
+				C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */,
+				C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -253,6 +268,7 @@
 				C735D4ED29F12DB2009DF770 /* BreakdownViewController.swift in Sources */,
 				C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */,
 				C779D9122A1A464F00D96570 /* UnitTableViewController.swift in Sources */,
+				C708ADF22A23472300127CB2 /* TabBarViewController.swift in Sources */,
 				C708ADEE2A21D8EB00127CB2 /* AddTaskViewController.swift in Sources */,
 				C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */,
 				C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */,
@@ -261,16 +277,20 @@
 				C708ADE82A21A86100127CB2 /* ProductivityChartViewController.swift in Sources */,
 				C779D90C2A19F57B00D96570 /* UpcomingViewController.swift in Sources */,
 				C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */,
+				C708ADFA2A2378EF00127CB2 /* HolidayAPI.swift in Sources */,
 				C735D4E329EFBEAE009DF770 /* TaskItem.swift in Sources */,
+				C708ADF82A2369D900127CB2 /* CompleteTaskViewController.swift in Sources */,
 				C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */,
 				C779D9142A1B73DD00D96570 /* Unit.swift in Sources */,
 				C7433DAF29E17B3900B16B52 /* ChooseNameViewController.swift in Sources */,
 				C779D9082A19F51300D96570 /* TodayTableViewController.swift in Sources */,
 				C708ADEC2A21A8D900127CB2 /* TaskTableViewCell.swift in Sources */,
+				C708ADF62A23494300127CB2 /* ShopViewController.swift in Sources */,
 				C732931F2A04AE59006966B7 /* LogInViewController.swift in Sources */,
 				C7433D9A29E17AF400B16B52 /* SceneDelegate.swift in Sources */,
 				C779D9102A1A2F8800D96570 /* UnitCollectionViewCell.swift in Sources */,
 				C708ADF02A21E23F00127CB2 /* AddNewTask.swift in Sources */,
+				C708ADF42A23492B00127CB2 /* SocialViewController.swift in Sources */,
 				C735D4E129EFBEA3009DF770 /* Character.swift in Sources */,
 				C70F4E482A1F52BD009696BB /* AddUnitViewController.swift in Sources */,
 				C708ADEA2A21A8BF00127CB2 /* AllTasksTableViewController.swift in Sources */,
