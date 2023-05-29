@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n0W-7h-EqN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mz8-iN-QT6">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1013,6 +1013,80 @@
             </objects>
             <point key="canvasLocation" x="6385" y="1748"/>
         </scene>
+        <!--Title-->
+        <scene sceneID="UC3-MR-OY0">
+            <objects>
+                <viewController id="Mz8-iN-QT6" customClass="CompleteTaskViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hpx-zX-Avb">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMx-U5-bDn">
+                                <rect key="frame" x="60" y="253" width="273" height="216"/>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6B-aA-E6s">
+                                <rect key="frame" x="50" y="589" width="293" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="sNM-ck-J9r"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Start Timer">
+                                            <attributes>
+                                                <font key="NSFont" size="24" name="Helvetica"/>
+                                                <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="setTimerButton:" destination="Mz8-iN-QT6" eventType="touchUpInside" id="3iI-NH-JGO"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqt-uw-SzK">
+                                <rect key="frame" x="60" y="338" width="273" height="70.666666666666686"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="3:59">
+                                        <attributes>
+                                            <color key="NSColor" red="0.81329393489261093" green="0.57030390825038024" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="64" name="ConnectionBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <lineBreakStrategy key="lineBreakStrategy" pushOut="YES"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PXu-6V-rgU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hMx-U5-bDn" firstAttribute="top" secondItem="PXu-6V-rgU" secondAttribute="top" constant="150" id="4I5-WR-wEN"/>
+                            <constraint firstItem="PXu-6V-rgU" firstAttribute="trailing" secondItem="hMx-U5-bDn" secondAttribute="trailing" constant="60" id="8MH-ua-Yey"/>
+                            <constraint firstItem="M6B-aA-E6s" firstAttribute="leading" secondItem="PXu-6V-rgU" secondAttribute="leading" constant="50" id="Dg7-aQ-saX"/>
+                            <constraint firstItem="M6B-aA-E6s" firstAttribute="top" secondItem="hMx-U5-bDn" secondAttribute="bottom" constant="120" id="Khg-9B-Omu"/>
+                            <constraint firstItem="zqt-uw-SzK" firstAttribute="leading" secondItem="PXu-6V-rgU" secondAttribute="leading" constant="60" id="OGp-B0-2eh"/>
+                            <constraint firstItem="zqt-uw-SzK" firstAttribute="top" secondItem="PXu-6V-rgU" secondAttribute="top" constant="235" id="UB0-Dg-L3h"/>
+                            <constraint firstItem="PXu-6V-rgU" firstAttribute="trailing" secondItem="zqt-uw-SzK" secondAttribute="trailing" constant="60" id="uDG-dH-tDq"/>
+                            <constraint firstItem="PXu-6V-rgU" firstAttribute="trailing" secondItem="M6B-aA-E6s" secondAttribute="trailing" constant="50" id="v8s-FH-e1U"/>
+                            <constraint firstItem="hMx-U5-bDn" firstAttribute="leading" secondItem="PXu-6V-rgU" secondAttribute="leading" constant="60" id="xMZ-0L-lWj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="6m5-s9-KaK">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="I2W-bu-vO4"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="buttonName" destination="M6B-aA-E6s" id="lNe-xN-rc1"/>
+                        <outlet property="countDown" destination="zqt-uw-SzK" id="I16-X5-mPA"/>
+                        <outlet property="timerSet" destination="hMx-U5-bDn" id="rpK-fg-I4h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O3p-u4-sn0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7458.7786259541981" y="1747.8873239436621"/>
+        </scene>
         <!--Add Task View Controller-->
         <scene sceneID="YoO-xh-WhB">
             <objects>
@@ -1704,7 +1778,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4a-96-pXy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5552" y="1718"/>
+            <point key="canvasLocation" x="5552" y="1748"/>
         </scene>
         <!--Authentication View Controller-->
         <scene sceneID="ofq-F1-f1q">
