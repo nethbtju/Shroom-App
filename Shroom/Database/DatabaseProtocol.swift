@@ -56,6 +56,7 @@ protocol DatabaseProtocol: AnyObject {
 
     func setupTaskListener()
     func setupCharacterListener()
+    func updateCharacterStats(char: Character, user: String)
     
     func parseTaskSnapshot(snapshot: QuerySnapshot)
     func parseCharacterSnapshot(snapshot: QuerySnapshot)

@@ -9,6 +9,9 @@ import UIKit
 import SwiftUI
 
 class AllTasksTableViewController: UITableViewController, DatabaseListener {
+    
+    weak var currentTaskDelegate: CurrentTaskDelegate?
+    
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         //
     }
@@ -45,6 +48,7 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         self.navigationItem.title = "All Tasks"
+        
     }
 
     // MARK: - Table view data source
@@ -96,7 +100,20 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         return true
     }
     
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath:
+    IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "showTaskCompletion")
+        self.currentTaskDelegate = vc as? any CurrentTaskDelegate
+        let currentTask = allTasks[indexPath.row]
+        
+        if let taskDelegate = currentTaskDelegate {
+            if taskDelegate.currentTaskIs(currentTask) {
+            tableView.deselectRow(at: indexPath, animated: true)
+            showTaskCompletionScreen(controller: self, newVC: vc)
+            }
+        }
+    }
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

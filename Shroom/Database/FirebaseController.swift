@@ -175,7 +175,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         task.repeatTask = repeatTask
         task.reminder = reminder
         task.unit = unit
-        task.expPoints = 100 * priority
+        task.expPoints = 10 * priority
         task.user = authController.currentUser?.uid
         do {
             if let taskRef = try tasksRef?.addDocument(from: task) {
@@ -216,6 +216,15 @@ class FirebaseController: NSObject, DatabaseProtocol {
             if let removedTaskRef = tasksRef?.document(taskID) {
             userRef?.document(user).updateData(["taskList": FieldValue.arrayRemove([removedTaskRef])])
             }
+        }
+    }
+    
+    func updateCharacterStats(char: Character, user: String){
+        do {
+            var addedChar = try characterRef?.document(user).setData(from: char)
+        } catch {
+            print("Could not update character")
+            return
         }
     }
     

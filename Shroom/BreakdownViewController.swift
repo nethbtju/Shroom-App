@@ -32,14 +32,14 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         collectionView.reloadData()
     }
     
-    var listenerType = ListenerType.unit
+    var listenerType = ListenerType.all
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         // do nothing
     }
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
-        // do nothing
+        currentChar = character
     }
     
     weak var databaseController: DatabaseProtocol?

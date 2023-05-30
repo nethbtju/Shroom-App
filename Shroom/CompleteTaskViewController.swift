@@ -7,7 +7,20 @@
 
 import UIKit
 
-class CompleteTaskViewController: UIViewController, DatabaseListener {
+class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTaskDelegate {
+    
+    func currentTaskIs(_ task: TaskItem) -> Bool {
+        self.task = task
+        return true
+    }
+    
+    @IBOutlet weak var backButton: UIButton!
+    
+    @IBAction func goBackButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var taskTitle: UILabel!
     
     var listenerType = ListenerType.all
     
@@ -20,7 +33,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener {
     }
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
-        currentCharacter = character
+        //
     }
     
     var task: TaskItem?
@@ -47,7 +60,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener {
     
     @IBAction func completeTaskButton(_ sender: Any) {
         if completeTask(){
-            _ = navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -60,14 +73,16 @@ class CompleteTaskViewController: UIViewController, DatabaseListener {
     }
     
     func completeTask() -> Bool{
-        guard let timeLeft = timeRemaining, let totalTime = time, let exp = task?.expPoints else {
+        guard let timeLeft = timeRemaining, let totalTime = time, let exp = task?.expPoints, let currentTask = task, let user = databaseController?.currentUser?.uid, let char = currentCharacter else {
             return false
         }
         
-        var subPercent = 1 - (timeLeft/totalTime)
-        
-        var earnedExp = exp * Int32(subPercent)
+        let subPercent = 1 - (timeLeft/totalTime)
+        let earnedExp = exp * Int32(subPercent)
         currentCharacter?.exp! += earnedExp
+        databaseController?.updateCharacterStats(char: char, user: user)
+        self.databaseController?.removeTaskFromList(task: currentTask, user: user)
+        databaseController?.deleteTask(task: currentTask)
         return true
     }
     
@@ -91,6 +106,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener {
     
     @IBAction func setTimerButton(_ sender: Any) {
         time = Int(timerSet.countDownDuration)
+        backButton.isHidden = true
         if buttonName.titleLabel?.text == "Start Timer"{
             let time = timerSet.countDownDuration
             progressView.timeToFill = time
@@ -99,6 +115,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener {
             timerSet.isHidden = true
             countDown.isHidden = false
             timeRemaining = Int(progressView.timeToFill)
+            
             // setting up the timer
             setUpTimer()
         } else {
@@ -113,17 +130,20 @@ class CompleteTaskViewController: UIViewController, DatabaseListener {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-        
         progressView.progressColor = UIColor(named: "LilacColor")!
         progressView.trackColor = .lightGray
         progressView.timeToFill = 0
         progressView.center = view.center
         view.addSubview(progressView)
         progressView.progress = 0
-        self.navigationItem.title = task?.name
-        self.navigationItem.backButtonTitle = "Back"
+        
         countDown.isHidden = true
         
+        guard let task = self.task else{
+            return
+        }
+        taskTitle.text = task.name
+        currentCharacter = databaseController?.currentCharacter
     }
     
     override func viewWillAppear(_ animated: Bool) {

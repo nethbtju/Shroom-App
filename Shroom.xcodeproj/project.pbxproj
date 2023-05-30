@@ -20,6 +20,7 @@
 		C708ADFD2A2379C700127CB2 /* Siesta in Frameworks */ = {isa = PBXBuildFile; productRef = C708ADFC2A2379C700127CB2 /* Siesta */; };
 		C708ADFF2A2379C700127CB2 /* SiestaUI in Frameworks */ = {isa = PBXBuildFile; productRef = C708ADFE2A2379C700127CB2 /* SiestaUI */; };
 		C708AE012A24645900127CB2 /* CircularProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708AE002A24645900127CB2 /* CircularProgressBarView.swift */; };
+		C708AE052A26144600127CB2 /* CurrentTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708AE042A26144600127CB2 /* CurrentTaskDelegate.swift */; };
 		C70F4E482A1F52BD009696BB /* AddUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */; };
 		C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931A2A049E48006966B7 /* AuthenticationViewController.swift */; };
 		C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931C2A04AE4B006966B7 /* SignUpViewController.swift */; };
@@ -64,6 +65,7 @@
 		C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTaskViewController.swift; sourceTree = "<group>"; };
 		C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayAPI.swift; sourceTree = "<group>"; };
 		C708AE002A24645900127CB2 /* CircularProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBarView.swift; sourceTree = "<group>"; };
+		C708AE042A26144600127CB2 /* CurrentTaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTaskDelegate.swift; sourceTree = "<group>"; };
 		C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUnitViewController.swift; sourceTree = "<group>"; };
 		C732931A2A049E48006966B7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		C732931C2A04AE4B006966B7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				C708ADF52A23494300127CB2 /* ShopViewController.swift */,
 				C708AE002A24645900127CB2 /* CircularProgressBarView.swift */,
 				C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */,
+				C708AE042A26144600127CB2 /* CurrentTaskDelegate.swift */,
 				C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */,
 			);
 			path = Shroom;
@@ -277,6 +280,7 @@
 				C735D4E529EFC0FC009DF770 /* FirebaseController.swift in Sources */,
 				C735D4ED29F12DB2009DF770 /* BreakdownViewController.swift in Sources */,
 				C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */,
+				C708AE052A26144600127CB2 /* CurrentTaskDelegate.swift in Sources */,
 				C779D9122A1A464F00D96570 /* UnitTableViewController.swift in Sources */,
 				C708ADF22A23472300127CB2 /* TabBarViewController.swift in Sources */,
 				C708ADEE2A21D8EB00127CB2 /* AddTaskViewController.swift in Sources */,
