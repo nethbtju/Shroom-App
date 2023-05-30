@@ -163,9 +163,9 @@
 				C708ADE72A21A86100127CB2 /* ProductivityChartViewController.swift */,
 				C708ADF32A23492B00127CB2 /* SocialViewController.swift */,
 				C708ADF52A23494300127CB2 /* ShopViewController.swift */,
+				C708AE002A24645900127CB2 /* CircularProgressBarView.swift */,
 				C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */,
 				C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */,
-				C708AE002A24645900127CB2 /* CircularProgressBarView.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";

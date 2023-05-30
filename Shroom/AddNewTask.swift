@@ -16,3 +16,12 @@ func showMyViewControllerInACustomizedSheet(controller: UIViewController) {
             }
     controller.present(vc, animated: true)
 }
+
+func showTaskCompletionScreen(controller: UIViewController) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewController(withIdentifier: "addTaskController")
+    if let presentationController = vc.presentationController as? UISheetPresentationController {
+                presentationController.detents = [.medium()]
+            }
+    controller.present(vc, animated: true)
+}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mz8-iN-QT6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n0W-7h-EqN">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1016,7 +1016,7 @@
         <!--Title-->
         <scene sceneID="UC3-MR-OY0">
             <objects>
-                <viewController id="Mz8-iN-QT6" customClass="CompleteTaskViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="showTaskCompletion" id="Mz8-iN-QT6" customClass="CompleteTaskViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hpx-zX-Avb">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1034,7 +1034,7 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="Start Timer">
                                             <attributes>
-                                                <font key="NSFont" size="24" name="Helvetica"/>
+                                                <font key="NSFont" size="24" name="ConnectionBold"/>
                                                 <font key="NSOriginalFont" size="12" name="Helvetica"/>
                                             </attributes>
                                         </fragment>
@@ -1058,6 +1058,28 @@
                                 <nil key="highlightedColor"/>
                                 <lineBreakStrategy key="lineBreakStrategy" pushOut="YES"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T8c-mA-tCH">
+                                <rect key="frame" x="60" y="679" width="273" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Lt1-as-R4u"/>
+                                </constraints>
+                                <color key="tintColor" name="LilacColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Complete Task">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="18" name="ConnectionBold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="completeTaskButton:" destination="Mz8-iN-QT6" eventType="touchUpInside" id="KGb-KH-4QU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PXu-6V-rgU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1065,11 +1087,14 @@
                             <constraint firstItem="hMx-U5-bDn" firstAttribute="top" secondItem="PXu-6V-rgU" secondAttribute="top" constant="150" id="4I5-WR-wEN"/>
                             <constraint firstItem="PXu-6V-rgU" firstAttribute="trailing" secondItem="hMx-U5-bDn" secondAttribute="trailing" constant="60" id="8MH-ua-Yey"/>
                             <constraint firstItem="M6B-aA-E6s" firstAttribute="leading" secondItem="PXu-6V-rgU" secondAttribute="leading" constant="50" id="Dg7-aQ-saX"/>
+                            <constraint firstItem="PXu-6V-rgU" firstAttribute="trailing" secondItem="T8c-mA-tCH" secondAttribute="trailing" constant="60" id="J1S-L8-NJM"/>
                             <constraint firstItem="M6B-aA-E6s" firstAttribute="top" secondItem="hMx-U5-bDn" secondAttribute="bottom" constant="120" id="Khg-9B-Omu"/>
                             <constraint firstItem="zqt-uw-SzK" firstAttribute="leading" secondItem="PXu-6V-rgU" secondAttribute="leading" constant="60" id="OGp-B0-2eh"/>
                             <constraint firstItem="zqt-uw-SzK" firstAttribute="top" secondItem="PXu-6V-rgU" secondAttribute="top" constant="235" id="UB0-Dg-L3h"/>
+                            <constraint firstItem="T8c-mA-tCH" firstAttribute="top" secondItem="M6B-aA-E6s" secondAttribute="bottom" constant="30" id="fsK-rn-FCo"/>
                             <constraint firstItem="PXu-6V-rgU" firstAttribute="trailing" secondItem="zqt-uw-SzK" secondAttribute="trailing" constant="60" id="uDG-dH-tDq"/>
                             <constraint firstItem="PXu-6V-rgU" firstAttribute="trailing" secondItem="M6B-aA-E6s" secondAttribute="trailing" constant="50" id="v8s-FH-e1U"/>
+                            <constraint firstItem="T8c-mA-tCH" firstAttribute="leading" secondItem="PXu-6V-rgU" secondAttribute="leading" constant="60" id="wsE-Vz-Mha"/>
                             <constraint firstItem="hMx-U5-bDn" firstAttribute="leading" secondItem="PXu-6V-rgU" secondAttribute="leading" constant="60" id="xMZ-0L-lWj"/>
                         </constraints>
                     </view>

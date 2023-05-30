@@ -43,7 +43,7 @@ class CircularProgressBarView: UIView {
     var progress: Float {
         didSet{
             var pathMoved = progress - oldValue
-            if pathMoved < 0{
+            if pathMoved < 0 {
                 pathMoved = 0 - pathMoved
             }
             setProgress(duration: timeToFill * Double(pathMoved), to: progress)
