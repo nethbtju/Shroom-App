@@ -40,13 +40,14 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
         currentChar = character
+        loadCharacter(char: currentChar)
     }
     
     weak var databaseController: DatabaseProtocol?
     
     var currentChar: Character?
     
-    var currentPlayer: User?
+    var currentPlayer: FirebaseAuth.User?
     
     var currentUnit: Unit?
     
@@ -80,20 +81,42 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
         self.navigationItem.hidesBackButton = true
-        
-        let player = databaseController?.currentUser
-        let shroom = databaseController?.currentCharacter
-        let shroomImage = databaseController?.currentCharImage
-        
+        currentPlayer = databaseController?.currentUser
         // Lets assume for now the user has JUST set their things up and the current character is in current Char variable
         //currentCharacterImage.image = shroomImage
-        shroomNameLabel.text = shroom?.charName
-        levelLabel.text = "lvl \(shroom?.level ?? 1)"
-        expLabel.text = "\(shroom?.exp ?? 0)/\((shroom?.level)! * 100)"
-        hpLabel.text = "\(shroom?.health ?? 0)/\((shroom?.level)! * 100)"
-        hpProgressBar.progress = 100
-        expProgressBar.progress = 0
-        playerNameLabel.text = player?.displayName
+    }
+    
+    func loadCharacter(char: Character?){
+        guard let shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let player = currentPlayer else {
+            return
+        }
+        let shroomImage = databaseController?.currentCharImage
+        let totalExp = Float(shroomLevel) * 100.00
+        let totalHealth = Float(shroomLevel) * 200.00
+        
+        checkShroomStats(char: shroom, totalExp: totalExp, totalHealth: totalHealth)
+        
+        shroomNameLabel.text = shroomName
+        levelLabel.text = "lvl \(shroomLevel)"
+        expLabel.text = "\(shroomExp)/\(totalExp)"
+        hpLabel.text = "\(shroomHealth)/\(totalHealth)"
+        
+        let Hprogress = Float(shroomHealth)/totalHealth
+        let Eprogress = Float(shroomExp)/totalExp
+        hpProgressBar.progress = Hprogress
+        expProgressBar.progress = Eprogress
+        playerNameLabel.text = player.displayName
+    }
+    
+    func checkShroomStats(char: Character, totalExp: Float, totalHealth: Float){
+        if Float(char.exp!) > totalExp {
+            char.level! += 1
+            databaseController?.updateCharacterStats(char: char, user: currentPlayer!.uid)
+        }
+        if Float(char.health!) <= 0 {
+            char.level! -= 1
+            databaseController?.updateCharacterStats(char: char, user: currentPlayer!.uid)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

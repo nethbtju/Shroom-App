@@ -46,10 +46,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         let user = userRef!.document(currentUser!.uid)
         user.getDocument { (document, error) in
             if let document = document, document.exists {
+                self.setupUnitListener()
                 self.setupCharacterListener()
                 self.tasksRef = self.database.collection("tasks")
                 self.setupTaskListener()
-                self.setupUnitListener()
             } else {
                 self.userRef!.document(self.currentUser!.uid).setData(["taskList": [], "unitList": []])
                 self.setupCharacterListener()
@@ -254,8 +254,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func setupCharacterListener() {
         characterRef = database.collection("characters")
-        characterRef?.whereField("player", isEqualTo: currentUser!.uid)
-            .addSnapshotListener() { (querySnapshot, error) in
+        characterRef?.addSnapshotListener() { (querySnapshot, error) in
             guard let querySnapshot = querySnapshot else {
                 print("Error fetching teams: \(error!)")
                 return

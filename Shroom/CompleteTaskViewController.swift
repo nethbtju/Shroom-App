@@ -50,6 +50,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     
     @IBOutlet weak var buttonName: UIButton!
     
+    @IBOutlet weak var completeTaskName: UIButton!
+    
     weak var databaseController: DatabaseProtocol?
     
     var time: Int?
@@ -127,6 +129,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        buttonName.tintColor = UIColor(named: "CoralColor")
+        completeTaskName.tintColor = UIColor(named: "LilacColor")
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
