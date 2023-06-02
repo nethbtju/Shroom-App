@@ -7,10 +7,10 @@
 
 import Foundation
 import UIKit
-
+import FirebaseFirestoreSwift
 
 class Unit: NSObject, Codable {
-    var id: String?
+    @DocumentID var id: String?
     var unitCode: String?
     var unitName: String?
     var userid: String?

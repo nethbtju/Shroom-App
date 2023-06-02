@@ -29,6 +29,14 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         // none
     }
     
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
+    
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
+    
     let CELL_TASKS = "taskCell"
     
     var allTasks: [TaskItem] = []

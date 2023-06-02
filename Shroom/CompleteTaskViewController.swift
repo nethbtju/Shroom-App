@@ -8,6 +8,13 @@
 import UIKit
 
 class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTaskDelegate {
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
+    
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
     
     func currentTaskIs(_ task: TaskItem) -> Bool {
         self.task = task
@@ -75,14 +82,14 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     }
     
     func completeTask() -> Bool{
-        guard let timeLeft = timeRemaining, let totalTime = time, let exp = task?.expPoints, let currentTask = task, let user = databaseController?.currentUser?.uid, let char = currentCharacter else {
+        guard let timeLeft = timeRemaining, let totalTime = time, let exp = task?.expPoints, let currentTask = task, let user = databaseController?.thisUser, let char = currentCharacter else {
             return false
         }
         
         let subPercent = 1 - (timeLeft/totalTime)
         let earnedExp = exp * Int32(subPercent)
         currentCharacter?.exp! += earnedExp
-        databaseController?.updateCharacterStats(char: char, user: user)
+        databaseController?.updateCharacterStats(char: char, user: (databaseController?.currentUser!.uid)!)
         self.databaseController?.removeTaskFromList(task: currentTask, user: user)
         databaseController?.deleteTask(task: currentTask)
         return true

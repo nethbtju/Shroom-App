@@ -27,6 +27,14 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         //
     }
     
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
+    
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
+    
     weak var databaseController: DatabaseProtocol?
     
     func currentUnitIs(_ unit: Unit) {

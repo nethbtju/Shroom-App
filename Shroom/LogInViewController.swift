@@ -12,7 +12,13 @@ class LogInViewController: UIViewController, DatabaseListener{
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
     
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
     var listenerType = ListenerType.character
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {

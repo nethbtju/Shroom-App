@@ -21,6 +21,8 @@ enum ListenerType {
     case character
     case task
     case unit
+    case progress
+    case badges
     case all
 }
 
@@ -29,6 +31,8 @@ protocol DatabaseListener: AnyObject {
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem])
     func onListChange(change: DatabaseChange, unitList: [Unit])
     func onCharacterChange(change: DatabaseChange, character: Character)
+    func onProgressChange(change: DatabaseChange, progress: [Int])
+    func onBadgesChange(change: DatabaseChange, badges: [Int])
 }
 
 protocol DatabaseProtocol: AnyObject {
@@ -38,11 +42,12 @@ protocol DatabaseProtocol: AnyObject {
     func removeListener(listener: DatabaseListener)
     
     var currentUser: FirebaseAuth.User? {get}
+    var thisUser: User {get}
     var currentCharacter: Character? {get}
     var currentCharImage: UIImage? {set get}
     
     func addTask(name: String, quickDes: String, dueDate: Date, priority: Int32, repeatTask: String, reminder: String, unit: String) -> TaskItem
-    func addTaskToList(task: TaskItem, user: String) -> Bool
+    func addTaskToList(task: TaskItem, user: User) -> Bool
     func addUnit(code: String?, name: String?, color: Int?) -> Unit
     func addUnitToList(unit: Unit, user: String) -> Bool
     func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32)
@@ -51,14 +56,9 @@ protocol DatabaseProtocol: AnyObject {
     func setUpUser() async throws
     
     func deleteTask(task: TaskItem)
-    func removeTaskFromList(task: TaskItem, user: String)
-    func getTaskByID(_ id: String) -> TaskItem?
+    func removeTaskFromList(task: TaskItem, user: User)
 
-    func setupTaskListener()
-    func setupCharacterListener()
+
     func updateCharacterStats(char: Character, user: String)
-    
-    func parseTaskSnapshot(snapshot: QuerySnapshot)
-    func parseCharacterSnapshot(snapshot: QuerySnapshot)
 }
 

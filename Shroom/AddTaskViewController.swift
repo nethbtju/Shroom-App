@@ -9,6 +9,14 @@ import UIKit
 import SwiftUI
 
 class AddTaskViewController: UIViewController, DatabaseListener {
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
+    
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
+    
     
     var listenerType = ListenerType.unit
     
@@ -130,9 +138,14 @@ class AddTaskViewController: UIViewController, DatabaseListener {
             }
         }
         var childList: [UIAction] = []
-        for unit in units{
-            let action = UIAction(title: "\(unit.unitCode ?? "") - \(unit.unitName ?? "")", handler: optionClosure)
+        if units.isEmpty{
+            let action = UIAction(title: "None", handler: optionClosure)
             childList.append(action)
+        } else{
+            for unit in units{
+                let action = UIAction(title: "\(unit.unitCode ?? "") - \(unit.unitName ?? "")", handler: optionClosure)
+                childList.append(action)
+            }
         }
         
         unitButton.menu = UIMenu(children: childList)
@@ -160,8 +173,8 @@ class AddTaskViewController: UIViewController, DatabaseListener {
         }
 
         let task = (databaseController?.addTask(name: taskName, quickDes: quickDescTextField.text ?? "", dueDate: datePicker, priority: priority, repeatTask: repeatFreq, reminder: reminder, unit: unit))!
-        let user = (databaseController?.currentUser?.uid)!
-        let _ = databaseController?.addTaskToList(task: task, user: user)
+        let user = databaseController?.thisUser
+        let _ = databaseController?.addTaskToList(task: task, user: user!)
         self.dismiss(animated: true, completion: nil)
 
     }

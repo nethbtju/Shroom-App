@@ -21,6 +21,14 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
         // do nothing
     }
     
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
+    
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
+    
     var authController: Auth?
 
     @IBOutlet weak var welcomeLabel: UILabel?

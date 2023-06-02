@@ -16,7 +16,13 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     func currentUnitIs(_ unit: Unit) {
         //
     }
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
     
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
     @IBAction func addTask(_ sender: Any) {
         showMyViewControllerInACustomizedSheet(controller: self)
     }

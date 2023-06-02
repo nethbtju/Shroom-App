@@ -10,6 +10,14 @@ import SwiftUI
 
 class AllTasksTableViewController: UITableViewController, DatabaseListener {
     
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
+    
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
+    
     weak var currentTaskDelegate: CurrentTaskDelegate?
     
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
@@ -52,16 +60,6 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
     }
 
     // MARK: - Table view data source
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        databaseController?.addListener(listener: self)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        databaseController?.removeListener(listener: self)
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -120,13 +118,22 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         if editingStyle == .delete {
             if editingStyle == .delete && indexPath.section == SECTION_TASKS {
                 let task = allTasks[indexPath.row]
-                let user = databaseController?.currentUser?.uid
-                self.databaseController?.removeTaskFromList(task: allTasks[indexPath.row], user: (databaseController?.currentUser!.uid)!)
+                _ = databaseController?.currentUser?.uid
                 databaseController?.deleteTask(task: task)
+                self.databaseController?.removeTaskFromList(task: allTasks[indexPath.row], user: databaseController!.thisUser)
             }
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {

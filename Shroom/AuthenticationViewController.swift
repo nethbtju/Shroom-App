@@ -12,11 +12,18 @@ class AuthenticationViewController: UIViewController, DatabaseListener {
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
-    
     var listenerType = ListenerType.character
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         // do nothing
+    }
+    
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
+    
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
     }
     
     func onCharacterChange(change: DatabaseChange, character: Character) {

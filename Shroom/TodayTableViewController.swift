@@ -34,7 +34,13 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     func onCharacterChange(change: DatabaseChange, character: Character) {
         // do nothing
     }
+    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+        //
+    }
     
+    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+        //
+    }
     func stripTime(from originalDate: Date) -> Date {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: originalDate)
         let date = Calendar.current.date(from: components)
@@ -52,7 +58,8 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     func getTodayTasks(){
         var currentDateCheck = true
         var currentIndex = 0
-        while currentDateCheck {
+        var taskCount = allTasks.count
+        while currentDateCheck && currentIndex < taskCount {
             var date = sortedTasks[currentIndex].dueDate
             if stripTime(from: date!) != stripTime(from: currentDate) {
                 currentDateCheck = false

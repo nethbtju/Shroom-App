@@ -130,15 +130,13 @@ class AddUnitViewController: UIViewController {
             return
         }
         
-        guard let unit = databaseController?.addUnit(code: code, name: list, color: self.getIndex(color: listColour)) else {
-            return
-        }
-        
         guard let user = databaseController?.currentUser?.uid else {
             return
         }
         
-        databaseController?.addUnitToList(unit: unit, user: user)
+        let unit = databaseController?.addUnit(code: code, name: list, color: self.getIndex(color: listColour))
+        let _ = databaseController?.addUnitToList(unit: unit!, user: user)
+        
         self.dismiss(animated: true, completion: nil)
     }
     
