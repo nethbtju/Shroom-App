@@ -130,10 +130,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
             listener.onCharacterChange(change: .update, character: currentCharacter!)
         }
         if listener.listenerType == .progress || listener.listenerType == .all {
-            listener.onProgressChange(change: .update, progress: progressList)
+            listener.onProgressChange(change: .update, progress: thisUser.productivity)
         }
         if listener.listenerType == .badges || listener.listenerType == .all {
-            listener.onBadgesChange(change: .update, badges: badgeList)
+            listener.onBadgesChange(change: .update, badges: thisUser.badges)
         }
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTaskDelegate {
     func onProgressChange(change: DatabaseChange, progress: [Int]) {
-        //
+        self.progress = progress
     }
     
     func onBadgesChange(change: DatabaseChange, badges: [Int]) {
@@ -48,6 +48,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     var currentCharacter: Character?
     
     var taskList: [TaskItem] = []
+    
+    var progress: [Int] = []
     
     let progressView = CircularProgressBarView(frame: CGRect(x: 0, y: -100, width: 300, height: 300), lineWidth: 15, rounded: false)
     

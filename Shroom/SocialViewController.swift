@@ -6,12 +6,12 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SocialViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
 
