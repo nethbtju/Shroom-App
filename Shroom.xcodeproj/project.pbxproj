@@ -31,7 +31,7 @@
 		C735D4DF29EFBE8F009DF770 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4DE29EFBE8F009DF770 /* User.swift */; };
 		C735D4E129EFBEA3009DF770 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4E029EFBEA3009DF770 /* Character.swift */; };
 		C735D4E329EFBEAE009DF770 /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4E229EFBEAE009DF770 /* TaskItem.swift */; };
-		C735D4E529EFC0FC009DF770 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4E429EFC0FC009DF770 /* FirebaseController.swift */; };
+		C735D4E529EFC0FC009DF770 /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4E429EFC0FC009DF770 /* DatabaseController.swift */; };
 		C735D4E729F0F2F5009DF770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C735D4E629F0F2F5009DF770 /* GoogleService-Info.plist */; };
 		C735D4ED29F12DB2009DF770 /* BreakdownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */; };
 		C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7433D9729E17AF400B16B52 /* AppDelegate.swift */; };
@@ -80,7 +80,7 @@
 		C735D4DE29EFBE8F009DF770 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C735D4E029EFBEA3009DF770 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		C735D4E229EFBEAE009DF770 /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
-		C735D4E429EFC0FC009DF770 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
+		C735D4E429EFC0FC009DF770 /* DatabaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 		C735D4E629F0F2F5009DF770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownViewController.swift; sourceTree = "<group>"; };
 		C7433D9429E17AF400B16B52 /* Shroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,7 +204,7 @@
 			children = (
 				C7433DC229E1815200B16B52 /* MulticastDelegate.swift */,
 				C7433DC029E17FBD00B16B52 /* DatabaseProtocol.swift */,
-				C735D4E429EFC0FC009DF770 /* FirebaseController.swift */,
+				C735D4E429EFC0FC009DF770 /* DatabaseController.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C735D4E529EFC0FC009DF770 /* FirebaseController.swift in Sources */,
+				C735D4E529EFC0FC009DF770 /* DatabaseController.swift in Sources */,
 				C735D4ED29F12DB2009DF770 /* BreakdownViewController.swift in Sources */,
 				C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */,
 				C708AE052A26144600127CB2 /* CurrentTaskDelegate.swift in Sources */,
