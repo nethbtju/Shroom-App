@@ -14,11 +14,15 @@ class AuthenticationViewController: UIViewController, DatabaseListener {
     }
     var listenerType = ListenerType.character
     
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
+    
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         // do nothing
     }
     
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         //
     }
     

@@ -8,10 +8,18 @@
 import UIKit
 
 class UpcomingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DatabaseListener  {
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        //
+    }
+    
     
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
+    
     @IBAction func addTaskButton(_ sender: Any) {
         showMyViewControllerInACustomizedSheet(controller: self)
     }
@@ -27,10 +35,6 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
         // none
-    }
-    
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
-        //
     }
     
     func onBadgesChange(change: DatabaseChange, badges: [Int]) {

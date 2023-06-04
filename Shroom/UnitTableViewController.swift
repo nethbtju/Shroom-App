@@ -8,6 +8,10 @@
 import UIKit
 
 class UnitTableViewController: UITableViewController, UnitDetailsDelgate, DatabaseListener {
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        //
+    }
+    
     
     var delegate: UnitDetailsDelgate?
     
@@ -18,16 +22,16 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         getUnitTasks()
         tableView.reloadData()
     }
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
+    
     
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         //
     }
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
-        //
-    }
-    
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
         //
     }
     

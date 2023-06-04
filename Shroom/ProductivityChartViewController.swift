@@ -16,6 +16,9 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         //
     }
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
     
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         //
@@ -25,23 +28,27 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
         //
     }
     
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         progressList = progress
+        getLast7Days()
         setupProgressChart(weeklydata: progressList)
         setUpChart(data: data)
-        tasksCompletedToday = progressList[0]
-        progressViewBar.progress = Float(tasksCompletedToday!/5)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        let currentDateString: String = dateFormatter.string(from: Date())
+        guard let tasksCompletedToday = progressList[currentDateString] else {
+            return
+        }
+        let total = 5.0
+        var barProgress = (Double(tasksCompletedToday)/total)
+        progressViewBar.progress = Float(barProgress)
+        tasksCompletedLabel.text = "Completed \(tasksCompletedToday)/5 Tasks"
     }
     
     func onBadgesChange(change: DatabaseChange, badges: [Int]) {
         //
     }
-    
-    var progressList: [Int] = []
-    
-    var data: [WeeklyProgress] = []
-    
-    var tasksCompletedToday: Int?
     
     var days: [String] = []
     
@@ -57,9 +64,15 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
         }
     }
     
-    func setupProgressChart(weeklydata: [Int]){
-        for (index, days) in weeklydata.enumerated() {
-            data.append(.init(dayOfWeek: self.days[index], taskCount: days))
+    var progressList: [String: Int] = [:]
+    
+    var data: [WeeklyProgress] = []
+    
+    var tasksCompletedToday: Int?
+    
+    func setupProgressChart(weeklydata: [String: Int]){
+        for day in days {
+            data.append(.init(dayOfWeek: day, taskCount: progressList[day]!))
         }
         data = data.reversed()
     }
@@ -101,10 +114,8 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     
     @IBOutlet weak var chartViewSpace: UIView!
     
-    @IBOutlet weak var navigationTitle: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationTitle.text = "Productivity"
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
@@ -115,7 +126,7 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
         progressView.center = progressViewBar.center
         progressView.addSubview(progressViewBar)
         
-        getLast7Days()
+        //getLast7Days()
     }
     
     override func viewWillAppear(_ animated: Bool) {

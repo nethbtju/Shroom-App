@@ -10,12 +10,14 @@ import Firebase
 import FirebaseFirestoreSwift
 import UIKit
 
+/// Types of changes that can be made to the database
 enum DatabaseChange {
     case add
     case remove
     case update
 }
 
+/// Types of listeners
 enum ListenerType {
     case player
     case character
@@ -23,18 +25,22 @@ enum ListenerType {
     case unit
     case progress
     case badges
+    case inventory
     case all
 }
 
+/// Listeners that wait for changes made to the database before parsing to other controllers
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem])
     func onListChange(change: DatabaseChange, unitList: [Unit])
     func onCharacterChange(change: DatabaseChange, character: Character)
-    func onProgressChange(change: DatabaseChange, progress: [Int])
+    func onProgressChange(change: DatabaseChange, progress: [String : Int])
     func onBadgesChange(change: DatabaseChange, badges: [Int])
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory)
 }
 
+/// Database protocols than is implemented in the Database Controller and accessible by other controllers
 protocol DatabaseProtocol: AnyObject {
     func cleanup()
     
@@ -57,8 +63,12 @@ protocol DatabaseProtocol: AnyObject {
     
     func deleteTask(task: TaskItem)
     func removeTaskFromList(task: TaskItem, user: User)
-
+    
+    func addCompletedTaskToProgress(date: String, user: String)
 
     func updateCharacterStats(char: Character, user: String)
+    
+    func addBadgeToInventory(badge: Badge, inventory: Inventory) -> Bool
+    
 }
 

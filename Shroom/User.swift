@@ -13,5 +13,5 @@ class User: NSObject, Codable {
     var taskList: [TaskItem] = []
     var unitList: [Unit] = []
     var badges: [Int] = []
-    var productivity: [Int] = []
+    var productivity: [String: Int] = [:]
 }

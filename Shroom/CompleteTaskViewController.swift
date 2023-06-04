@@ -8,7 +8,11 @@
 import UIKit
 
 class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTaskDelegate {
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
+    
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         self.progress = progress
     }
     
@@ -49,7 +53,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     
     var taskList: [TaskItem] = []
     
-    var progress: [Int] = []
+    var progress: [String : Int] = [:]
     
     let progressView = CircularProgressBarView(frame: CGRect(x: 0, y: -100, width: 300, height: 300), lineWidth: 15, rounded: false)
     
@@ -84,7 +88,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     }
     
     func completeTask() -> Bool{
-        guard let timeLeft = timeRemaining, let totalTime = time, let exp = task?.expPoints, let currentTask = task, let user = databaseController?.thisUser, let char = currentCharacter else {
+        guard let timeLeft = timeRemaining, let totalTime = time, let exp = task?.expPoints, let currentTask = task, let user = databaseController?.thisUser, let char = currentCharacter, let thisUser = databaseController?.currentUser?.uid else {
             return false
         }
         
@@ -92,8 +96,13 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         let earnedExp = exp * Int32(subPercent)
         currentCharacter?.exp! += earnedExp
         databaseController?.updateCharacterStats(char: char, user: (databaseController?.currentUser!.uid)!)
-        self.databaseController?.removeTaskFromList(task: currentTask, user: user)
+        databaseController?.removeTaskFromList(task: currentTask, user: user)
         databaseController?.deleteTask(task: currentTask)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        let currentDateString: String = dateFormatter.string(from: Date())
+        databaseController?.addCompletedTaskToProgress(date: currentDateString, user: thisUser)
         return true
     }
     

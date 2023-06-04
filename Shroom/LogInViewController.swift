@@ -9,10 +9,15 @@ import UIKit
 import Firebase
 
 class LogInViewController: UIViewController, DatabaseListener{
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        //
+    }
+    
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+    
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
         //
     }
     

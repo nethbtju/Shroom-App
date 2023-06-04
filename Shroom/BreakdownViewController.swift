@@ -13,12 +13,21 @@ func currentUnitIs(_ unit: Unit)
 }
 
 class BreakdownViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, DatabaseListener, UnitDetailsDelgate {
+    
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
+    
+    
     func currentUnitIs(_ unit: Unit) {
         //
     }
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
-        //
+    
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        self.progress =  progress
     }
+
+    var progress: [String: Int] = [:]
     
     func onBadgesChange(change: DatabaseChange, badges: [Int]) {
         //
@@ -88,6 +97,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         databaseController = appDelegate?.databaseController
         self.navigationItem.hidesBackButton = true
         currentPlayer = databaseController?.currentUser
+        //getLast7Days()
         // Lets assume for now the user has JUST set their things up and the current character is in current Char variable
         //currentCharacterImage.image = shroomImage
     }

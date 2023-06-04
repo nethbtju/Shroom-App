@@ -8,10 +8,122 @@
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import CoreData
 
-class FirebaseController: NSObject, DatabaseProtocol {
+class FirebaseController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
     
+    /**
+     Core Data
+     */
+    
+    var allBadgesFetchedResultsController: NSFetchedResultsController<Badge>?
+    
+    var allInventoryFetchedResultsController: NSFetchedResultsController<Inventory>?
+    
+    var persistentContainer: NSPersistentContainer
+    
+    /// Adds an inventory to persistent core data when a new user is added to the firebase.
+    ///
+    /// - Parameters user: The ID of the user that the inventory is being created for. This is a primary
+    /// key and is usually consistent with the same ID generated in the firebase when the user account is
+    /// created
+    ///
+    /// - Returns inventory: An instance of the NSObject Inventory
+    ///
+    func addInventory(user: String) -> Inventory {
+        let inventory = NSEntityDescription.insertNewObject(forEntityName:
+        "Inventory", into: persistentContainer.viewContext) as! Inventory
+        inventory.userID = user
+        cleanup()
+        return inventory
+    }
+    
+    /// Sets up the inventory when the user opens the app. This fetches all instances of inventory from core data
+    /// and gets out the one that is consistent with the ID of the user from the firebase log in
+    ///
+    /// - Throws: 'error' if the data could not be fetched from the persistent container
+    ///
+    /// - Returns: When setting up, if the user does not have an inventory in database, it will create one for them
+    ///
+    func setupInventory(){
+        var inv = [Inventory]()
+        let request: NSFetchRequest<Inventory> = Inventory.fetchRequest()
+        let predicate = NSPredicate(format: "userID = %@", currentUser!.uid)
+        request.predicate = predicate
+        do {
+            try inv = persistentContainer.viewContext.fetch(request)
+        } catch {
+            print("Fetch Request Failed: \(error)")
+        }
+        
+        if let inventory = inv.first {
+            userInventory = inventory
+            return
+        }
+        
+        userInventory = addInventory(user: currentUser!.uid)
+        return
+    }
+    
+    /// Fetches all instances of Inventory Object from core data using the ID of the current logged in user
+    ///
+    /// - Throws: 'error' if the fetch request failed and the data could not be retrieved from persistent storage
+    ///
+    /// - Returns inventory: An instance of the NSObject Inventory
+    ///
+    func fetchAllInventory() -> Inventory {
+        if allInventoryFetchedResultsController == nil {
+            let fetchRequest: NSFetchRequest<Inventory> = Inventory.fetchRequest()
+            let nameSortDescriptor = NSSortDescriptor(key: "userID", ascending: true)
+            let predicate = NSPredicate(format: "userID == %@",
+                                        currentUser!.uid)
+            fetchRequest.sortDescriptors = [nameSortDescriptor]
+            fetchRequest.predicate = predicate
+            
+            // Initialise Fetched Results Controller
+            allInventoryFetchedResultsController =
+            NSFetchedResultsController<Inventory>(fetchRequest: fetchRequest,
+            managedObjectContext: persistentContainer.viewContext,
+            sectionNameKeyPath: nil, cacheName: nil)
+            // Set this class to be the results delegate
+            allInventoryFetchedResultsController?.delegate = self
+            
+            do {
+                try allInventoryFetchedResultsController?.performFetch()
+            } catch {
+                print("Fetch Request Failed: \(error)")
+            }
+        }
+        
+        var inventory = Inventory()
+        if allInventoryFetchedResultsController?.fetchedObjects?.first != nil {
+            inventory = (allInventoryFetchedResultsController?.fetchedObjects?.first)!
+        }
+        print(inventory.userID)
+        return inventory
+    }
+    
+    func addBadgeToInventory(badge: Badge, inventory: Inventory) -> Bool {
+        return false
+    }
+    
+    func controllerDidChangeContent(_ controller:
+                                    NSFetchedResultsController<NSFetchRequestResult>){
+        if controller == allInventoryFetchedResultsController {
+            listeners.invoke() { listener in
+                if listener.listenerType == .inventory
+                    || listener.listenerType == .all {
+                    listener.onInventoryChange(change: .update, inventory: fetchAllInventory())
+                }
+            }
+        }
+    }
+    
+    /**
+     Firebase Storage
+     */
     var listeners = MulticastDelegate<DatabaseListener>()
+    
     
     var currentCharacter: Character?
     var currentCharImage: UIImage?
@@ -19,7 +131,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var allTasksList: [TaskItem]
     var thisUser: User
     var allUnitList: [Unit]
-    var progressList: [Int]
+    var progressList: [String : Int]
+    var userInventory: Inventory?
     var badgeList: [Int]
     var authController: Auth
     var database: Firestore
@@ -41,9 +154,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
         allTasksList = [TaskItem]()
         thisUser = User()
         allUnitList = [Unit]()
-        progressList = [Int]()
+        progressList = [String : Int]()
         badgeList = [Int]()
+        
+        persistentContainer = NSPersistentContainer(name: "Shroom-DataModel")
+        persistentContainer.loadPersistentStores() { (description, error ) in
+            if let error = error {
+            fatalError("Failed to load Core Data Stack with error: \(error)")
+            }
+        }
         super.init()
+        
+        getLast7Days()
     }
     
     func setUpUser() async throws {
@@ -57,15 +179,17 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 self.setupTaskListener()
                 self.setupUnitListener()
                 self.setupUserListener()
+                self.setupInventory()
+                
             } else {
                 self.thisUser = self.createNewUser()
                 self.setupCharacterListener()
                 self.tasksRef = self.database.collection("tasks")
                 self.setupTaskListener()
                 self.setupUnitListener()
+                self.setupProgress()
             }
         }
-        
     }
     func createNewUser() -> User {
         var newUser = User()
@@ -73,7 +197,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         newUser.taskList = []
         newUser.unitList = []
         newUser.badges = []
-        newUser.productivity = [0, 0, 0, 0, 0, 0, 0]
+        newUser.productivity = [:]
+        for day in days {
+            newUser.productivity[day] = 0
+        }
         do {
             if let userRef = try userRef?.document(currentUser!.uid).setData(from: newUser) {
                 print("Sucessfull")
@@ -134,6 +261,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         if listener.listenerType == .badges || listener.listenerType == .all {
             listener.onBadgesChange(change: .update, badges: thisUser.badges)
+        }
+        if listener.listenerType == .inventory || listener.listenerType == .all {
+            listener.onInventoryChange(change: .update, inventory: fetchAllInventory())
         }
     }
     
@@ -225,9 +355,79 @@ class FirebaseController: NSObject, DatabaseProtocol {
         // do nothing
     }
     
-    func cleanup() {
-        // do nothing
+    var days: [String] = []
+    
+    func getLast7Days(){
+        let cal = Calendar.current
+        var date = cal.startOfDay(for: Date())
+        for _ in 1 ... 7 {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM"
+            let currentDateString: String = dateFormatter.string(from: date)
+            days.append(currentDateString)
+            date = cal.date(byAdding: Calendar.Component.day, value: -1, to: date)!
+        }
     }
+    
+    func setupProgress(){
+        var progress = thisUser.productivity
+        if progress.isEmpty {
+            for day in days {
+                progress[day] = 0
+            }
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        let today: String = dateFormatter.string(from: Date())
+        
+        if let key = progress[today] {
+            print("Has all days set")
+            return
+        }
+        
+        let cal = Calendar.current
+        let newDate = cal.date(byAdding: Calendar.Component.day, value: -7, to: Date())
+        let date7DaysAgo = dateFormatter.string(from: newDate!)
+        removeDate(date: date7DaysAgo)
+        addDate(date: today)
+        updateProgress(user: currentUser!.uid)
+    }
+    
+    func addDate(date: String) {
+        thisUser.productivity[date] = 0
+    }
+    
+    func removeDate(date: String) {
+        thisUser.productivity.removeValue(forKey: date)
+    }
+    
+    func addCompletedTaskToProgress(date: String, user: String) {
+        let currentVal = thisUser.productivity[date]! + 1
+        thisUser.productivity.updateValue(currentVal, forKey: date)
+        updateProgress(user: user)
+    }
+    
+    func updateProgress(user: String){
+        userRef?.document(user).updateData([
+            "productivity": thisUser.productivity
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
+    
+    
+    func cleanup() {
+        if persistentContainer.viewContext.hasChanges {
+            do {
+                try persistentContainer.viewContext.save()
+            } catch {
+                fatalError("Failed to save changes to Core Data with error: \(error)")
+            }
+        }    }
     
     // MARK: - Firebase Controller Specific m=Methods
     func getTaskByID(_ id: String) -> TaskItem? {
@@ -278,7 +478,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
    func setupUserListener(){
-       userRef = database.collection("users")
+       /*userRef = database.collection("users")
        userRef?.whereField("id", isEqualTo: currentUser?.uid).addSnapshotListener {
            (querySnapshot, error) in
            guard let querySnapshot = querySnapshot, let userSnapshot = querySnapshot.documents.first else {
@@ -286,7 +486,24 @@ class FirebaseController: NSObject, DatabaseProtocol {
                return
            }
            self.parseUserSnapshot(snapshot: userSnapshot)
-        }
+        }*/
+       currentUser = authController.currentUser
+           userRef = database.collection("users")
+           
+           guard let userID = currentUser?.uid else {
+               return
+           }
+           
+           let userDocument = userRef!.document(userID)
+           
+       userDocument.addSnapshotListener { documentSnapshot, error in
+           guard let document = documentSnapshot else {
+               print("Error fetching user document: \(error?.localizedDescription ?? "Unknown error")")
+               return
+           }
+           self.parseUserSnapshot(snapshot: document)
+       }
+       
     }
     
     func setupTaskListener() {
@@ -384,8 +601,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func parseUserSnapshot(snapshot: QueryDocumentSnapshot){
-        if let taskReferences = snapshot.data()["taskList"] as? [DocumentReference] {
+    func parseUserSnapshot(snapshot: DocumentSnapshot){
+        
+        guard let snapshotData = snapshot.data() else {
+            print("User document is empty.")
+            return
+        }
+        
+        if let taskReferences = snapshotData["taskList"] as? [DocumentReference] {
             thisUser.taskList = []
             for reference in taskReferences {
                 if let task = getTaskByID(reference.documentID) {
@@ -398,7 +621,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     }
                 }
             }
-        if let unitReference = snapshot.data()["unitList"] as? [DocumentReference]{
+        
+        if let unitReference = snapshotData["unitList"] as? [DocumentReference]{
             thisUser.unitList = []
             for reference in unitReference {
                 if let unit = getUnitByID(reference.documentID){
@@ -412,15 +636,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
         }
         
-        if let progressReference = snapshot.data()["productivity"] {
-            thisUser.productivity = progressReference as! [Int]
+        if let progressReference = snapshotData["productivity"] {
+            thisUser.productivity = progressReference as! [String : Int]
             listeners.invoke { (listener) in
                 if listener.listenerType == ListenerType.progress || listener.listenerType == ListenerType.all {
                     listener.onProgressChange(change: .update, progress: progressList)
                 }
             }
         }
-
-        }
-    
+        self.setupProgress()
+    }
 }

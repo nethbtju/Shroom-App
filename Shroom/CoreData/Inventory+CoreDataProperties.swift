@@ -16,10 +16,9 @@ extension Inventory {
         return NSFetchRequest<Inventory>(entityName: "Inventory")
     }
 
-    @NSManaged public var userID: String?
-    @NSManaged public var badges: [Badge]?
+    @NSManaged public var badges: [Int]?
     @NSManaged public var items: NSObject?
-    @NSManaged public var badge: Badge?
+    @NSManaged public var userID: String?
 
 }
 

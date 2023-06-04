@@ -9,7 +9,11 @@ import UIKit
 import SwiftUI
 
 class AddTaskViewController: UIViewController, DatabaseListener {
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        //
+    }
+    
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
         //
     }
     

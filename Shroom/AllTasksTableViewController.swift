@@ -9,8 +9,12 @@ import UIKit
 import SwiftUI
 
 class AllTasksTableViewController: UITableViewController, DatabaseListener {
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
     
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
+    
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         //
     }
     

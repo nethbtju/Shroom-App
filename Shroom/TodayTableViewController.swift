@@ -9,9 +9,18 @@ import UIKit
 import Siesta
 
 class TodayTableViewController: UITableViewController, DatabaseListener {
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        //
+    }
+    
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
+    
+    
     @IBOutlet weak var holidayLabel: UILabel!
     
     var holidays: [String] = []
@@ -33,9 +42,6 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
         // do nothing
-    }
-    func onProgressChange(change: DatabaseChange, progress: [Int]) {
-        //
     }
     
     func onBadgesChange(change: DatabaseChange, badges: [Int]) {
