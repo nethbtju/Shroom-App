@@ -4,12 +4,11 @@
         <attribute name="badgeID" optional="YES" attributeType="String"/>
         <attribute name="badgePoints" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="badgeType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="inventory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Inventory"/>
+        <relationship name="inventory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Inventory" inverseName="badges" inverseEntity="Inventory"/>
     </entity>
     <entity name="Inventory" representedClassName="Inventory" syncable="YES">
-        <attribute name="badges" optional="YES" attributeType="Transformable"/>
-        <attribute name="items" optional="YES" attributeType="Transformable"/>
         <attribute name="tasksCompleted" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="userID" optional="YES" attributeType="String"/>
+        <relationship name="badges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Badge" inverseName="inventory" inverseEntity="Badge"/>
     </entity>
 </model>

@@ -10,6 +10,7 @@ import UIKit
 class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTaskDelegate {
     func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
         self.inventory = inventory
+        self.badges = inventory.badges
         print(self.inventory?.tasksCompleted)
     }
     
@@ -48,6 +49,22 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         //
     }
     
+    func checkUserBadges(){
+        guard let currentUserPoints = inventory?.tasksCompleted, let inv = inventory else {
+            print("Could not parse user tasks completed")
+            return
+        }
+        for badge in allBadges {
+            if currentUserPoints >= badge.badgeType && badges.contains(badge) == false {
+                if ((databaseController?.addBadgeToInventory(badge: badge, inventory: inv)) != nil) {
+                    print("Badge added to inventory")
+                }
+            }
+        }
+    }
+    
+    var badges: [Badge]
+    
     var task: TaskItem?
     
     var currentCharacter: Character?
@@ -57,6 +74,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     var progress: [String : Int] = [:]
     
     var inventory: Inventory?
+    
+    var allBadges: [Badge]
     
     let progressView = CircularProgressBarView(frame: CGRect(x: 0, y: -100, width: 300, height: 300), lineWidth: 15, rounded: false)
     

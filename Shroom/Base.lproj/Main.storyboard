@@ -2514,10 +2514,10 @@
             </objects>
             <point key="canvasLocation" x="3280" y="2530"/>
         </scene>
-        <!--View Controller-->
+        <!--Badges View Controller-->
         <scene sceneID="QEQ-z0-a7G">
             <objects>
-                <viewController id="g9D-bX-VU5" sceneMemberID="viewController">
+                <viewController id="g9D-bX-VU5" customClass="BadgesViewController" customModule="Shroom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oHS-Uk-U39">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2545,48 +2545,77 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qcm-P5-T1P">
-                                <rect key="frame" x="0.0" y="69" width="393" height="517"/>
+                                <rect key="frame" x="30" y="69" width="333" height="517"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C8h-k1-oZg">
-                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="itemSize" width="118" height="95"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gWs-MU-9qA">
-                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="badgeCell" id="gWs-MU-9qA" customClass="BadgeCollectionViewCell" customModule="Shroom" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="118" height="95"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="psx-a4-RRc">
-                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="118" height="95"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y37-eH-JLM">
-                                                    <rect key="frame" x="15" y="15" width="98" height="98"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TokenBadge" translatesAutoresizingMaskIntoConstraints="NO" id="t51-mO-4Zw">
+                                                    <rect key="frame" x="20" y="2" width="78" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="1fI-WU-aby"/>
+                                                        <constraint firstAttribute="width" constant="60" id="opr-wF-jxI"/>
+                                                    </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cS-qv-W6D">
+                                                    <rect key="frame" x="21" y="67" width="76.333333333333329" height="23"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Stone Badge">
+                                                            <attributes>
+                                                                <font key="NSFont" size="12" name="ConnectionBold"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                    <lineBreakStrategy key="lineBreakStrategy" pushOut="YES"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Y37-eH-JLM" firstAttribute="top" secondItem="psx-a4-RRc" secondAttribute="top" constant="15" id="0t7-QY-iat"/>
-                                                <constraint firstItem="Y37-eH-JLM" firstAttribute="leading" secondItem="psx-a4-RRc" secondAttribute="leading" constant="15" id="Y7H-T2-peg"/>
-                                                <constraint firstAttribute="trailing" secondItem="Y37-eH-JLM" secondAttribute="trailing" constant="15" id="rM5-aC-She"/>
-                                                <constraint firstAttribute="bottom" secondItem="Y37-eH-JLM" secondAttribute="bottom" constant="15" id="vm6-BJ-as3"/>
+                                                <constraint firstAttribute="trailing" secondItem="t51-mO-4Zw" secondAttribute="trailing" constant="20" id="1z4-kA-VQd"/>
+                                                <constraint firstItem="t51-mO-4Zw" firstAttribute="top" secondItem="psx-a4-RRc" secondAttribute="top" constant="2" id="IBn-R1-0Ks"/>
+                                                <constraint firstItem="t51-mO-4Zw" firstAttribute="centerX" secondItem="psx-a4-RRc" secondAttribute="centerX" id="IIM-ck-5wn"/>
+                                                <constraint firstItem="5cS-qv-W6D" firstAttribute="centerX" secondItem="psx-a4-RRc" secondAttribute="centerX" id="QuR-Ju-OSr"/>
+                                                <constraint firstAttribute="bottom" secondItem="5cS-qv-W6D" secondAttribute="bottom" constant="5" id="WRT-ZJ-6kM"/>
+                                                <constraint firstItem="t51-mO-4Zw" firstAttribute="leading" secondItem="psx-a4-RRc" secondAttribute="leading" constant="20" id="pY5-vH-fhf"/>
+                                                <constraint firstItem="5cS-qv-W6D" firstAttribute="top" secondItem="t51-mO-4Zw" secondAttribute="bottom" constant="5" id="rMw-XD-0nQ"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="118" height="95"/>
+                                        <connections>
+                                            <outlet property="badgeImage" destination="t51-mO-4Zw" id="EeV-ko-g0z"/>
+                                            <outlet property="badgeName" destination="5cS-qv-W6D" id="96w-mj-d9E"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="g9D-bX-VU5" id="AgB-CI-N71"/>
+                                    <outlet property="delegate" destination="g9D-bX-VU5" id="3ZY-Wu-dWk"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7pR-Ej-Pgy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="kCy-H7-299" secondAttribute="trailing" constant="20" id="50Y-WH-t5R"/>
-                            <constraint firstItem="7pR-Ej-Pgy" firstAttribute="trailing" secondItem="qcm-P5-T1P" secondAttribute="trailing" id="C0y-TU-Ck0"/>
+                            <constraint firstItem="7pR-Ej-Pgy" firstAttribute="trailing" secondItem="qcm-P5-T1P" secondAttribute="trailing" constant="30" id="C0y-TU-Ck0"/>
                             <constraint firstItem="kCy-H7-299" firstAttribute="leading" secondItem="DNC-JM-Qm1" secondAttribute="leading" id="ORV-5S-ugf"/>
                             <constraint firstItem="7pR-Ej-Pgy" firstAttribute="bottom" secondItem="qcm-P5-T1P" secondAttribute="bottom" id="PhV-M8-ASm"/>
                             <constraint firstItem="DNC-JM-Qm1" firstAttribute="top" secondItem="oHS-Uk-U39" secondAttribute="top" constant="20" id="YMp-bc-qoH"/>
                             <constraint firstItem="qcm-P5-T1P" firstAttribute="top" secondItem="7pR-Ej-Pgy" secondAttribute="top" constant="10" id="d3u-ZH-7cs"/>
                             <constraint firstItem="kCy-H7-299" firstAttribute="top" secondItem="DNC-JM-Qm1" secondAttribute="bottom" constant="5" id="hgE-cN-ULo"/>
-                            <constraint firstItem="qcm-P5-T1P" firstAttribute="leading" secondItem="7pR-Ej-Pgy" secondAttribute="leading" id="n8K-Nc-Oyg"/>
+                            <constraint firstItem="qcm-P5-T1P" firstAttribute="leading" secondItem="7pR-Ej-Pgy" secondAttribute="leading" constant="30" id="n8K-Nc-Oyg"/>
                             <constraint firstItem="DNC-JM-Qm1" firstAttribute="leading" secondItem="oHS-Uk-U39" secondAttribute="leading" constant="35" id="tW2-tN-l4u"/>
                         </constraints>
                     </view>
@@ -2600,6 +2629,7 @@
     <resources>
         <image name="BackgroundImage" width="4688" height="1963"/>
         <image name="ShroomLogo" width="2498" height="371"/>
+        <image name="TokenBadge" width="653" height="656"/>
         <image name="archivebox.fill" catalog="system" width="128" height="107"/>
         <image name="blueshroom" width="659" height="782"/>
         <image name="button.programmable" catalog="system" width="128" height="123"/>

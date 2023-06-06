@@ -2,7 +2,7 @@
 //  Badge+CoreDataProperties.swift
 //  Shroom
 //
-//  Created by Neth Botheju on 3/6/2023.
+//  Created by Neth Botheju on 7/6/2023.
 //
 //
 
@@ -19,7 +19,7 @@ extension Badge {
     @NSManaged public var badgeID: String?
     @NSManaged public var badgePoints: Int32
     @NSManaged public var badgeType: Int32
-    @NSManaged public var inventory: Inventory?
+    @NSManaged public var inventory: NSSet?
 
 }
 
