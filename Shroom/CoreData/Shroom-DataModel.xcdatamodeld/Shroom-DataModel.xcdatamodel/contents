@@ -9,6 +9,7 @@
     <entity name="Inventory" representedClassName="Inventory" syncable="YES">
         <attribute name="badges" optional="YES" attributeType="Transformable"/>
         <attribute name="items" optional="YES" attributeType="Transformable"/>
+        <attribute name="tasksCompleted" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="userID" optional="YES" attributeType="String"/>
     </entity>
 </model>

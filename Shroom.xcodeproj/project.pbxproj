@@ -22,6 +22,9 @@
 		C708AE012A24645900127CB2 /* CircularProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708AE002A24645900127CB2 /* CircularProgressBarView.swift */; };
 		C708AE052A26144600127CB2 /* CurrentTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708AE042A26144600127CB2 /* CurrentTaskDelegate.swift */; };
 		C70F4E482A1F52BD009696BB /* AddUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */; };
+		C723E94E2A2F354400066E3F /* Inventory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C723E94C2A2F354400066E3F /* Inventory+CoreDataClass.swift */; };
+		C723E94F2A2F354400066E3F /* Inventory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C723E94D2A2F354400066E3F /* Inventory+CoreDataProperties.swift */; };
+		C723E9532A2F7AB800066E3F /* BadgesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C723E9522A2F7AB800066E3F /* BadgesViewController.swift */; };
 		C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931A2A049E48006966B7 /* AuthenticationViewController.swift */; };
 		C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931C2A04AE4B006966B7 /* SignUpViewController.swift */; };
 		C732931F2A04AE59006966B7 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931E2A04AE59006966B7 /* LogInViewController.swift */; };
@@ -53,8 +56,6 @@
 		C779D9142A1B73DD00D96570 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C779D9132A1B73DD00D96570 /* Unit.swift */; };
 		C7CCFACE2A2AD5B300821E10 /* ChartUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */; };
 		C7CCFAD22A2B069000821E10 /* Shroom-DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7CCFAD02A2B069000821E10 /* Shroom-DataModel.xcdatamodeld */; };
-		C7EFD9102A2B28F8006CA613 /* Inventory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFD90C2A2B28F8006CA613 /* Inventory+CoreDataClass.swift */; };
-		C7EFD9112A2B28F8006CA613 /* Inventory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFD90D2A2B28F8006CA613 /* Inventory+CoreDataProperties.swift */; };
 		C7EFD9122A2B28F8006CA613 /* Badge+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFD90E2A2B28F8006CA613 /* Badge+CoreDataClass.swift */; };
 		C7EFD9132A2B28F8006CA613 /* Badge+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFD90F2A2B28F8006CA613 /* Badge+CoreDataProperties.swift */; };
 		C7EFD9152A2B57F4006CA613 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFD9142A2B57F4006CA613 /* SegmentedViewController.swift */; };
@@ -74,6 +75,9 @@
 		C708AE002A24645900127CB2 /* CircularProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBarView.swift; sourceTree = "<group>"; };
 		C708AE042A26144600127CB2 /* CurrentTaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTaskDelegate.swift; sourceTree = "<group>"; };
 		C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUnitViewController.swift; sourceTree = "<group>"; };
+		C723E94C2A2F354400066E3F /* Inventory+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inventory+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C723E94D2A2F354400066E3F /* Inventory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inventory+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C723E9522A2F7AB800066E3F /* BadgesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesViewController.swift; sourceTree = "<group>"; };
 		C732931A2A049E48006966B7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		C732931C2A04AE4B006966B7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C732931E2A04AE59006966B7 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -104,8 +108,6 @@
 		C779D9132A1B73DD00D96570 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartUIView.swift; sourceTree = "<group>"; };
 		C7CCFAD12A2B069000821E10 /* Shroom-DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Shroom-DataModel.xcdatamodel"; sourceTree = "<group>"; };
-		C7EFD90C2A2B28F8006CA613 /* Inventory+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inventory+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C7EFD90D2A2B28F8006CA613 /* Inventory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inventory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C7EFD90E2A2B28F8006CA613 /* Badge+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Badge+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C7EFD90F2A2B28F8006CA613 /* Badge+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Badge+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C7EFD9142A2B57F4006CA613 /* SegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				C7EFD9142A2B57F4006CA613 /* SegmentedViewController.swift */,
 				C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */,
 				C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */,
+				C723E9522A2F7AB800066E3F /* BadgesViewController.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -212,8 +215,8 @@
 		C7CCFACF2A2B066C00821E10 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				C7EFD90C2A2B28F8006CA613 /* Inventory+CoreDataClass.swift */,
-				C7EFD90D2A2B28F8006CA613 /* Inventory+CoreDataProperties.swift */,
+				C723E94C2A2F354400066E3F /* Inventory+CoreDataClass.swift */,
+				C723E94D2A2F354400066E3F /* Inventory+CoreDataProperties.swift */,
 				C7EFD90E2A2B28F8006CA613 /* Badge+CoreDataClass.swift */,
 				C7EFD90F2A2B28F8006CA613 /* Badge+CoreDataProperties.swift */,
 				C7CCFAD02A2B069000821E10 /* Shroom-DataModel.xcdatamodeld */,
@@ -311,17 +314,18 @@
 				C7433D9C29E17AF400B16B52 /* ViewController.swift in Sources */,
 				C708AE052A26144600127CB2 /* CurrentTaskDelegate.swift in Sources */,
 				C779D9122A1A464F00D96570 /* UnitTableViewController.swift in Sources */,
+				C723E94E2A2F354400066E3F /* Inventory+CoreDataClass.swift in Sources */,
 				C708ADF22A23472300127CB2 /* TabBarViewController.swift in Sources */,
 				C708ADEE2A21D8EB00127CB2 /* AddTaskViewController.swift in Sources */,
 				C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */,
 				C7CCFAD22A2B069000821E10 /* Shroom-DataModel.xcdatamodeld in Sources */,
-				C7EFD9112A2B28F8006CA613 /* Inventory+CoreDataProperties.swift in Sources */,
 				C7433D9829E17AF400B16B52 /* AppDelegate.swift in Sources */,
 				C7433DC129E17FBD00B16B52 /* DatabaseProtocol.swift in Sources */,
+				C723E9532A2F7AB800066E3F /* BadgesViewController.swift in Sources */,
 				C735D4DF29EFBE8F009DF770 /* User.swift in Sources */,
 				C708ADE82A21A86100127CB2 /* ProductivityChartViewController.swift in Sources */,
+				C723E94F2A2F354400066E3F /* Inventory+CoreDataProperties.swift in Sources */,
 				C779D90C2A19F57B00D96570 /* UpcomingViewController.swift in Sources */,
-				C7EFD9102A2B28F8006CA613 /* Inventory+CoreDataClass.swift in Sources */,
 				C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */,
 				C708ADFA2A2378EF00127CB2 /* HolidayAPI.swift in Sources */,
 				C735D4E329EFBEAE009DF770 /* TaskItem.swift in Sources */,

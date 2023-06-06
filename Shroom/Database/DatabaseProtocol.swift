@@ -65,6 +65,7 @@ protocol DatabaseProtocol: AnyObject {
     func removeTaskFromList(task: TaskItem, user: User)
     
     func addCompletedTaskToProgress(date: String, user: String)
+    func updateInventoryTasks() -> Inventory
 
     func updateCharacterStats(char: Character, user: String)
     

@@ -33,6 +33,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         let inventory = NSEntityDescription.insertNewObject(forEntityName:
         "Inventory", into: persistentContainer.viewContext) as! Inventory
         inventory.userID = user
+        inventory.tasksCompleted = 0
         cleanup()
         return inventory
     }
@@ -80,10 +81,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             fetchRequest.predicate = predicate
             
             // Initialise Fetched Results Controller
-            allInventoryFetchedResultsController =
-            NSFetchedResultsController<Inventory>(fetchRequest: fetchRequest,
-            managedObjectContext: persistentContainer.viewContext,
-            sectionNameKeyPath: nil, cacheName: nil)
+            allInventoryFetchedResultsController = NSFetchedResultsController<Inventory>(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
             // Set this class to be the results delegate
             allInventoryFetchedResultsController?.delegate = self
             
@@ -94,11 +92,19 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             }
         }
         
-        var inventory = Inventory()
+        var fetchedInventory = Inventory()
         if allInventoryFetchedResultsController?.fetchedObjects?.first != nil {
-            inventory = (allInventoryFetchedResultsController?.fetchedObjects?.first)!
+            fetchedInventory = (allInventoryFetchedResultsController?.fetchedObjects?.first)!
         }
+        
+        guard let inventory = userInventory else {
+            return fetchedInventory
+        }
+        
+        userInventory = fetchedInventory
         print(inventory.userID)
+        print(inventory.tasksCompleted)
+        
         return inventory
     }
     
@@ -113,6 +119,18 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return false
     }
     
+    func updateInventoryTasks() -> Inventory {
+        guard var inventory = userInventory else {
+            print("Core Data could not update the tasks count")
+            return userInventory!
+        }
+        
+        inventory.tasksCompleted += 1
+        print(inventory.tasksCompleted)
+        cleanup()
+        return inventory
+
+    }
     
     /// Listens for changes in the database that requires the inventory to be fetched again
     ///
@@ -126,6 +144,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 if listener.listenerType == .inventory
                     || listener.listenerType == .all {
                     listener.onInventoryChange(change: .update, inventory: fetchAllInventory())
+                    
                 }
             }
         }
@@ -179,8 +198,22 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             }
         }
         super.init()
-        
+        /*
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Inventory")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try persistentContainer.viewContext.execute(batchDeleteRequest)
+        } catch {
+            print("Failed to delete data: \(error)")
+        }
+        do {
+            try persistentContainer.viewContext.save()
+        } catch {
+            print("Failed to save changes: \(error)")
+        }*/
         getLast7Days()
+
     }
     
     /// Sets up the user by fetching all needed documents and fields from the firebase
@@ -192,22 +225,15 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         userRef = database.collection("users")
         let user = userRef!.document(currentUser!.uid)
         user.getDocument { (document, error) in
-            if let document = document, document.exists {
-                self.setupCharacterListener()
-                self.tasksRef = self.database.collection("tasks")
-                self.setupTaskListener()
-                self.setupUnitListener()
-                self.setupUserListener()
-                self.setupInventory()
-                
-            } else {
+            if let document = document, document.exists == false {
                 self.thisUser = self.createNewUser()
-                self.setupCharacterListener()
-                self.tasksRef = self.database.collection("tasks")
-                self.setupTaskListener()
-                self.setupUnitListener()
-                self.setupProgress()
             }
+            self.setupCharacterListener()
+            self.tasksRef = self.database.collection("tasks")
+            self.setupUserListener()
+            self.setupTaskListener()
+            self.setupUnitListener()
+            self.setupInventory()
         }
     }
     
@@ -523,26 +549,38 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     /// has stored in the firebase
     func setupProgress(){
         var progress = thisUser.productivity
+        
         if progress.isEmpty {
             for day in days {
                 progress[day] = 0
             }
+        } else {
+            for day in days{
+                if progress[day] == nil {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "dd/MM"
+                    guard var thisDay = dateFormatter.date(from: day) else {
+                        print("Could not return date")
+                        return
+                    }
+                    var dateComponent = DateComponents()
+                    dateComponent.day = -7
+                    guard let pastDate = Calendar.current.date(byAdding: dateComponent, to: thisDay) else {
+                        print("Could not convert date to past date")
+                        return
+                    }
+                    
+                    dateFormatter.dateFormat = "dd/MM"
+                    let pastDateString: String = dateFormatter.string(from: pastDate)
+                    if (thisUser.productivity[pastDateString] != nil) {
+                        thisUser.productivity.removeValue(forKey: pastDateString)
+                    }
+                    thisUser.productivity[day] = 0
+                    updateProgress(user: currentUser!.uid)
+                    
+                }
+            }
         }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM"
-        let today: String = dateFormatter.string(from: Date())
-        
-        if let key = progress[today] {
-            print("Has all days set")
-            return
-        }
-        
-        let cal = Calendar.current
-        let newDate = cal.date(byAdding: Calendar.Component.day, value: -7, to: Date())
-        let date7DaysAgo = dateFormatter.string(from: newDate!)
-        thisUser.productivity.removeValue(forKey: date7DaysAgo)
-        thisUser.productivity[today] = 0
-        updateProgress(user: currentUser!.uid)
     }
     
     /// Adds a completed task to the user's progress bars by incrementing their activity on the current

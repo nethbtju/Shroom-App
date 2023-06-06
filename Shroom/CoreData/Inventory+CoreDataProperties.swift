@@ -2,7 +2,7 @@
 //  Inventory+CoreDataProperties.swift
 //  Shroom
 //
-//  Created by Neth Botheju on 3/6/2023.
+//  Created by Neth Botheju on 6/6/2023.
 //
 //
 
@@ -16,9 +16,10 @@ extension Inventory {
         return NSFetchRequest<Inventory>(entityName: "Inventory")
     }
 
-    @NSManaged public var badges: [Int]?
-    @NSManaged public var items: NSObject?
+    @NSManaged public var badges: [Badge]?
+    @NSManaged public var items: [Int32]?
     @NSManaged public var userID: String?
+    @NSManaged public var tasksCompleted: Int32
 
 }
 

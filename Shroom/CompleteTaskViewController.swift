@@ -9,7 +9,8 @@ import UIKit
 
 class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTaskDelegate {
     func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        //
+        self.inventory = inventory
+        print(self.inventory?.tasksCompleted)
     }
     
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
@@ -54,6 +55,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     var taskList: [TaskItem] = []
     
     var progress: [String : Int] = [:]
+    
+    var inventory: Inventory?
     
     let progressView = CircularProgressBarView(frame: CGRect(x: 0, y: -100, width: 300, height: 300), lineWidth: 15, rounded: false)
     
@@ -103,6 +106,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         dateFormatter.dateFormat = "dd/MM"
         let currentDateString: String = dateFormatter.string(from: Date())
         databaseController?.addCompletedTaskToProgress(date: currentDateString, user: thisUser)
+        let _ = databaseController?.updateInventoryTasks()
         return true
     }
     
@@ -145,6 +149,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
             pauseTimer()
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonName.tintColor = UIColor(named: "CoralColor")
