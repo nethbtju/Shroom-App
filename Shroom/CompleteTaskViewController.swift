@@ -8,50 +8,6 @@
 import UIKit
 
 class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTaskDelegate {
-    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        self.allBadges = badges
-        print(allBadges.count)
-    }
-    
-    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        self.inventory = inventory
-        print(self.inventory?.tasksCompleted)
-    }
-    
-    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
-        self.progress = progress
-    }
-    
-    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        print(badges.count)
-    }
-    
-    func currentTaskIs(_ task: TaskItem) -> Bool {
-        self.task = task
-        return true
-    }
-    
-    @IBOutlet weak var backButton: UIButton!
-    
-    @IBAction func goBackButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBOutlet weak var taskTitle: UILabel!
-    
-    var listenerType = ListenerType.all
-    
-    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
-        taskList = tasks
-    }
-    
-    func onListChange(change: DatabaseChange, unitList: [Unit]) {
-        //
-    }
-    
-    func onCharacterChange(change: DatabaseChange, character: Character) {
-        //
-    }
     
     var badges: [Badge] = []
     
@@ -67,15 +23,9 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     
     var allBadges: [Badge] = []
     
+    var listenerType = ListenerType.all
+    
     let progressView = CircularProgressBarView(frame: CGRect(x: 0, y: -100, width: 300, height: 300), lineWidth: 15, rounded: false)
-    
-    @IBOutlet weak var countDown: UILabel!
-    
-    @IBOutlet weak var timerSet: UIDatePicker!
-    
-    @IBOutlet weak var buttonName: UIButton!
-    
-    @IBOutlet weak var completeTaskName: UIButton!
     
     weak var databaseController: DatabaseProtocol?
     
@@ -85,10 +35,31 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     
     var timeRemaining: Int?
     
+    @IBOutlet weak var backButton: UIButton!
+    
+    @IBAction func goBackButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var taskTitle: UILabel!
+    
+    @IBOutlet weak var countDown: UILabel!
+    
+    @IBOutlet weak var timerSet: UIDatePicker!
+    
+    @IBOutlet weak var buttonName: UIButton!
+    
+    @IBOutlet weak var completeTaskName: UIButton!
+    
     @IBAction func completeTaskButton(_ sender: Any) {
         if completeTask(){
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func currentTaskIs(_ task: TaskItem) -> Bool {
+        self.task = task
+        return true
     }
     
     func setUpTimer(){
@@ -197,6 +168,34 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         }
         taskTitle.text = task.name
         currentCharacter = databaseController?.currentCharacter
+    }
+    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        self.allBadges = badges
+    }
+    
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        self.inventory = inventory
+    }
+    
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        self.progress = progress
+    }
+    
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        // do nothing
+    }
+    
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        taskList = tasks
+    }
+    
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        //
+    }
+    
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        //
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Customer collection for the units collection 
 class UnitCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var progressBar: UIView!

@@ -9,76 +9,8 @@ import UIKit
 import Siesta
 
 class TodayTableViewController: UITableViewController, DatabaseListener {
-    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
-        //
-    }
-    
-    func onListChange(change: DatabaseChange, unitList: [Unit]) {
-        // do nothing
-    }
-    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        //
-    }
-    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    @IBOutlet weak var holidayLabel: UILabel!
     
     var holidays: [String] = []
-    
-    @IBOutlet weak var todayDate: UILabel!
-    
-    var listenerType = ListenerType.task
-    
-    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
-        allTasks = tasks
-        sortedTasks = allTasks.sorted(by: {$0.dueDate! < $1.dueDate!})
-        getTodayTasks()
-        tableView.reloadData()
-    }
-    
-    @IBAction func addTasks(_ sender: Any) {
-        showMyViewControllerInACustomizedSheet(controller: self)
-    }
-    
-    func onCharacterChange(change: DatabaseChange, character: Character) {
-        // do nothing
-    }
-    
-    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    
-    func stripTime(from originalDate: Date) -> Date {
-        let components = Calendar.current.dateComponents([.year, .month, .day], from: originalDate)
-        let date = Calendar.current.date(from: components)
-        return date!
-    }
-    
-    func setUpHoliday(){
-        var hols = ""
-        for dates in holidays {
-            hols += " \(dates)"
-        }
-        holidayLabel.text = "\(hols) • Australia"
-    }
-    
-    func getTodayTasks(){
-        var currentDateCheck = true
-        var currentIndex = 0
-        var taskCount = allTasks.count
-        while currentDateCheck && currentIndex < taskCount {
-            var date = sortedTasks[currentIndex].dueDate
-            if stripTime(from: date!) != stripTime(from: currentDate) {
-                currentDateCheck = false
-                return
-            } else{
-                var item = sortedTasks[currentIndex]
-                todayTasks.append(item)
-                currentIndex += 1
-            }
-        }
-    }
     
     var currentDate = Date()
     
@@ -96,6 +28,77 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     
     weak var databaseController: DatabaseProtocol?
     
+    var listenerType = ListenerType.task
+
+    @IBOutlet weak var holidayLabel: UILabel!
+    
+    @IBOutlet weak var todayDate: UILabel!
+    
+    /// When add task button is clicked the page modallu shows the half sheet page to add tasks
+    @IBAction func addTasks(_ sender: Any) {
+        showMyViewControllerInACustomizedSheet(controller: self)
+    }
+    
+    /// Sets up the label for the current holiday that the API parses to the controller
+    func setUpHoliday(){
+        var hols = ""
+        for dates in holidays {
+            hols += " \(dates)"
+        }
+        holidayLabel.text = "\(hols) • Australia"
+    }
+    
+    /// Fetches all the tasks that match the current date and puts them into the todayTasks list
+    func getTodayTasks(){
+        var currentDateCheck = true
+        var currentIndex = 0
+        let taskCount = allTasks.count
+        while currentDateCheck && currentIndex < taskCount {
+            guard let date = sortedTasks[currentIndex].dueDate else {
+                print("Could not retrieve due take from sorted tasks")
+                return
+            }
+            if stripTime(from: date) != stripTime(from: currentDate) {
+                currentDateCheck = false
+                return
+            } else{
+                let item = sortedTasks[currentIndex]
+                todayTasks.append(item)
+                currentIndex += 1
+            }
+        }
+    }
+    
+    /// Allows the date object from the due date be stripped into its date to compare with todays date string
+    ///
+    /// - Parameters: originalDate: Date - The date from the task object
+    func stripTime(from originalDate: Date) -> Date {
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: originalDate)
+        guard let date = Calendar.current.date(from: components) else {
+            print("Could not retrieve calender current date")
+            return Date()
+        }
+        return date
+    }
+    
+    /// Formats the date to show on the view controller date label
+    ///
+    /// - Parameters: today: Date - Today's date to show up on the label
+    func formatDate(_ today: Date) -> String? {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd"
+        let dayOfMonth = dateFormatter.string(from: today)
+
+        dateFormatter.dateFormat = "LLLL"
+        let monthString = dateFormatter.string(from: today)
+        
+        dateFormatter.dateFormat = "yyyy"
+        let yearString = dateFormatter.string(from: today)
+        
+        return "Today • \(dayOfMonth) • \(monthString) • \(yearString)"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -103,9 +106,41 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         
         todayDate.text = formatDate(currentDate)
         
+        /// Adds an observer to the holiday API that shows the holidays on that particular day
         HolidaysAPI.holidaysResource.addObserver(self)
         HolidaysAPI.holidaysResource.loadIfNeeded()
         
+    }
+    
+    /// When the tasks get updated, it shows the changes and updates the table to reflect the tasks accordingly
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        allTasks = tasks
+        sortedTasks = allTasks.sorted(by: {$0.dueDate! < $1.dueDate!})
+        getTodayTasks()
+        tableView.reloadData()
+    }
+    
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        // do nothing
+    }
+    
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        // do nothing
+    }
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        // do nothing
+    }
+    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        // do nothing
+    }
+    
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        // do nothing
+    }
+    
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        // do nothing
     }
 
     // MARK: - Table view data source
@@ -124,7 +159,6 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
             return 0
         }
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == SECTION_TASK{
@@ -136,17 +170,26 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
             cell.expText.text = "\(task.expPoints ?? 0) exp"
             cell.reminderText.text = task.reminder
             
-            let imageIcon = UIImage(systemName: "circle")?.withTintColor(UIColor(named: "LilacColor")!, renderingMode: .alwaysOriginal)
+            guard let colour = UIColor(named: "LilacColor") else {
+                print("Could not retrieve Lilac Color")
+                return cell
+            }
+            
+            let imageIcon = UIImage(systemName: "circle")?.withTintColor(colour, renderingMode: .alwaysOriginal)
             cell.imageView?.image = imageIcon
+            
             return cell
+            
         } else if indexPath.section == SECTION_NO && todayTasks.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "noTaskCell", for: indexPath) as! TaskTableViewCell
             cell.noTasks.text = "There are no tasks today. Add them using the + button!"
             return cell
+            
         } else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "noTaskCell", for: indexPath) as! TaskTableViewCell
             cell.noTasks.text = ""
             return cell
+            
         }
     }
     
@@ -159,74 +202,18 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
     }
-    
-    func formatDate(_ today: Date) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E"
-        let dayOfTheWeekString = dateFormatter.string(from: today)
-        
-        dateFormatter.dateFormat = "dd"
-        let dayOfMonth = dateFormatter.string(from: today)
-
-        dateFormatter.dateFormat = "LLLL"
-        let monthString = dateFormatter.string(from: today)
-        
-        dateFormatter.dateFormat = "yyyy"
-        let yearString = dateFormatter.string(from: today)
-        
-        return "Today • \(dayOfMonth) • \(monthString) • \(yearString)"
-    }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
 extension TodayTableViewController: ResourceObserver {
+    
+    /// Gets the holiday dates of all the holdiays in the current year and checks if today's date has anything special to it
+    /// if it does it appends to the holidays string
+    ///
+    /// - Parameters: resource: Resource - The holiday API resource provided usign Siesta
+    ///               event: Resource Event - call to the API to retrieve dates
+    ///
     func resourceChanged(_ resource: Resource, event: ResourceEvent) {
-
         let holidaysName = resource.jsonArray
             .compactMap { $0 as? [String: Any] }
             .compactMap { $0["name"] as? String }
@@ -244,6 +231,7 @@ extension TodayTableViewController: ResourceObserver {
                 self.holidays.append(holidaysName[index])
             }
         }
+        // If there is a holiday for today then it will update the label otherwise keep as default
         if holidays.isEmpty == false{
             setUpHoliday()
         }

@@ -9,46 +9,19 @@ import UIKit
 import Firebase
 
 class LogInViewController: UIViewController, DatabaseListener{
-    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
-        //
-    }
-    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    func onListChange(change: DatabaseChange, unitList: [Unit]) {
-        // do nothing
-    }
-    
-    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        //
-    }
-    
-    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    
-    var listenerType = ListenerType.character
-    
-    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
-        // do Nothing
-    }
-    
-    func onCharacterChange(change: DatabaseChange, character: Character) {
-        if databaseController?.currentCharacter?.charName != nil{
-            navigationController?.popToRootViewController(animated: true)
-        }
-    }
 
     var authController: Auth?
-    
     var authHandle: AuthStateDidChangeListenerHandle?
-    
     weak var databaseController: DatabaseProtocol?
+    
+    var listenerType = ListenerType.character
     
     @IBOutlet weak var username: UITextField!
     
     @IBOutlet weak var password: UITextField!
     
+    /// Allows the user to log into an account they have already created. This function will effectively check if the user's email and password is valid
+    /// and will display error messages if not. If they are valid it will attempt to log into the firebase authentication
     @IBAction func logInAction(_ sender: Any) {
         guard let emailAdd = username.text, emailAdd.isEmpty == false else {
             displayMessage(title: "Invalid", message: "Please enter email address")
@@ -75,10 +48,35 @@ class LogInViewController: UIViewController, DatabaseListener{
         authController = Auth.auth()
     }
     
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        // do nothing
+    }
+    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        // do nothing
+    }
+    
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        // do nothing
+    }
+    
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        // do nothing
+    }
+    
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        // do nothing
+    }
+    
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        // do Nothing
+    }
+    
+    /// If there exists a character it will pop the controller back to the root of it to allow the game to segue into the main screen
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        if databaseController?.currentCharacter?.charName != nil{
+            navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

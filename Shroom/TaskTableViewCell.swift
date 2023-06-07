@@ -8,6 +8,7 @@
 import UIKit
 import QuartzCore
 
+// Customer Table View Cell that allows the tasks to show up on the table views
 class TaskTableViewCell: UITableViewCell {
 
     @IBOutlet weak var noTasks: UILabel!
@@ -42,7 +43,6 @@ class TaskTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     

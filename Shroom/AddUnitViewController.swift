@@ -19,15 +19,6 @@ class AddUnitViewController: UIViewController {
     
     var selected: UIButton!
     
-    func setCurrent(button: UIButton){
-        selected.layer.borderWidth = 0
-        button.layer.borderWidth = 2
-        button.layer.cornerRadius = 20
-        button.layer.borderColor = UIColor(named: "LilacColor")?.cgColor
-        selected = button
-        listColour = button.tintColor!
-    }
-    
     @IBOutlet weak var blueBtn: UIButton!
     
     @IBAction func selectBlue(_ sender: Any) {
@@ -113,12 +104,24 @@ class AddUnitViewController: UIViewController {
         blueBtn.layer.borderColor = UIColor(named: "LilacColor")?.cgColor
     }
     
+    /// Set the current selection button with a blue ring around it to show it is currently selected
+    ///
+    /// - Parameters: button: UIButton - the selected button
+    func setCurrent(button: UIButton){
+        selected.layer.borderWidth = 0
+        button.layer.borderWidth = 2
+        button.layer.cornerRadius = 20
+        button.layer.borderColor = UIColor(named: "LilacColor")?.cgColor
+        selected = button
+        listColour = button.tintColor!
+    }
+    
     // Cancel the adding buttons
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    // Create a new list
+    /// Creates a new list button when the user clicks to add a new list to the database controller
     @IBAction func createNewList(_ sender: Any) {
         guard let list = listName.text, list.isEmpty == false else{
             displayMessage(title: "Error", message: "Please a list name")
@@ -134,8 +137,11 @@ class AddUnitViewController: UIViewController {
             return
         }
         
-        let unit = databaseController?.addUnit(code: code, name: list, color: self.getIndex(color: listColour))
-        let _ = databaseController?.addUnitToList(unit: unit!, user: user)
+        guard let unit = databaseController?.addUnit(code: code, name: list, color: self.getIndex(color: listColour)) else {
+            print("Could not create list sucessfully")
+            return
+        }
+        let _ = databaseController?.addUnitToList(unit: unit, user: user)
         
         self.dismiss(animated: true, completion: nil)
     }

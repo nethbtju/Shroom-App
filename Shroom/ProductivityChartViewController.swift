@@ -13,58 +13,7 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     
     var listenerType = ListenerType.all
     
-    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
-        //
-    }
-    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        //
-    }
-    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    func onListChange(change: DatabaseChange, unitList: [Unit]) {
-        //
-    }
-    
-    func onCharacterChange(change: DatabaseChange, character: Character) {
-        //
-    }
-    
-    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
-        progressList = progress
-        getLast7Days()
-        setupProgressChart(weeklydata: progressList)
-        setUpChart(data: data)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM"
-        let currentDateString: String = dateFormatter.string(from: Date())
-        guard let tasksCompletedToday = progressList[currentDateString] else {
-            return
-        }
-        let total = 5.0
-        var barProgress = (Double(tasksCompletedToday)/total)
-        progressViewBar.progress = Float(barProgress)
-        tasksCompletedLabel.text = "Completed \(tasksCompletedToday)/5 Tasks"
-    }
-    
-    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    
     var days: [String] = []
-    
-    func getLast7Days(){
-        let cal = Calendar.current
-        var date = cal.startOfDay(for: Date())
-        for _ in 1 ... 7 {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM"
-            let currentDateString: String = dateFormatter.string(from: date)
-            days.append(currentDateString)
-            date = cal.date(byAdding: Calendar.Component.day, value: -1, to: date)!
-        }
-    }
     
     var progressList: [String: Int] = [:]
     
@@ -72,12 +21,9 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     
     var tasksCompletedToday: Int?
     
-    func setupProgressChart(weeklydata: [String: Int]){
-        for day in days {
-            data.append(.init(dayOfWeek: day, taskCount: progressList[day]!))
-        }
-        data = data.reversed()
-    }
+    let progressViewBar = CircularProgressBarView(frame: CGRect(x: 5, y: 5, width: 220, height: 220), lineWidth: 30, rounded: false)
+    
+    weak var databaseController: DatabaseProtocol?
     
     @IBOutlet weak var tasksCompletedLabel: UILabel!
     
@@ -85,6 +31,29 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     
     @IBOutlet weak var leadingBar: UILabel!
     
+    @IBOutlet weak var progressView: UIView!
+    
+    @IBOutlet weak var chartViewSpace: UIView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        
+        progressViewBar.progressColor = UIColor(named: "LilacColor")!
+        progressViewBar.trackColor = .systemGray6
+        progressViewBar.timeToFill = 0
+        progressView.center = progressViewBar.center
+        progressView.addSubview(progressViewBar)
+        
+        //getLast7Days()
+    }
+    
+    /// Set up the Swift Charts using the progress taken from the database. This function effectively calls
+    /// an instance of ChartUIView and sets it up with constraints to fit the hosting controller
+    ///
+    /// - Parameters: data - an array of the weekly progress numbers stored in the database
     func setUpChart(data: [WeeklyProgress]){
         
         let chart = ChartUIView(data: data)
@@ -108,27 +77,68 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
         ])
     }
     
-    @IBOutlet weak var progressView: UIView!
+    /// Gets the last 7 days from todays date
+    func getLast7Days(){
+        let cal = Calendar.current
+        var date = cal.startOfDay(for: Date())
+        for _ in 1 ... 7 {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM"
+            let currentDateString: String = dateFormatter.string(from: date)
+            days.append(currentDateString)
+            date = cal.date(byAdding: Calendar.Component.day, value: -1, to: date)!
+        }
+    }
     
-    let progressViewBar = CircularProgressBarView(frame: CGRect(x: 5, y: 5, width: 220, height: 220), lineWidth: 30, rounded: false)
+    /// This function loads the Swift Chart with data from the progress list given from the database
+    ///
+    /// - Parameters: weeklyData - Date string and number of tasks completed per day in dictionary
+    func setupProgressChart(weeklydata: [String: Int]){
+        for day in days {
+            data.append(.init(dayOfWeek: day, taskCount: progressList[day]!))
+        }
+        data = data.reversed()
+    }
     
-    weak var databaseController: DatabaseProtocol?
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        // do nothing
+    }
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        // do nothing
+    }
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        // do nothing
+    }
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        // do nothing
+    }
     
-    @IBOutlet weak var chartViewSpace: UIView!
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        // do nothing
+    }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    /// When the databse is updated, it parses the progress list to this function. It sets up the Swift Chart and loads it with
+    /// the data it just recieved. It will then set the progress bar to the amount of tasks completed today
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        progressList = progress
+        getLast7Days()
+        setupProgressChart(weeklydata: progressList)
+        setUpChart(data: data)
         
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        databaseController = appDelegate?.databaseController
-        
-        progressViewBar.progressColor = UIColor(named: "LilacColor")!
-        progressViewBar.trackColor = .systemGray6
-        progressViewBar.timeToFill = 0
-        progressView.center = progressViewBar.center
-        progressView.addSubview(progressViewBar)
-        
-        //getLast7Days()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        let currentDateString: String = dateFormatter.string(from: Date())
+        guard let tasksCompletedToday = progressList[currentDateString] else {
+            return
+        }
+        let total = 5.0
+        var barProgress = (Double(tasksCompletedToday)/total)
+        progressViewBar.progress = Float(barProgress)
+        tasksCompletedLabel.text = "Completed \(tasksCompletedToday)/5 Tasks"
+    }
+    
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        // do nothing
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -140,15 +150,5 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

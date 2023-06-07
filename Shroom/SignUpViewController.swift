@@ -11,15 +11,15 @@ import Firebase
 class SignUpViewController: UIViewController {
     
     var authController: Auth?
-    
     var authHandle: AuthStateDidChangeListenerHandle?
-    
     weak var databaseController: DatabaseProtocol?
     
     @IBOutlet weak var username: UITextField!
-    
     @IBOutlet weak var password: UITextField!
     
+    /// When the button is pressed it will check if the user entered sign up inputs are of valid nature and if not execute error
+    /// messages according to such. If all inputs meet the standard it will attempt to create a new account for the user in the firebase
+    /// authentication
     @IBAction func signUpAction(_ sender: Any) {
         guard let emailAdd = username.text, emailAdd.isEmpty == false else {
             displayMessage(title: "Invalid", message: "Please enter email address")
@@ -46,12 +46,7 @@ class SignUpViewController: UIViewController {
         authController = Auth.auth()
     }
     
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
-    
+    /// Checks if the user is already signed into an account, hence will segue to picking the name if they already have an account
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         authHandle = authController?.addStateDidChangeListener{ auth, user in
@@ -61,7 +56,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    
+    /// Makes the listeners disappear when the screen segues out of the controller
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         authController?.removeStateDidChangeListener(authHandle!)

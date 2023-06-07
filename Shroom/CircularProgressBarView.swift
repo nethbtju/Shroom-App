@@ -18,14 +18,11 @@ class CircularProgressBarView: UIView {
     var rounded: Bool
     var filled: Bool
 
-
     let lineWidth: CGFloat?
     
     var currentTime = 0
 
     var timeToFill = 5.00
-
-
 
     var progressColor = UIColor.white {
         didSet{
@@ -39,7 +36,6 @@ class CircularProgressBarView: UIView {
         }
     }
 
-
     var progress: Float {
         didSet{
             var pathMoved = progress - oldValue
@@ -50,8 +46,8 @@ class CircularProgressBarView: UIView {
         }
     }
 
-    fileprivate func createProgressView(){
-        
+    /// Creates the progressView by using the input details for colour and size to create the circular shape
+    func createProgressView(){
         self.backgroundColor = .clear
         self.layer.cornerRadius = frame.size.width / 2
         let circularPath = UIBezierPath(arcCenter: center, radius: frame.width / 2, startAngle: CGFloat(-0.5 * .pi), endAngle: CGFloat(1.5 * .pi), clockwise: true)
@@ -84,19 +80,20 @@ class CircularProgressBarView: UIView {
             progressLayer.lineCap = .round
         }
         
-        
         layer.addSublayer(progressLayer)
         
     }
 
-
+    /// Using the set track colour to create the UIColor of it
     func trackColorToProgressColor() -> Void{
         trackColor = progressColor
         trackColor = UIColor(red: progressColor.cgColor.components![0], green: progressColor.cgColor.components![1], blue: progressColor.cgColor.components![2], alpha: 0.2)
     }
 
-
-
+    /// Setting up the progress to display on the circular progress bar
+    ///
+    /// - Parameters: duration - The time interval the progress bar is to move around for
+    ///               newProgress - The total radius that the bar will travel to before stopping
     func setProgress(duration: TimeInterval = 3, to newProgress: Float) -> Void{
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.duration = duration
@@ -109,8 +106,6 @@ class CircularProgressBarView: UIView {
         progressLayer.add(animation, forKey: "animationProgress")
         
     }
-
-
 
     override init(frame: CGRect){
         progress = 0
@@ -132,12 +127,8 @@ class CircularProgressBarView: UIView {
         
     }
 
-
     init(frame: CGRect, lineWidth: CGFloat?, rounded: Bool) {
-        
-        
         progress = 0
-        
         if lineWidth == nil{
             self.filled = true
             self.rounded = false
@@ -153,7 +144,6 @@ class CircularProgressBarView: UIView {
         
         super.init(frame: frame)
         createProgressView()
-        
     }
 
 }

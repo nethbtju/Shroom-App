@@ -8,41 +8,14 @@
 import UIKit
 
 class UnitTableViewController: UITableViewController, UnitDetailsDelgate, DatabaseListener {
-    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
-        //
-    }
     
-    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
     var delegate: UnitDetailsDelgate?
     
     var listenerType = ListenerType.task
     
-    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
-        allTasks = tasks
-        getUnitTasks()
-        tableView.reloadData()
-    }
-    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        //
-    }
-    
-    
-    func onListChange(change: DatabaseChange, unitList: [Unit]) {
-        //
-    }
-    
-    func onCharacterChange(change: DatabaseChange, character: Character) {
-        //
-    }
-    
-    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    
     weak var databaseController: DatabaseProtocol?
     
+    /// Delegate function that parses the current unit selected to the segue page
     func currentUnitIs(_ unit: Unit) {
         current = unit
     }
@@ -57,6 +30,7 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
     
     var unitTasks: [TaskItem] = []
     
+    /// Gets all the tasks that have that unit listed
     func getUnitTasks(){
         let unitCode = current?.unitCode
         let unitName = current?.unitName
@@ -66,6 +40,7 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
             }
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -74,13 +49,37 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
             return
         }
         navigationItem.title = "\(currentUnit.unitCode!) • \(currentUnit.unitName!)"
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
+        allTasks = tasks
+        getUnitTasks()
+        tableView.reloadData()
+    }
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
+        //
+    }
+    
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        //
+    }
+    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
+    
+    func onListChange(change: DatabaseChange, unitList: [Unit]) {
+        //
+    }
+    
+    func onCharacterChange(change: DatabaseChange, character: Character) {
+        //
+    }
+    
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -101,7 +100,7 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "dd.MM.yyyy"
-        var date = inputFormatter.string(from: task.dueDate!)
+        let date = inputFormatter.string(from: task.dueDate!)
         taskCell.dueDateText.text = date
         taskCell.expText.text = "\(task.expPoints ?? 0) exp"
         taskCell.descriptionText.text = task.quickDes
@@ -116,42 +115,6 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         return taskCell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
@@ -163,14 +126,4 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         databaseController?.removeListener(listener: self)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
