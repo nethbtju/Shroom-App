@@ -28,6 +28,7 @@
 		C723E95F2A2F964F00066E3F /* Inventory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C723E95B2A2F964F00066E3F /* Inventory+CoreDataProperties.swift */; };
 		C723E9602A2F964F00066E3F /* Badge+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C723E95C2A2F964F00066E3F /* Badge+CoreDataClass.swift */; };
 		C723E9612A2F964F00066E3F /* Badge+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C723E95D2A2F964F00066E3F /* Badge+CoreDataProperties.swift */; };
+		C723E9632A30CBD100066E3F /* GuildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C723E9622A30CBD100066E3F /* GuildTableViewCell.swift */; };
 		C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931A2A049E48006966B7 /* AuthenticationViewController.swift */; };
 		C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931C2A04AE4B006966B7 /* SignUpViewController.swift */; };
 		C732931F2A04AE59006966B7 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C732931E2A04AE59006966B7 /* LogInViewController.swift */; };
@@ -82,6 +83,7 @@
 		C723E95B2A2F964F00066E3F /* Inventory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inventory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C723E95C2A2F964F00066E3F /* Badge+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Badge+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C723E95D2A2F964F00066E3F /* Badge+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Badge+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C723E9622A30CBD100066E3F /* GuildTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuildTableViewCell.swift; sourceTree = "<group>"; };
 		C732931A2A049E48006966B7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		C732931C2A04AE4B006966B7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C732931E2A04AE59006966B7 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */,
 				C723E9522A2F7AB800066E3F /* BadgesViewController.swift */,
 				C723E9542A2F86AC00066E3F /* BadgeCollectionViewCell.swift */,
+				C723E9622A30CBD100066E3F /* GuildTableViewCell.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				C732931B2A049E48006966B7 /* AuthenticationViewController.swift in Sources */,
 				C708ADFA2A2378EF00127CB2 /* HolidayAPI.swift in Sources */,
 				C735D4E329EFBEAE009DF770 /* TaskItem.swift in Sources */,
+				C723E9632A30CBD100066E3F /* GuildTableViewCell.swift in Sources */,
 				C708ADF82A2369D900127CB2 /* CompleteTaskViewController.swift in Sources */,
 				C7CCFACE2A2AD5B300821E10 /* ChartUIView.swift in Sources */,
 				C732931D2A04AE4B006966B7 /* SignUpViewController.swift in Sources */,
