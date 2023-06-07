@@ -18,6 +18,9 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         //
     }
     
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
     
     func currentUnitIs(_ unit: Unit) {
         //
@@ -29,8 +32,8 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
 
     var progress: [String: Int] = [:]
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
-        //
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        print("Badges: \(badges.count)")
     }
     @IBAction func addTask(_ sender: Any) {
         showMyViewControllerInACustomizedSheet(controller: self)
@@ -124,20 +127,29 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         playerNameLabel.text = player.displayName
     }
     
+    /// Checks the shrooms statistics and updates them according to the HP and the EXP the shroom earns
+    ///
+    /// - Parameters: char: Character - The current character that needs to be update
+    ///               totalExp: Float - The total number of EXP points possible for the character at that level
+    ///               totalHealth: Float -
     func checkShroomStats(char: Character, totalExp: Float, totalHealth: Float){
+        guard var level = char.level else {
+            return
+        }
         if Float(char.exp!) > totalExp {
-            char.level! += 1
+            level += 1
             databaseController?.updateCharacterStats(char: char, user: currentPlayer!.uid)
         }
         if Float(char.health!) <= 0 {
-            char.level! -= 1
+            level -= 1
             databaseController?.updateCharacterStats(char: char, user: currentPlayer!.uid)
         }
     }
     
+    // MARK: Table View
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -179,7 +191,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    // Override to support conditional editing of the table view.
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
@@ -197,8 +209,9 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
             }
     }
     
+    // MARK: Collection View
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //do nothing
         return units.count
     }
     
@@ -236,14 +249,4 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
             destination.current = currentUnit
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

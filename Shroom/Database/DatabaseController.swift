@@ -15,9 +15,11 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     // MARK: - Core Data (Create, Delete, Fetch)
     var listeners = MulticastDelegate<DatabaseListener>()
     
-    var allBadgesFetchedResultsController: NSFetchedResultsController<Badge>?
+    var allInventoryBadgesFetchedResultsController: NSFetchedResultsController<Badge>?
     
     var allInventoryFetchedResultsController: NSFetchedResultsController<Inventory>?
+    
+    var allBadgesFetchedResultsController: NSFetchedResultsController<Badge>?
     
     var persistentContainer: NSPersistentContainer
     
@@ -125,6 +127,39 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
 
     }
     
+    /// Fetches all instances of Badge Object from core data
+    ///
+    /// - Throws: 'error' if the fetch request failed and the data could not be retrieved from persistent storage
+    ///
+    /// - Returns inventory: An instance of the NSObject Badge in an array of all badges
+    ///
+    func fetchAllBadges() -> [Badge] {
+        if allBadgesFetchedResultsController == nil {
+            let request: NSFetchRequest<Badge> = Badge.fetchRequest()
+            let nameSortDescriptor = NSSortDescriptor(key: "badgeType", ascending: true)
+            request.sortDescriptors = [nameSortDescriptor]
+            
+            // Initialise Fetched Results Controller
+            allBadgesFetchedResultsController =
+            NSFetchedResultsController<Badge>(fetchRequest: request,
+            managedObjectContext: persistentContainer.viewContext,
+            sectionNameKeyPath: nil, cacheName: nil)
+            // Set this class to be the results delegate
+            allBadgesFetchedResultsController?.delegate = self
+            
+            do {
+                try allBadgesFetchedResultsController?.performFetch()
+            } catch {
+                print("Fetch Request Failed: \(error)")
+            }
+        }
+        if let badges = allBadgesFetchedResultsController?.fetchedObjects {
+            
+            return badges
+        }
+        return [Badge]()
+    }
+    
     /// Adds a new badge the user has earned into the inventory
     ///
     /// - Throws: 'error' if the fetch request failed and the data could not be retrieved from persistent storage
@@ -146,8 +181,8 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     ///
     /// - Returns [badge]: An array instance of the NSObject badges
     ///
-    func fetchAllBadges() -> [Badge] {
-        if allBadgesFetchedResultsController == nil {
+    func fetchInventoryBadges() -> [Badge] {
+        if allInventoryBadgesFetchedResultsController == nil {
             let fetchRequest: NSFetchRequest<Badge> = Badge.fetchRequest()
             let nameSortDescriptor = NSSortDescriptor(key: "badgeID", ascending: true)
             let predicate = NSPredicate(format: "ANY inventory.userID == %@",
@@ -156,25 +191,33 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             fetchRequest.predicate = predicate
             
             // Initialise Fetched Results Controller
-            allBadgesFetchedResultsController = NSFetchedResultsController<Badge>(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+            allInventoryBadgesFetchedResultsController = NSFetchedResultsController<Badge>(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
             // Set this class to be the results delegate
-            allBadgesFetchedResultsController?.delegate = self
+            allInventoryBadgesFetchedResultsController?.delegate = self
             
             do {
-                try allBadgesFetchedResultsController?.performFetch()
+                try allInventoryBadgesFetchedResultsController?.performFetch()
             } catch {
                 print("Fetch Request Failed: \(error)")
             }
         }
         
         var fetchedBadges = [Badge]()
-        if allBadgesFetchedResultsController?.fetchedObjects?.first != nil {
-            fetchedBadges = (allBadgesFetchedResultsController?.fetchedObjects)!
+        if allInventoryBadgesFetchedResultsController?.fetchedObjects?.first != nil {
+            fetchedBadges = (allInventoryBadgesFetchedResultsController?.fetchedObjects)!
         }
 
         return fetchedBadges
     }
     
+    /// Adds a badge to the Badge Inventory when new badges come out
+    ///
+    /// - Parameters badgeID: String - The name of the badge that serves as its unique ID
+    ///             badgePoints: Int32 - The amount of points the badge awards to the user when earned
+    ///             badgeType: Int32 - The amount of tasks that need to be completed to earn the badge
+    ///
+    /// - Returns badge: An instance of the badge that was added to the badge core data
+    ///
     func addbadge(badgeID: String, badgePoints: Int32, badgeType: Int32) -> Badge {
         let badge = NSEntityDescription.insertNewObject(forEntityName:
                                                         "Badge", into: persistentContainer.viewContext) as! Badge
@@ -186,7 +229,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     /// Listens for changes in the database that requires the inventory to be fetched again
     ///
-    /// - Parameters controller: NSFetchedResultsController<NSFetchRequestResult That sees which controller
+    /// - Parameters controller: NSFetchedResultsController<NSFetchRequestResult> That sees which controller
     ///     needs to be used to get the data
     ///
     func controllerDidChangeContent(_ controller:
@@ -200,6 +243,36 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 }
             }
         }
+        if controller == allInventoryBadgesFetchedResultsController {
+            listeners.invoke() { listener in
+                if listener.listenerType == .inventoryBadges
+                    || listener.listenerType == .all {
+                    listener.onInventoryBadgeChange(change: .update, badges: fetchInventoryBadges())
+                    
+                }
+            }
+        }
+        if controller == allBadgesFetchedResultsController {
+            listeners.invoke() { listener in
+                if listener.listenerType == .badges
+                    || listener.listenerType == .all {
+                    listener.onBadgeChange(change: .update, badges: fetchAllBadges())
+                    
+                }
+            }
+        }
+    }
+    
+    
+    /// Creates a set of default badges to add to database when the app first launches to the database
+    func createDefaultBadges() {
+        let _ = addbadge(badgeID: "TokenBadge", badgePoints: 3, badgeType: 10)
+        let _ = addbadge(badgeID: "StoneBadge", badgePoints: 50, badgeType: 20)
+        let _ = addbadge(badgeID: "WaterBadge", badgePoints: 100, badgeType: 50)
+        let _ = addbadge(badgeID: "LeafBadge", badgePoints: 200, badgeType: 100)
+        let _ = addbadge(badgeID: "FireBadge", badgePoints: 400, badgeType: 500)
+        let _ = addbadge(badgeID: "SunBadge", badgePoints: 100, badgeType: 1000)
+        cleanup()
     }
     
     
@@ -245,6 +318,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         allUnitList = [Unit]()
         badgeList = [Badge]()
         
+        // Sets up the persistent container
         persistentContainer = NSPersistentContainer(name: "Shroom-DataModel")
         persistentContainer.loadPersistentStores() { (description, error ) in
             if let error = error {
@@ -252,8 +326,11 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             }
         }
         super.init()
-        /*
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Inventory")
+        
+        getLast7Days()
+        
+        // MARK: For testing purposes wipes the core database
+        /*let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Badge")
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
         do {
@@ -266,21 +343,6 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         } catch {
             print("Failed to save changes: \(error)")
         }*/
-        getLast7Days()
-        if fetchAllBadges().count == 0 {
-            createDefaultBadges()
-        }
-
-    }
-    
-    func createDefaultBadges() {
-        let _ = addbadge(badgeID: "TokenBadge", badgePoints: 25, badgeType: 10)
-        let _ = addbadge(badgeID: "StoneBadge", badgePoints: 50, badgeType: 20)
-        let _ = addbadge(badgeID: "WaterBadge", badgePoints: 100, badgeType: 50)
-        let _ = addbadge(badgeID: "LeafBadge", badgePoints: 200, badgeType: 100)
-        let _ = addbadge(badgeID: "FireBadge", badgePoints: 400, badgeType: 500)
-        let _ = addbadge(badgeID: "SunBadge", badgePoints: 100, badgeType: 1000)
-        cleanup()
     }
     
     /// Sets up the user by fetching all needed documents and fields from the firebase
@@ -295,12 +357,19 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             if let document = document, document.exists == false {
                 self.thisUser = self.createNewUser()
             }
-            self.setupCharacterListener()
             self.tasksRef = self.database.collection("tasks")
-            self.setupUserListener()
-            self.setupTaskListener()
-            self.setupUnitListener()
+            self.setupCharacterListener()
+            Task{
+                do {
+                    self.setupUnitListener()
+                    self.setupTaskListener()
+                    self.setupUserListener()
+                }
+            }
             self.setupInventory()
+        }
+        if fetchAllBadges().count == 0 {
+            createDefaultBadges()
         }
     }
     
@@ -389,11 +458,14 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if listener.listenerType == .progress || listener.listenerType == .all {
             listener.onProgressChange(change: .update, progress: thisUser.productivity)
         }
-        if listener.listenerType == .badges || listener.listenerType == .all {
-            listener.onBadgesChange(change: .update, badges: thisUser.badges)
+        if listener.listenerType == .inventoryBadges || listener.listenerType == .all {
+            listener.onInventoryBadgeChange(change: .update, badges: fetchInventoryBadges())
         }
         if listener.listenerType == .inventory || listener.listenerType == .all {
             listener.onInventoryChange(change: .update, inventory: fetchAllInventory())
+        }
+        if listener.listenerType == .badges || listener.listenerType == .all {
+            listener.onBadgeChange(change: .update, badges: fetchAllBadges())
         }
     }
     
@@ -606,10 +678,6 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             }
         }
         return nil
-    }
-    
-    func getCharacterbyID(){
-        // do nothing
     }
     
     /// Sets up the progress of the user depending on the date it is today and the last 7 days of progress the user

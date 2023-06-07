@@ -19,8 +19,9 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
         //
     }
-    
-    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
     @IBOutlet weak var holidayLabel: UILabel!
     
     var holidays: [String] = []
@@ -44,9 +45,10 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         // do nothing
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         //
     }
+    
     func stripTime(from originalDate: Date) -> Date {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: originalDate)
         let date = Calendar.current.date(from: components)

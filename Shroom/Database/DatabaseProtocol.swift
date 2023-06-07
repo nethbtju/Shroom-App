@@ -26,6 +26,7 @@ enum ListenerType {
     case progress
     case badges
     case inventory
+    case inventoryBadges
     case all
 }
 
@@ -36,8 +37,9 @@ protocol DatabaseListener: AnyObject {
     func onListChange(change: DatabaseChange, unitList: [Unit])
     func onCharacterChange(change: DatabaseChange, character: Character)
     func onProgressChange(change: DatabaseChange, progress: [String : Int])
-    func onBadgesChange(change: DatabaseChange, badges: [Int])
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge])
     func onInventoryChange(change: DatabaseChange, inventory: Inventory)
+    func onBadgeChange(change: DatabaseChange, badges: [Badge])
 }
 
 /// Database protocols than is implemented in the Database Controller and accessible by other controllers

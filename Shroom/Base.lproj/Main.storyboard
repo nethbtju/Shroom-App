@@ -2619,6 +2619,9 @@
                             <constraint firstItem="DNC-JM-Qm1" firstAttribute="leading" secondItem="oHS-Uk-U39" secondAttribute="leading" constant="35" id="tW2-tN-l4u"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="qcm-P5-T1P" id="pTx-cv-FOo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q1Q-80-Lbc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

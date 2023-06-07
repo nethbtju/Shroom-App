@@ -8,9 +8,13 @@
 import UIKit
 
 class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTaskDelegate {
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        self.allBadges = badges
+        print(allBadges.count)
+    }
+    
     func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
         self.inventory = inventory
-        self.badges = inventory.badges
         print(self.inventory?.tasksCompleted)
     }
     
@@ -18,8 +22,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         self.progress = progress
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
-        //
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        print(badges.count)
     }
     
     func currentTaskIs(_ task: TaskItem) -> Bool {
@@ -49,21 +53,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         //
     }
     
-    func checkUserBadges(){
-        guard let currentUserPoints = inventory?.tasksCompleted, let inv = inventory else {
-            print("Could not parse user tasks completed")
-            return
-        }
-        for badge in allBadges {
-            if currentUserPoints >= badge.badgeType && badges.contains(badge) == false {
-                if ((databaseController?.addBadgeToInventory(badge: badge, inventory: inv)) != nil) {
-                    print("Badge added to inventory")
-                }
-            }
-        }
-    }
-    
-    var badges: [Badge]
+    var badges: [Badge] = []
     
     var task: TaskItem?
     
@@ -75,7 +65,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     
     var inventory: Inventory?
     
-    var allBadges: [Badge]
+    var allBadges: [Badge] = []
     
     let progressView = CircularProgressBarView(frame: CGRect(x: 0, y: -100, width: 300, height: 300), lineWidth: 15, rounded: false)
     
@@ -126,7 +116,23 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         let currentDateString: String = dateFormatter.string(from: Date())
         databaseController?.addCompletedTaskToProgress(date: currentDateString, user: thisUser)
         let _ = databaseController?.updateInventoryTasks()
+        checkUserBadges()
         return true
+    }
+    
+    func checkUserBadges(){
+        guard let currentUserPoints = inventory?.tasksCompleted, let inv = inventory, let database = databaseController else {
+            print("Could not parse user tasks completed")
+            return
+        }
+        for badge in allBadges {
+            if currentUserPoints >= badge.badgeType && badges.contains(badge) == false {
+                if database.addBadgeToInventory(badge: badge, inventory: inv) {
+                    print("Badge added to inventory")
+                    database.cleanup()
+                }
+            }
+        }
     }
     
     @objc func step(){
@@ -176,6 +182,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
         progressView.progressColor = UIColor(named: "LilacColor")!
         progressView.trackColor = .lightGray
         progressView.timeToFill = 0

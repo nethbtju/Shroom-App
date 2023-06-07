@@ -19,7 +19,9 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
         //
     }
-    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         //
     }
@@ -46,7 +48,7 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
         tasksCompletedLabel.text = "Completed \(tasksCompletedToday)/5 Tasks"
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         //
     }
     

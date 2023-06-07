@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+/// Shows the view controller in a customised half sheet over the current view
+///
+/// - Parameters: controller: UIViewController - The current view controller that the sheet needs to appear over
+///
 func showMyViewControllerInACustomizedSheet(controller: UIViewController) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewController(withIdentifier: "addTaskController")
@@ -17,6 +21,11 @@ func showMyViewControllerInACustomizedSheet(controller: UIViewController) {
     controller.present(vc, animated: true)
 }
 
+/// Shows the screen to complete tasks
+///
+/// - Parameters: controller: UIViewController - The current view controller that the sheet needs to appear over
+///               newVC: UIViewController -  The controller that needs to appear modally over the other
+///
 func showTaskCompletionScreen(controller: UIViewController, newVC: UIViewController) {
     let vc = newVC
     vc.modalPresentationStyle = .fullScreen

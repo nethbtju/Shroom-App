@@ -12,6 +12,9 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         //
     }
     
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
     
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
@@ -37,7 +40,7 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         // none
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         //
     }
     

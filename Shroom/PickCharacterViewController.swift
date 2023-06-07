@@ -8,36 +8,17 @@
 import UIKit
 import Firebase
 
-class PickCharacterViewController: UIViewController, DatabaseListener {
-    func onListChange(change: DatabaseChange, unitList: [Unit]) {
-        // do nothing
-    }
+class PickCharacterViewController: UIViewController {
     
-    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        //
-    }
+    var chosenCharName: String?
+    var image: UIImage?
     
-    
-    func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
-        // do nothing
-    }
-    
-    func onCharacterChange(change: DatabaseChange, character: Character) {
-        // do nothing
-    }
-    
-    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
-        //
-    }
-    
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
-        //
-    }
-    
+    weak var databaseController: DatabaseProtocol?
     var authController: Auth?
 
     @IBOutlet weak var welcomeLabel: UILabel?
     
+    // When clicked will allow the chosen character to be parsed into firebase
     @IBAction func chooseCharacter(_ sender: Any) {
         guard let chosenChar = chosenCharName, chosenChar.isEmpty == false else{
             displayMessage(title: "No Starter Shroom Selected", message: "Please select a starter shroom!")
@@ -56,18 +37,6 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
     @IBOutlet weak var redShroom: UIImageView!
     
     @IBOutlet weak var chosenChar: UIImageView!
-    
-    var listenerType = ListenerType.player
-    
-    var chosenCharName: String?
-    
-    var image: UIImage?
-    
-    func onCharacterChange(change: DatabaseChange, character: [Character]) {
-        // do nothing
-    }
-    
-    weak var databaseController: DatabaseProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,40 +66,31 @@ class PickCharacterViewController: UIViewController, DatabaseListener {
         // Do any additional setup after loading the view.
     }
     
+    /// Will register an image that has been tapped and display that image on the screen as the chosen character
     @objc func imageTapped(gesture: UIGestureRecognizer) {
-            // if the tapped view is a UIImageView then set it to imageview
-            if (gesture.view as? UIImageView) != nil {
-                let imageTag = gesture.view!.tag
-                switch imageTag {
-                    case 0:
-                        image = redShroom.image!
-                        self.chosenCharName = "Red Shroom"
-                    case 1:
-                        image = blueShroom.image!
-                        self.chosenCharName = "Blue Shroom"
-                    case 2:
-                        image = pinkShroom.image!
-                        self.chosenCharName = "Pink Shroom"
-                    case 3:
-                        image = purpleShroom.image!
-                        self.chosenCharName = "Purple Shroom"
-                default:
-                    image = redShroom.image!
-                }
-                chosenChar.image = image
-                buttonText.setTitle("Choose \(chosenCharName!)", for: buttonText.state)
-                //Here you can initiate your new ViewController
+        // if the tapped view is a UIImageView then set it to imageview
+        if (gesture.view as? UIImageView) != nil {
+            let imageTag = gesture.view!.tag
+            switch imageTag {
+            case 0:
+                image = redShroom.image!
+                self.chosenCharName = "Red Shroom"
+            case 1:
+                image = blueShroom.image!
+                self.chosenCharName = "Blue Shroom"
+            case 2:
+                image = pinkShroom.image!
+                self.chosenCharName = "Pink Shroom"
+            case 3:
+                image = purpleShroom.image!
+                self.chosenCharName = "Purple Shroom"
+            default:
+                image = redShroom.image!
             }
+            chosenChar.image = image
+            buttonText.setTitle("Choose \(chosenCharName!)", for: buttonText.state)
+            //Here you can initiate your new ViewController
         }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
 
 }

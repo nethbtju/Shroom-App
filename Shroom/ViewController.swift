@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     }
 }
 
+/// Displays an error message for any user inputs when it does not meet the criteria
 extension UIViewController {
     func displayMessage(title: String, message: String) {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

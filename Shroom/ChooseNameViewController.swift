@@ -14,7 +14,13 @@ class ChooseNameViewController: UIViewController {
     
     var authController: Auth?
     
-    // TODO: Make sure to check database for existing name/id
+    weak var databaseController: DatabaseProtocol?
+    
+    /// Button when clicked allows the user to pick their designated name from the outlets they have entered details in. This
+    /// action will check if the names as appropriate and if not display an error message
+    ///
+    /// - Parameters: controller: UIViewController - The current view controller that the sheet needs to appear over
+    ///
     @IBAction func chooseName(_ sender: Any) {
         guard let name = playerName.text, name.isEmpty == false else {
             displayMessage(title: "Invalid Name", message: "Nickname cannot be empty")
@@ -28,25 +34,11 @@ class ChooseNameViewController: UIViewController {
         }
         self.performSegue(withIdentifier: "chooseCharSegue", sender: nil)
     }
-    
-    weak var databaseController: DatabaseProtocol?
         
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
         authController = Auth.auth()
-        // Do any additional setup after loading the view.
-        
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

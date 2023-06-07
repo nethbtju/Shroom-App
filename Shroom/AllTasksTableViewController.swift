@@ -13,12 +13,14 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         //
     }
     
-    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         //
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         //
     }
     

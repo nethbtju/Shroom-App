@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 
 class AddTaskViewController: UIViewController, DatabaseListener {
+    
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         //
     }
@@ -17,11 +18,12 @@ class AddTaskViewController: UIViewController, DatabaseListener {
         //
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         //
     }
-    
-    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
     var listenerType = ListenerType.unit
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {

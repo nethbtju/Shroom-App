@@ -8,7 +8,13 @@
 import UIKit
 
 class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DatabaseListener {
-    var listenerType: ListenerType
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        allBadges = badges
+    }
+    
+    var listenerType =  ListenerType.all
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         //
@@ -26,38 +32,60 @@ class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollec
         //
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Badge]) {
-        //
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        self.badges = badges
+        collectionView.reloadData()
     }
     
     func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        self.badges = inventory.badges
+        //
     }
     
+    weak var databaseController: DatabaseProtocol?
     
-    var badges: [Badge?]
+    var badges: [Badge?] = []
+    
+    var allBadges: [Badge] = []
     
     var CELL_BADGE = "badgeCell"
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return badges.count ?? 0
+        return allBadges.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let badgeCell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_BADGE, for: indexPath) as! BadgeCollectionViewCell
-        let badge = badges[indexPath.row]
-        badgeCell.badgeImage.image = UIImage(named: badge?.badgeID)
-        badgeCell.badgeName.text = badge?.badgeID
+        let badgeFromAll = allBadges[indexPath.row]
+        guard var badgeID = badgeFromAll.badgeID, let badgeName = badgeFromAll.badgeID else {
+            return badgeCell
+        }
+        if badges.contains(badgeFromAll) == false {
+            badgeID = "Locked\(badgeID)"
+        }
+        
+        badgeCell.badgeImage.image = UIImage(named: badgeID)
+        badgeCell.badgeName.text = badgeName
         return badgeCell
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
 
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
     /*
     // MARK: - Navigation
 

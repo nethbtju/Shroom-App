@@ -12,7 +12,9 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         //
     }
     
-    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
     var delegate: UnitDetailsDelgate?
     
     var listenerType = ListenerType.task
@@ -35,7 +37,7 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         //
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         //
     }
     

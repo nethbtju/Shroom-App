@@ -12,7 +12,9 @@ class LogInViewController: UIViewController, DatabaseListener{
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         //
     }
-    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        //
+    }
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         // do nothing
     }
@@ -21,9 +23,10 @@ class LogInViewController: UIViewController, DatabaseListener{
         //
     }
     
-    func onBadgesChange(change: DatabaseChange, badges: [Int]) {
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         //
     }
+    
     var listenerType = ListenerType.character
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
