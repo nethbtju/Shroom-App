@@ -1296,6 +1296,22 @@
             </objects>
             <point key="canvasLocation" x="5552" y="906"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="JeR-ba-whz">
+            <objects>
+                <viewController id="Ugh-Dl-kbE" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jDi-3W-zor">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="04d-lL-wVE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="info.circle.fill" catalog="system" id="hVF-19-vrb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="da8-NL-Z8q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1328" y="1759"/>
+        </scene>
         <!--Social View Controller-->
         <scene sceneID="WCm-Ec-iZ2">
             <objects>
@@ -2222,6 +2238,7 @@
                         <segue destination="b2l-Aa-CKR" kind="relationship" relationship="viewControllers" id="II7-sZ-rAl"/>
                         <segue destination="Som-kd-cKL" kind="relationship" relationship="viewControllers" id="Xzo-fl-hkE"/>
                         <segue destination="8WU-WJ-Lgb" kind="relationship" relationship="viewControllers" id="fHE-F1-GYV"/>
+                        <segue destination="Ugh-Dl-kbE" kind="relationship" relationship="viewControllers" id="yaI-4v-mJT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTS-oS-Xjz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2743,6 +2760,7 @@
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="chart.xyaxis.line" catalog="system" width="128" height="102"/>
         <image name="checklist" catalog="system" width="128" height="107"/>
+        <image name="info.circle.fill" catalog="system" width="128" height="123"/>
         <image name="list.bullet.circle.fill" catalog="system" width="128" height="123"/>
         <image name="paintpalette.fill" catalog="system" width="128" height="105"/>
         <image name="person.2.fill" catalog="system" width="128" height="81"/>
