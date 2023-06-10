@@ -55,6 +55,10 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         // do nothing
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     // TODO: Adding the sort by option to the sort button
     
     /// When tasks are added to the databse the controller is updated with the new list of tasks and the table view

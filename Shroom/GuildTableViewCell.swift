@@ -23,9 +23,12 @@ class GuildTableViewCell: UITableViewCell {
     
     @IBOutlet weak var expBar: UIProgressView!
     
+    @IBOutlet weak var charImage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        userDisplayImage.image = UIImage(named: "GuildBack")
     }
 
 }

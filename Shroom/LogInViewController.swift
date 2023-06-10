@@ -72,6 +72,10 @@ class LogInViewController: UIViewController, DatabaseListener{
         // do Nothing
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     /// If there exists a character it will pop the controller back to the root of it to allow the game to segue into the main screen
     func onCharacterChange(change: DatabaseChange, character: Character) {
         if databaseController?.currentCharacter?.charName != nil{

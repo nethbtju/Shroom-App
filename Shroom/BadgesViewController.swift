@@ -41,6 +41,10 @@ class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollec
         //
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     weak var databaseController: DatabaseProtocol?
     
     var badges: [Badge?] = []

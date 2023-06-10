@@ -142,6 +142,10 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         // do nothing
     }
+    
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
 
     // MARK: - Table view data source
 

@@ -61,6 +61,7 @@
 		C7CCFACE2A2AD5B300821E10 /* ChartUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */; };
 		C7CCFAD22A2B069000821E10 /* Shroom-DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7CCFAD02A2B069000821E10 /* Shroom-DataModel.xcdatamodeld */; };
 		C7EFD9152A2B57F4006CA613 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFD9142A2B57F4006CA613 /* SegmentedViewController.swift */; };
+		C7F1C0CB2A34785500F61B5E /* AddMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F1C0CA2A34785500F61B5E /* AddMemberViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartUIView.swift; sourceTree = "<group>"; };
 		C7CCFAD12A2B069000821E10 /* Shroom-DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Shroom-DataModel.xcdatamodel"; sourceTree = "<group>"; };
 		C7EFD9142A2B57F4006CA613 /* SegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
+		C7F1C0CA2A34785500F61B5E /* AddMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemberViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,17 +186,18 @@
 				C779D9112A1A464F00D96570 /* UnitTableViewController.swift */,
 				C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */,
 				C708ADE72A21A86100127CB2 /* ProductivityChartViewController.swift */,
+				C723E9622A30CBD100066E3F /* GuildTableViewCell.swift */,
+				C7F1C0CA2A34785500F61B5E /* AddMemberViewController.swift */,
 				C708ADF32A23492B00127CB2 /* SocialViewController.swift */,
 				C708ADF52A23494300127CB2 /* ShopViewController.swift */,
 				C708AE002A24645900127CB2 /* CircularProgressBarView.swift */,
 				C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */,
 				C708AE042A26144600127CB2 /* CurrentTaskDelegate.swift */,
 				C7EFD9142A2B57F4006CA613 /* SegmentedViewController.swift */,
-				C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */,
-				C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */,
 				C723E9522A2F7AB800066E3F /* BadgesViewController.swift */,
 				C723E9542A2F86AC00066E3F /* BadgeCollectionViewCell.swift */,
-				C723E9622A30CBD100066E3F /* GuildTableViewCell.swift */,
+				C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */,
+				C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				C723E95E2A2F964F00066E3F /* Inventory+CoreDataClass.swift in Sources */,
 				C708ADF22A23472300127CB2 /* TabBarViewController.swift in Sources */,
 				C708ADEE2A21D8EB00127CB2 /* AddTaskViewController.swift in Sources */,
+				C7F1C0CB2A34785500F61B5E /* AddMemberViewController.swift in Sources */,
 				C7433DB129E17B4F00B16B52 /* PickCharacterViewController.swift in Sources */,
 				C7CCFAD22A2B069000821E10 /* Shroom-DataModel.xcdatamodeld in Sources */,
 				C723E9602A2F964F00066E3F /* Badge+CoreDataClass.swift in Sources */,

@@ -21,6 +21,7 @@ enum DatabaseChange {
 enum ListenerType {
     case player
     case character
+    case guild
     case task
     case unit
     case progress
@@ -40,6 +41,7 @@ protocol DatabaseListener: AnyObject {
     func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge])
     func onInventoryChange(change: DatabaseChange, inventory: Inventory)
     func onBadgeChange(change: DatabaseChange, badges: [Badge])
+    func onGuildChange(change: DatabaseChange, guild: [Character])
 }
 
 /// Database protocols than is implemented in the Database Controller and accessible by other controllers
@@ -56,10 +58,13 @@ protocol DatabaseProtocol: AnyObject {
     
     func addTask(name: String, quickDes: String, dueDate: Date, priority: Int32, repeatTask: String, reminder: String, unit: String) -> TaskItem
     func addTaskToList(task: TaskItem, user: User) -> Bool
+    
     func addUnit(code: String?, name: String?, color: Int?) -> Unit
     func addUnitToList(unit: Unit, user: String) -> Bool
+    
     func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32)
     func createNewAccount(email: String, password: String) async throws
+    
     func logInToAccount(email: String, password: String) async throws
     func setUpUser() async throws
     
@@ -70,6 +75,7 @@ protocol DatabaseProtocol: AnyObject {
     func updateInventoryTasks() -> Inventory
 
     func updateCharacterStats(char: Character, user: String)
+    func addCharacterToGuild(uniqueID: String) -> Bool
     
     func addBadgeToInventory(badge: Badge, inventory: Inventory) -> Bool
     

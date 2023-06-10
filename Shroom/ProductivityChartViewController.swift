@@ -117,6 +117,10 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
         // do nothing
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     /// When the databse is updated, it parses the progress list to this function. It sets up the Swift Chart and loads it with
     /// the data it just recieved. It will then set the progress bar to the amount of tasks completed today
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {

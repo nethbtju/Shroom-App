@@ -9,9 +9,9 @@ import UIKit
 import FirebaseFirestoreSwift
 
 class User: NSObject, Codable {
-    var id: String?
+    @DocumentID var id: String?
     var taskList: [TaskItem] = []
     var unitList: [Unit] = []
-    var badges: [Int] = []
+    var guild: [Character] = []
     var productivity: [String: Int] = [:]
 }

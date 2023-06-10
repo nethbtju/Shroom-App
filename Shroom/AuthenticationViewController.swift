@@ -39,6 +39,10 @@ class AuthenticationViewController: UIViewController, DatabaseListener {
         // do nothing
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     /// Checks if the current user has a character chosen from the last segue. If so allows to segue into the main screen.
     ///
     /// - Parameters: change: DatabaseChange - Type of change the database is listening for

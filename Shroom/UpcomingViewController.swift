@@ -101,6 +101,10 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         // do nothing
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     /**
      Returns 5 sections for the 5 day upcoming view it will show
      */

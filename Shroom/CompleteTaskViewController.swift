@@ -198,6 +198,10 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         //
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)

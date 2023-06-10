@@ -29,6 +29,10 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         self.progress =  progress
     }
+    
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
 
     var progress: [String: Int] = [:]
     

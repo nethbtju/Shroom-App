@@ -291,6 +291,8 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     var currentCharacter: Character?
     var currentCharImage: UIImage?
     
+    var allCharacters: [Character]
+    
     var allTasksList: [TaskItem]
     var thisUser: User
     var allUnitList: [Unit]
@@ -317,6 +319,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         thisUser = User()
         allUnitList = [Unit]()
         badgeList = [Badge]()
+        allCharacters = [Character]()
         
         // Sets up the persistent container
         persistentContainer = NSPersistentContainer(name: "Shroom-DataModel")
@@ -328,6 +331,14 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         super.init()
         
         getLast7Days()
+        
+        // MARK: For testing purposes logs out of current signed in controller
+        do {
+            try authController.signOut()
+        } catch {
+            print("could not sign out")
+        }
+       
         
         // MARK: For testing purposes wipes the core database
         /*let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Badge")
@@ -382,7 +393,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         newUser.id = currentUser?.uid
         newUser.taskList = []
         newUser.unitList = []
-        newUser.badges = []
+        newUser.guild = []
         newUser.productivity = [:]
         for day in days {
             newUser.productivity[day] = 0
@@ -467,6 +478,9 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if listener.listenerType == .badges || listener.listenerType == .all {
             listener.onBadgeChange(change: .update, badges: fetchAllBadges())
         }
+        if listener.listenerType == ListenerType.guild || listener.listenerType == ListenerType.all {
+            listener.onGuildChange(change: .update, guild: thisUser.guild)
+        }
     }
     
     /// Removes the listener
@@ -488,7 +502,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     ///
     func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32){
         characterRef = database.collection("characters")
-        let starterChar = addCharacter(charName: charName, level: level, exp: exp, health: health, player: currentUser?.uid)
+        let starterChar = addCharacter(charName: charName, level: level, exp: exp, health: health, player: currentUser?.displayName)
         currentCharacter = starterChar
     }
     
@@ -507,14 +521,25 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         char.exp = exp
         char.health = health
         char.player = player
+        char.id = currentUser?.uid
         do {
             if let charRef = try characterRef?.document(currentUser!.uid).setData(from: char) {
+                print("Sucessfully created Character")
                 char.id = currentUser?.uid
             }
         } catch {
             print("Failed to serialize character")
         }
         return char
+    }
+    
+    func addCharacterToGuild(uniqueID: String) -> Bool {
+        guard let character = getCharacterByID(uniqueID) else {
+            print("Could not get character from list")
+            return false
+        }
+        thisUser.guild.append(character)
+        return true
     }
     
     /// Update the characters statistics in the firebase
@@ -609,7 +634,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     /// Gets the task from the user's task list
     ///
-    /// - Parameters: id: String - ID o f the task
+    /// - Parameters: id: String - ID of the task
     ///
     /// - Returns: task: TaskItem the task that was fetched from the list, else returns nil
     ///
@@ -617,6 +642,21 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         for task in allTasksList {
             if task.id == id {
                 return task
+            }
+        }
+        return nil
+    }
+    
+    /// Gets the character  from the all characters to exist
+    ///
+    /// - Parameters: id: String - ID of the character
+    ///
+    /// - Returns: task: Character - the character that was fetched from the list, else returns nil
+    ///
+    func getCharacterByID(_ id: String) -> Character? {
+        for char in allCharacters {
+            if char.id == id {
+                return char
             }
         }
         return nil
@@ -775,10 +815,20 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 print("Document doesn't exist")
                 return;
             }
-            if parsedCharacter?.player == authController.currentUser?.uid{
-                currentCharacter = char
+            if change.type == .added {
+                allCharacters.insert(char, at: Int(change.newIndex))
+            } else if change.type == .modified {
+                allCharacters[Int(change.oldIndex)] = char
+            } else if change.type == .removed {
+                allCharacters.remove(at: Int(change.oldIndex))
             }
         }
+        
+        guard let id = currentUser?.uid else {
+            return
+        }
+        currentCharacter = getCharacterByID(id)
+        
         listeners.invoke { (listener) in
             if listener.listenerType == .character || listener.listenerType == .all {
                 listener.onCharacterChange(change: .update, character: currentCharacter!)
@@ -926,6 +976,15 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             listeners.invoke { (listener) in
                 if listener.listenerType == ListenerType.unit || listener.listenerType == ListenerType.all {
                     listener.onListChange(change: .update, unitList: thisUser.unitList)
+                }
+            }
+        }
+        
+        if let charReference = snapshotData["guild"] as? [DocumentReference]{
+            thisUser.guild = charReference as! [Character]
+            listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.guild || listener.listenerType == ListenerType.all {
+                    listener.onGuildChange(change: .update, guild: thisUser.guild)
                 }
             }
         }

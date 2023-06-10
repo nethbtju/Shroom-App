@@ -66,6 +66,10 @@ class AddTaskViewController: UIViewController, DatabaseListener {
         //
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     /// Detects changes to the unit list in the firebase controller and makes the appropriate changes
     ///
     /// - Parameters: change: DatabaseChange - Type of database changes

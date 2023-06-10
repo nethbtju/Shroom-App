@@ -80,6 +80,10 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         //
     }
     
+    func onGuildChange(change: DatabaseChange, guild: [Character]) {
+        // do nothing
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
