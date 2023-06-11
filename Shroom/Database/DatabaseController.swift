@@ -342,12 +342,11 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         getLast7Days()
         
         // MARK: For testing purposes logs out of current signed in controller
-        do {
+        /*do {
             try authController.signOut()
         } catch {
             print("could not sign out")
-        }
-       
+        }*/
         
         // MARK: For testing purposes wipes the core database
         /*let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Badge")
@@ -378,12 +377,12 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 self.thisUser = self.createNewUser()
             }
             self.tasksRef = self.database.collection("tasks")
-            self.setupCharacterListener()
             Task{
                 do {
                     self.setupUnitListener()
                     self.setupTaskListener()
                     self.setupUserListener()
+                    self.setupCharacterListener()
                 }
             }
             self.setupInventory()
@@ -398,7 +397,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     /// - Returns: An instance of a user that has been sucessfully added to the firebase
     ///
     func createNewUser() -> User {
-        var newUser = User()
+        let newUser = User()
         newUser.id = currentUser?.uid
         newUser.taskList = []
         newUser.unitList = []
@@ -514,6 +513,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         characterRef = database.collection("characters")
         let starterChar = addCharacter(charName: charName, level: level, exp: exp, health: health, player: currentUser?.displayName, charImage: charImageName)
         currentCharacter = starterChar
+        setupCharacterListener()
     }
     
     /// Adds the character that is created to the firebase
@@ -829,7 +829,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             do {
                 parsedCharacter = try change.document.data(as: Character.self)
             } catch {
-                print("Unable to decode hero. Is the hero malformed?")
+                print("Unable to decode hero. Is the hero malformed? Occuring error \(error)")
                 return
             }
             guard let char = parsedCharacter else {

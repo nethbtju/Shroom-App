@@ -117,7 +117,7 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         allTasks = tasks
         sortedTasks = allTasks.sorted(by: {$0.dueDate! < $1.dueDate!})
         getTodayTasks()
-        tableView.reloadData()
+        //tableView.reloadData()
     }
     
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {

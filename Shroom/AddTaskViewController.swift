@@ -47,27 +47,8 @@ class AddTaskViewController: UIViewController, DatabaseListener {
         dueDateLabel.layer.masksToBounds = true
     }
     
-    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
-        //
-    }
-    
-    func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
-        //
-    }
-    
-    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        //
-    }
-    
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         //
-    }
-    
-    func onGuildChange(change: DatabaseChange, guild: [Character]) {
-        // do nothing
     }
     
     /// Detects changes to the unit list in the firebase controller and makes the appropriate changes
@@ -82,6 +63,26 @@ class AddTaskViewController: UIViewController, DatabaseListener {
     
     func onCharacterChange(change: DatabaseChange, character: Character) {
         //
+    }
+    
+    func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
+        // do nothing
+    }
+    
+    func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
+        // do nothing
+    }
+    
+    func onInventoryChange(change: DatabaseChange, inventory: Inventory){
+        // do nothing
+    }
+    
+    func onBadgeChange(change: DatabaseChange, badges: [Badge]){
+        // do nothing
+    }
+    
+    func onGuildChange(change: DatabaseChange, guild: [Character]){
+        // do nothing
     }
 
     /// When the user clicked the addTaskButton, the button will check if the specific fields are empty or

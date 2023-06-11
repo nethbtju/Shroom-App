@@ -9,6 +9,8 @@ import UIKit
 
 class UpcomingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DatabaseListener{
     
+    @IBOutlet weak var tableView: UITableView!
+    
     var listenerType = ListenerType.task
     
     let CELL_TASKS = "taskCell"
@@ -74,7 +76,6 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         allTasks = tasks
         sortedByDateTasks = allTasks.sorted(by: {$0.dueDate! < $1.dueDate!})
         splitByDate()
-        reloadInputViews()
     }
     
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
@@ -114,7 +115,7 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard var tasks_for_day = allDates[dates[section]] else {
+        guard let tasks_for_day = allDates[dates[section]] else {
             return 0
         }
         return tasks_for_day.count

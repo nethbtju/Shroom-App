@@ -45,7 +45,6 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
     
     func onGuildChange(change: DatabaseChange, guild: [Character]) {
         currentGuild = guild
-        tableView.reloadData()
     }
 
     var currentGuild = [Character]()
@@ -68,6 +67,8 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var expProgressBar: UIProgressView!
     
+    @IBOutlet weak var shroomImg: UIImageView!
+    
     func loadCharacter(char: Character?){
         guard let shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let image = shroom.charImage else {
             return
@@ -80,6 +81,7 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
         levelLabel.text = "lvl \(shroomLevel)"
         expLabel.text = "\(shroomExp)/\(totalExp)"
         hpLabel.text = "\(shroomHealth)/\(totalHealth)"
+        shroomImg.image = shroomImage
         
         let Hprogress = Float(shroomHealth)/totalHealth
         let Eprogress = Float(shroomExp)/totalExp

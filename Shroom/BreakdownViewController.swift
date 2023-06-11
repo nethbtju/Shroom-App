@@ -123,6 +123,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         levelLabel.text = "lvl \(shroomLevel)"
         expLabel.text = "\(shroomExp)/\(totalExp)"
         hpLabel.text = "\(shroomHealth)/\(totalHealth)"
+        currentCharacterImage.image = shroomImage
         
         let Hprogress = Float(shroomHealth)/totalHealth
         let Eprogress = Float(shroomExp)/totalExp
