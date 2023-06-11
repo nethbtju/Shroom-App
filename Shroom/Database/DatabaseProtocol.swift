@@ -62,7 +62,7 @@ protocol DatabaseProtocol: AnyObject {
     func addUnit(code: String?, name: String?, color: Int?) -> Unit
     func addUnitToList(unit: Unit, user: String) -> Bool
     
-    func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32)
+    func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32, charImageName: String)
     func createNewAccount(email: String, password: String) async throws
     
     func logInToAccount(email: String, password: String) async throws

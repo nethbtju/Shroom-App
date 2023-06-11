@@ -110,10 +110,10 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func loadCharacter(char: Character?){
-        guard let shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let player = currentPlayer else {
+        guard let shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let player = currentPlayer, let image = shroom.charImage else {
             return
         }
-        let shroomImage = databaseController?.currentCharImage
+        let shroomImage = UIImage(named: image)
         let totalExp = Float(shroomLevel) * 100.00
         let totalHealth = Float(shroomLevel) * 200.00
         

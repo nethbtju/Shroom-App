@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import FirebaseFirestoreSwift
 
 class Character: NSObject, Codable {
-    var id: String?
+    @DocumentID var id: String?
     var charName: String?
     var level: Int32?
     var exp: Int32?
     var health: Int32?
     var player: String?
+    var charImage: String?
 }

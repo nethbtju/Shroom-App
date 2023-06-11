@@ -10,6 +10,8 @@ import SwiftUI
 
 class SocialViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DatabaseListener {
     
+    @IBOutlet weak var tableView: UITableView!
+    
     var listenerType = ListenerType.all
     
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
@@ -43,6 +45,7 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
     
     func onGuildChange(change: DatabaseChange, guild: [Character]) {
         currentGuild = guild
+        tableView.reloadData()
     }
 
     var currentGuild = [Character]()
@@ -66,10 +69,10 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var expProgressBar: UIProgressView!
     
     func loadCharacter(char: Character?){
-        guard let shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health else {
+        guard let shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let image = shroom.charImage else {
             return
         }
-        let shroomImage = databaseController?.currentCharImage
+        let shroomImage = UIImage(named: image)
         let totalExp = Float(shroomLevel) * 100.00
         let totalHealth = Float(shroomLevel) * 200.00
         
@@ -100,7 +103,7 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
         
         let shroom = currentGuild[indexPath.row]
         
-        guard let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let player = shroom.player else {
+        guard let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let player = shroom.player, let image = shroom.charImage else {
             return guildCell
         }
         
@@ -116,7 +119,7 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
         guildCell.userCharLevel.text = "lvl \(shroomLevel)"
         guildCell.expBar.progress = Eprogress
         guildCell.healthBar.progress = Hprogress
-        guildCell.charImage.image = UIImage(named: shroomName)
+        guildCell.charImage.image = UIImage(named: image)
         
         if indexPath.row == 1 {
             guildCell.leaderBadge.image = UIImage(named: "Place1")

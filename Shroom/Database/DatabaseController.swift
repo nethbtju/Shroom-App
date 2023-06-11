@@ -50,7 +50,10 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     func setupInventory(){
         var inv = [Inventory]()
         let request: NSFetchRequest<Inventory> = Inventory.fetchRequest()
-        let predicate = NSPredicate(format: "userID = %@", currentUser!.uid)
+        guard let current = currentUser?.uid  else {
+            return
+        }
+        let predicate = NSPredicate(format: "userID = %@", current)
         request.predicate = predicate
         do {
             try inv = persistentContainer.viewContext.fetch(request)
@@ -63,7 +66,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             return
         }
         
-        userInventory = addInventory(user: currentUser!.uid)
+        userInventory = addInventory(user: current)
         return
     }
     
@@ -74,11 +77,14 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     /// - Returns inventory: An instance of the NSObject Inventory
     ///
     func fetchAllInventory() -> Inventory {
+        guard let current = currentUser?.uid else {
+            return Inventory()
+        }
         if allInventoryFetchedResultsController == nil {
             let fetchRequest: NSFetchRequest<Inventory> = Inventory.fetchRequest()
             let nameSortDescriptor = NSSortDescriptor(key: "userID", ascending: true)
             let predicate = NSPredicate(format: "userID == %@",
-                                        currentUser!.uid)
+                                        current)
             fetchRequest.sortDescriptors = [nameSortDescriptor]
             fetchRequest.predicate = predicate
             
@@ -95,17 +101,16 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         var fetchedInventory = Inventory()
-        if allInventoryFetchedResultsController?.fetchedObjects?.first != nil {
-            fetchedInventory = (allInventoryFetchedResultsController?.fetchedObjects?.first)!
+        guard let inv = allInventoryFetchedResultsController?.fetchedObjects?.first else {
+            return fetchedInventory
         }
+        fetchedInventory = inv
         
         guard let inventory = userInventory else {
             return fetchedInventory
         }
         
         userInventory = fetchedInventory
-        print(inventory.userID)
-        print(inventory.tasksCompleted)
         
         return inventory
     }
@@ -115,9 +120,9 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     /// - Returns inventory: An instance of the NSObject Inventory with the updated data
     ///
     func updateInventoryTasks() -> Inventory {
-        guard var inventory = userInventory else {
+        guard let inventory = userInventory else {
             print("Core Data could not update the tasks count")
-            return userInventory!
+            return Inventory()
         }
         
         inventory.tasksCompleted += 1
@@ -134,6 +139,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     /// - Returns inventory: An instance of the NSObject Badge in an array of all badges
     ///
     func fetchAllBadges() -> [Badge] {
+        
         if allBadgesFetchedResultsController == nil {
             let request: NSFetchRequest<Badge> = Badge.fetchRequest()
             let nameSortDescriptor = NSSortDescriptor(key: "badgeType", ascending: true)
@@ -182,11 +188,14 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     /// - Returns [badge]: An array instance of the NSObject badges
     ///
     func fetchInventoryBadges() -> [Badge] {
+        guard let current = currentUser?.uid else {
+            return [Badge]()
+        }
         if allInventoryBadgesFetchedResultsController == nil {
             let fetchRequest: NSFetchRequest<Badge> = Badge.fetchRequest()
             let nameSortDescriptor = NSSortDescriptor(key: "badgeID", ascending: true)
             let predicate = NSPredicate(format: "ANY inventory.userID == %@",
-                                        currentUser!.uid)
+                                        current)
             fetchRequest.sortDescriptors = [nameSortDescriptor]
             fetchRequest.predicate = predicate
             
@@ -203,10 +212,10 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         var fetchedBadges = [Badge]()
-        if allInventoryBadgesFetchedResultsController?.fetchedObjects?.first != nil {
-            fetchedBadges = (allInventoryBadgesFetchedResultsController?.fetchedObjects)!
+        guard let badges = allInventoryBadgesFetchedResultsController?.fetchedObjects else {
+            return fetchedBadges
         }
-
+        fetchedBadges = badges
         return fetchedBadges
     }
     
@@ -477,6 +486,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         if listener.listenerType == .badges || listener.listenerType == .all {
             listener.onBadgeChange(change: .update, badges: fetchAllBadges())
+            listener.onBadgeChange(change: .update, badges: fetchAllBadges())
         }
         if listener.listenerType == ListenerType.guild || listener.listenerType == ListenerType.all {
             listener.onGuildChange(change: .update, guild: thisUser.guild)
@@ -500,9 +510,9 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     ///               exp:  Int32 - The amount of experience points the new character added has
     ///               health: Int32 - The amount of health points the character has
     ///
-    func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32){
+    func createNewStarter(charName: String, level: Int32, exp: Int32, health: Int32, charImageName: String){
         characterRef = database.collection("characters")
-        let starterChar = addCharacter(charName: charName, level: level, exp: exp, health: health, player: currentUser?.displayName)
+        let starterChar = addCharacter(charName: charName, level: level, exp: exp, health: health, player: currentUser?.displayName, charImage: charImageName)
         currentCharacter = starterChar
     }
     
@@ -514,14 +524,15 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     ///               health: Int32 - The amount of health points the character has
     /// - Returns Character - An instance of the character that was created
     ///
-    func addCharacter(charName: String, level: Int32, exp: Int32, health: Int32, player: String?) -> Character {
+    func addCharacter(charName: String, level: Int32, exp: Int32, health: Int32, player: String?, charImage: String) -> Character {
+        
         let char = Character()
         char.charName = charName
         char.level = level
         char.exp = exp
         char.health = health
         char.player = player
-        char.id = currentUser?.uid
+        char.charImage = charImage
         do {
             if let charRef = try characterRef?.document(currentUser!.uid).setData(from: char) {
                 print("Sucessfully created Character")
@@ -534,11 +545,21 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
     func addCharacterToGuild(uniqueID: String) -> Bool {
-        guard let character = getCharacterByID(uniqueID) else {
-            print("Could not get character from list")
+        guard let userID = currentUser?.uid else{
             return false
         }
-        thisUser.guild.append(character)
+        
+        if let newCharRef = characterRef?.document(uniqueID) {
+            userRef?.document(userID).updateData(["guild" : FieldValue.arrayUnion([newCharRef])])
+        } else {
+            print("Could not add character to guild")
+        }
+        
+        if let otherPlayerCharRef = characterRef?.document(userID) {
+            userRef?.document(uniqueID).updateData(["guild" : FieldValue.arrayUnion([otherPlayerCharRef])])
+            print("Could not add character to other players guild")
+        }
+        
         return true
     }
     
@@ -981,7 +1002,11 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         if let charReference = snapshotData["guild"] as? [DocumentReference]{
-            thisUser.guild = charReference as! [Character]
+            for reference in charReference {
+                if let char = getCharacterByID(reference.documentID){
+                    thisUser.guild.append(char)
+                }
+            }
             listeners.invoke { (listener) in
                 if listener.listenerType == ListenerType.guild || listener.listenerType == ListenerType.all {
                     listener.onGuildChange(change: .update, guild: thisUser.guild)

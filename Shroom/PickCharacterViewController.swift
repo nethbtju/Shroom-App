@@ -11,6 +11,7 @@ import Firebase
 class PickCharacterViewController: UIViewController {
     
     var chosenCharName: String?
+    var chosenImage: String?
     var image: UIImage?
     
     weak var databaseController: DatabaseProtocol?
@@ -20,11 +21,11 @@ class PickCharacterViewController: UIViewController {
     
     // When clicked will allow the chosen character to be parsed into firebase
     @IBAction func chooseCharacter(_ sender: Any) {
-        guard let chosenChar = chosenCharName, chosenChar.isEmpty == false else{
+        guard let chosenChar = chosenCharName, chosenChar.isEmpty == false, let charImage = chosenImage, charImage.isEmpty == false else{
             displayMessage(title: "No Starter Shroom Selected", message: "Please select a starter shroom!")
             return
         }
-        databaseController?.createNewStarter(charName: chosenChar, level: 1, exp: 0, health: 100)
+        databaseController?.createNewStarter(charName: chosenChar, level: 1, exp: 0, health: 100, charImageName: charImage)
         databaseController?.currentCharImage = image
         navigationController?.popToRootViewController(animated: true)
     }
@@ -75,15 +76,19 @@ class PickCharacterViewController: UIViewController {
             case 0:
                 image = redShroom.image!
                 self.chosenCharName = "Red Shroom"
+                self.chosenImage = "redShroom"
             case 1:
                 image = blueShroom.image!
                 self.chosenCharName = "Blue Shroom"
+                self.chosenImage = "blueShroom"
             case 2:
                 image = pinkShroom.image!
                 self.chosenCharName = "Pink Shroom"
+                self.chosenImage = "pinkShroom"
             case 3:
                 image = purpleShroom.image!
                 self.chosenCharName = "Purple Shroom"
+                self.chosenImage = "purpleShroom"
             default:
                 image = redShroom.image!
             }
