@@ -51,6 +51,7 @@ class UnitTableViewController: UITableViewController, UnitDetailsDelgate, Databa
         navigationItem.title = "\(currentUnit.unitCode!) • \(currentUnit.unitName!)"
     }
 
+    // When the tasks changes, the change will get all the tasks that were apart of that unit and show it on the screen.
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         allTasks = tasks
         getUnitTasks()

@@ -10,6 +10,8 @@ import SwiftUI
 
 class SocialViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DatabaseListener {
     
+    @IBOutlet weak var guildBackground: UIView!
+    
     @IBOutlet weak var tableView: UITableView!
     
     var listenerType = ListenerType.all
@@ -45,6 +47,7 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
     
     func onGuildChange(change: DatabaseChange, guild: [Character]) {
         currentGuild = guild
+        tableView.reloadData()
     }
 
     var currentGuild: [Character] = []
@@ -69,6 +72,9 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var shroomImg: UIImageView!
     
+    /// Loads the user's character on the top of the screen to show the relevant information
+    ///
+    /// - Parameters: char: Character - The character that is to be loaded on the main screen
     func loadCharacter(char: Character?){
         guard let shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let image = shroom.charImage else {
             return
@@ -94,12 +100,18 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        // set the corner radius of the guild background
+        guildBackground.layer.cornerRadius = 6.0
+        guildBackground.layer.masksToBounds = true
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         currentGuild.count
     }
     
+    /// Uses the customer guild member viewcell and configures the added member data to fit the cell and displays it on the screen
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let guildCell = tableView.dequeueReusableCell(withIdentifier: CELL_GUILD, for: indexPath) as! GuildTableViewCell
         

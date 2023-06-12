@@ -40,12 +40,11 @@ class TaskTableViewCell: UITableViewCell {
         priority.layer.cornerRadius = 5
         priority.layer.masksToBounds = true
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
     
+    /// Changes the format of the priority to be a string from the int that is stored in the firebase
+    ///
+    /// - Parameters: Priority: Int32 the int that is stored in the firebase
+    /// 
     func formatPriority(priority: Int32?) -> String? {
         switch priority {
         case 1:

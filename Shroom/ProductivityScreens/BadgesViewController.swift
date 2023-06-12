@@ -8,6 +8,8 @@
 import UIKit
 
 class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DatabaseListener {
+    
+    /// Gets all the possible badges from the persistent core database
     func onBadgeChange(change: DatabaseChange, badges: [Badge]) {
         allBadges = badges
     }
@@ -32,6 +34,7 @@ class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollec
         //
     }
     
+    /// Gets the badges from the core data as it updates and displays them on the collection view by reloading the view
     func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
         self.badges = badges
         collectionView.reloadData()
@@ -57,6 +60,7 @@ class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollec
         return allBadges.count
     }
     
+    /// Confirms the collection view to the BadgeCollectionViewCell and displays them on the page
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let badgeCell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_BADGE, for: indexPath) as! BadgeCollectionViewCell
         let badgeFromAll = allBadges[indexPath.row]
@@ -75,10 +79,9 @@ class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Sets the delegate up for the databse from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-
-        // Do any additional setup after loading the view.
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -90,14 +93,5 @@ class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollec
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

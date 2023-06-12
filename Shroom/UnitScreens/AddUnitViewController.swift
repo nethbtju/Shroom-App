@@ -98,6 +98,8 @@ class AddUnitViewController: UIViewController {
         super.viewDidLoad()
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
+        
+        // Sets the current selected button as a default selection
         selected = blueBtn
         blueBtn.layer.borderWidth = 2
         blueBtn.layer.cornerRadius = 20
@@ -146,6 +148,9 @@ class AddUnitViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    /// Gets the index of the colour chosen to store in the firebase
+    ///
+    /// - Parameters: color - UIColor that needs to be converted to an integer
     func getIndex(color: UIColor) -> Int{
         var colour: Int
         switch color {
@@ -179,17 +184,4 @@ class AddUnitViewController: UIViewController {
         return colour
     }
     
-    // Colour Selecting buttons
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

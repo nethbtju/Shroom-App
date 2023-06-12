@@ -57,19 +57,28 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         }
     }
     
+    /// Delegate protocol that tells the complete task screen what task is being completed
     func currentTaskIs(_ task: TaskItem) -> Bool {
         self.task = task
         return true
     }
     
+    /// Sets up the timer
     func setUpTimer(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(step), userInfo: nil, repeats: true)
     }
     
+    /// Pauses the timer
     func pauseTimer(){
         timer.invalidate()
     }
     
+    /// When a task is completed, it calculates the earned exp from that task depending on how much of that set time was spent on that task from the overall exp that task can gain.
+    ///
+    /// It will then update the characters status accordingly and remove the task from the tasklist. The function will then add that completed number as an increment to the user's
+    /// total completed tasks in the core data.
+    ///
+    /// It will then pause the time and check if the user has earned any badges from that completed task
     func completeTask() -> Bool{
         guard let timeLeft = timeRemaining, let totalTime = time, let exp = task?.expPoints, let currentTask = task, let user = databaseController?.thisUser, let char = currentCharacter, let thisUser = databaseController?.currentUser?.uid else {
             return false
@@ -92,6 +101,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         return true
     }
     
+    /// It will check if the user has earned any badges by checking all badges point system and comparing it to the user's total completed tasks.
+    /// If a user has earned a badge, it will add it to the user's inventory using the core data functions
     func checkUserBadges(){
         guard let currentUserPoints = inventory?.tasksCompleted, let inv = inventory, let database = databaseController else {
             print("Could not parse user tasks completed")
@@ -107,6 +118,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         }
     }
     
+    /// This function will increment the timer by 1 second each iteration. It alos formats what it shown on the timer screen and checks if the
+    /// timer is over.
     @objc func step(){
         if timeRemaining! > 0 {
             timeRemaining! -= 1
@@ -114,17 +127,30 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
             timer.invalidate()
             timeRemaining = Int(progressView.timeToFill)
         }
-        countDown.text = "\(timeRemaining ?? 0)"
         
-        if timeRemaining == 0{
+        guard let time = timeRemaining else {
+            print("Could not convert time")
+            return
+        }
+        
+        let hours = Int(time) / 3600
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
+        var text = String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+        
+        countDown.text = "\(text)"
+        
+        if time == 0{
             if completeTask(){
-                _ = navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
             }
             
         }
                 
     }
     
+    /// Once the user has picked a time to set for this task, they can begin working on the task while the timer actively runs.
+    /// If they choose to start the timer, they cannot go back to the task screen unless they finish the task or end it manually
     @IBAction func setTimerButton(_ sender: Any) {
         time = Int(timerSet.countDownDuration)
         backButton.isHidden = true
@@ -155,6 +181,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Initial set up of the progress bar view
         progressView.progressColor = UIColor(named: "LilacColor")!
         progressView.trackColor = .lightGray
         progressView.timeToFill = 0
@@ -162,11 +189,14 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         view.addSubview(progressView)
         progressView.progress = 0
         
+        // hide the countdown
         countDown.isHidden = true
         
         guard let task = self.task else{
             return
         }
+        
+        // Set the task title
         taskTitle.text = task.name
         currentCharacter = databaseController?.currentCharacter
     }
@@ -213,14 +243,4 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         databaseController?.removeListener(listener: self)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

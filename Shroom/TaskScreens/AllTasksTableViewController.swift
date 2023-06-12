@@ -18,7 +18,7 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
     
     var allTasks: [TaskItem] = []
 
-    var listenerType = ListenerType.task
+    var listenerType = ListenerType.all
     
     weak var databaseController: DatabaseProtocol?
     
@@ -137,13 +137,9 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if editingStyle == .delete && indexPath.section == SECTION_TASKS {
-                guard let database = databaseController else {
-                    print("Could not call databaseController")
-                    return
-                }
                 let task = allTasks[indexPath.row]
-                database.deleteTask(task: task)
-                database.removeTaskFromList(task: allTasks[indexPath.row], user: database.thisUser)
+                let _  = databaseController?.removeTaskFromList(task: allTasks[indexPath.row], user: databaseController!.thisUser)
+                databaseController?.deleteTask(task: task)
             }
         }
     }

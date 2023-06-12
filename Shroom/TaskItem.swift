@@ -8,17 +8,7 @@
 import UIKit
 import FirebaseFirestoreSwift
 
-enum CodingKeys: String, CodingKey {
-    case name
-    case quickDes
-    case dueDate
-    case priority
-    case repeatTask
-    case unit
-    case user
-    case expPoints
-}
-
+/// Tasks that get parsed into the firebase as codeables
 class TaskItem: NSObject, Codable {
     @DocumentID var id: String?
     var name: String?

@@ -15,6 +15,8 @@ struct WeeklyProgress: Identifiable {
     var id = UUID()
 }
 
+/// Creates the structure for the swift charts used to demonstrate the progress of the user each week.
+/// This was referenced and modified code used from the FIT3178: iOS Development unit Week 9 Lab by Monash University
 struct ChartUIView: View{
     
     public var barWidth = Double(1)

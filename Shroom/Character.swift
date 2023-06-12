@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseFirestoreSwift
 
+/// NSObject for character that contains all the attributes that are parsed into firebase with the
+/// Character object
 class Character: NSObject, Codable {
     @DocumentID var id: String?
     var charName: String?

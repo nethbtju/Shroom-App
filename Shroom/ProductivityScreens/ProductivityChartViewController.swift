@@ -35,16 +35,15 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     
     @IBOutlet weak var progressView: UIView!
     
-    @IBOutlet weak var chartViewSpace: UIView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Initialises the progressView with its colours and constraints
         progressViewBar.progressColor = UIColor(named: "LilacColor")!
-        progressViewBar.trackColor = .systemGray6
+        progressViewBar.trackColor = .systemGray5
         progressViewBar.timeToFill = 0
         progressView.center = progressViewBar.center
         progressView.addSubview(progressViewBar)
@@ -79,7 +78,7 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
         ])
     }
     
-    /// Gets the last 7 days from todays date
+    /// Gets the last 7 days from todays date by using the calnder's current date and traversing backwards
     func getLast7Days(){
         let cal = Calendar.current
         var date = cal.startOfDay(for: Date())
@@ -125,7 +124,7 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     }
     
     /// When the databse is updated, it parses the progress list to this function. It sets up the Swift Chart and loads it with
-    /// the data it just recieved. It will then set the progress bar to the amount of tasks completed today
+    /// the data it just recieved. It will then set the progress bar to the amount of tasks completed today. 
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         progressList = progress
         if days.isEmpty {

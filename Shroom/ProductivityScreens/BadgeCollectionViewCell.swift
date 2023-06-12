@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Custom CollectionViewCell that allows the badges to be displayed
 class BadgeCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var badgeImage: UIImageView!

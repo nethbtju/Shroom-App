@@ -19,6 +19,8 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var sortedByDateTasks: [TaskItem] = []
     
+    weak var currentTaskDelegate: CurrentTaskDelegate?
+    
     var dates: [String] = []
     
     var allDates: [String: [TaskItem]] = [:]
@@ -35,6 +37,8 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
     /// Splits the tasks by the date they are due into a list of lists.
     /// It only displays the next upcoming 5 days of tasks.
     func splitByDate(){
+        allDates = [:]
+        dates = []
         var counter = 5
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "dd.MM.yyyy"
@@ -76,6 +80,7 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         allTasks = tasks
         sortedByDateTasks = allTasks.sorted(by: {$0.dueDate! < $1.dueDate!})
         splitByDate()
+        tableView.reloadData()
     }
     
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
@@ -137,6 +142,40 @@ class UpcomingViewController: UIViewController, UITableViewDataSource, UITableVi
         taskCell.imageView?.image = imageIcon
         
         return taskCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath:
+    IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "showTaskCompletion")
+        self.currentTaskDelegate = vc as? any CurrentTaskDelegate
+        var date = dates[indexPath.section]
+        guard var dateTasks = allDates[date] else {
+            return
+        }
+        let currentTask = dateTasks[indexPath.row]
+        
+        if let taskDelegate = currentTaskDelegate {
+            if taskDelegate.currentTaskIs(currentTask) {
+            tableView.deselectRow(at: indexPath, animated: true)
+            showTaskCompletionScreen(controller: self, newVC: vc)
+            }
+        }
+    }
+    
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if editingStyle == .delete {
+                var date = dates[indexPath.section]
+                guard var dateTasks = allDates[date] else {
+                    return
+                }
+                let task = dateTasks[indexPath.row]
+                let _  = databaseController?.removeTaskFromList(task: task, user: databaseController!.thisUser)
+                databaseController?.deleteTask(task: task)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

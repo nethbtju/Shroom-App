@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Allows the productivity pages to be switches using a segmented control
 class SegmentedViewController: UIViewController {
 
     @IBOutlet weak var productivitySegment: UIView!
@@ -19,6 +20,7 @@ class SegmentedViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    ///When the user clicks either one of the segments, it makes that page the alpha and hides the other page
     @IBAction func segmentedControl(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             productivitySegment.alpha = 1

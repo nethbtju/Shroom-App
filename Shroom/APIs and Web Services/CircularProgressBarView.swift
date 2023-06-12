@@ -9,6 +9,9 @@ import UIKit
 
 /**
  Creates a circular progress bar to be use to show progress or a count down timer
+ This class was created using references and modified code from the Custom Circular Progress Bar in iOS Using Swift 4
+ article by Sree on March 1 2019 on the wesbite Medium.
+ (Link: https://medium.com/@imsree/custom-circular-progress-bar-in-ios-using-swift-4-b1a9f7c55da)
  */
 class CircularProgressBarView: UIView {
     

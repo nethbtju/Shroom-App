@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// TabBarViewController that allows the navigation back button to be invisible when in use
 class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -28,6 +28,8 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     
     weak var databaseController: DatabaseProtocol?
     
+    weak var currentTaskDelegate: CurrentTaskDelegate?
+    
     var listenerType = ListenerType.task
 
     @IBOutlet weak var holidayLabel: UILabel!
@@ -50,6 +52,7 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
     
     /// Fetches all the tasks that match the current date and puts them into the todayTasks list
     func getTodayTasks(){
+        todayTasks = []
         var currentDateCheck = true
         var currentIndex = 0
         let taskCount = allTasks.count
@@ -117,7 +120,7 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         allTasks = tasks
         sortedTasks = allTasks.sorted(by: {$0.dueDate! < $1.dueDate!})
         getTodayTasks()
-        //tableView.reloadData()
+        tableView.reloadData()
     }
     
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
@@ -197,6 +200,33 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath:
+    IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "showTaskCompletion")
+        self.currentTaskDelegate = vc as? any CurrentTaskDelegate
+        
+        let currentTask = todayTasks[indexPath.row]
+        
+        if let taskDelegate = currentTaskDelegate {
+            if taskDelegate.currentTaskIs(currentTask) {
+            tableView.deselectRow(at: indexPath, animated: true)
+            showTaskCompletionScreen(controller: self, newVC: vc)
+            }
+        }
+    }
+    
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if editingStyle == .delete {
+                let task = todayTasks[indexPath.row]
+                let _  = databaseController?.removeTaskFromList(task: task, user: databaseController!.thisUser)
+                databaseController?.deleteTask(task: task)
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
@@ -209,6 +239,9 @@ class TodayTableViewController: UITableViewController, DatabaseListener {
 
 }
 
+/// This code was referenced and modified from the Swift: Talk to REST API and fetch JSON Using Siesta Framework
+/// article by Zafar Ivaev published in Jan 28 2020
+/// (Link: https://medium.com/cleansoftware/clean-rest-api-and-json-using-siesta-c02aa0eb88ec)
 extension TodayTableViewController: ResourceObserver {
     
     /// Gets the holiday dates of all the holdiays in the current year and checks if today's date has anything special to it

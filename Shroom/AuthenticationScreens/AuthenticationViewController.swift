@@ -56,6 +56,8 @@ class AuthenticationViewController: UIViewController, DatabaseListener {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setting up the database
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
         authController = Auth.auth()

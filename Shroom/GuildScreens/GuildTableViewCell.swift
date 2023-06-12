@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Customer TableViewCell for the members added to the guild 
 class GuildTableViewCell: UITableViewCell {
 
     @IBOutlet weak var leaderBadge: UIImageView!

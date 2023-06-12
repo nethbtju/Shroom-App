@@ -33,8 +33,11 @@ class PickCharacterViewController: UIViewController {
     @IBOutlet weak var buttonText: UIButton!
     
     @IBOutlet weak var purpleShroom: UIImageView!
+    
     @IBOutlet weak var pinkShroom: UIImageView!
+    
     @IBOutlet weak var blueShroom: UIImageView!
+    
     @IBOutlet weak var redShroom: UIImageView!
     
     @IBOutlet weak var chosenChar: UIImageView!
@@ -43,11 +46,13 @@ class PickCharacterViewController: UIViewController {
         super.viewDidLoad()
         authController = Auth.auth()
         
+        // Setting up the tap gestures for each image
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
         let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
         let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
         let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
-            // add it to the image view;
+        
+        // add it to the image view
         redShroom.addGestureRecognizer(tapGesture1)
         redShroom.isUserInteractionEnabled = true
         
@@ -63,12 +68,18 @@ class PickCharacterViewController: UIViewController {
         
         let appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         databaseController = appDelegate?.databaseController
+        
         welcomeLabel!.text = "Welcome, \(authController?.currentUser?.displayName ?? "Stranger!")"
-        // Do any additional setup after loading the view.
     }
     
     /// Will register an image that has been tapped and display that image on the screen as the chosen character
+    /// The code was referenced and modified using the answer provided on StackOverflow by Arbitur on Jun 20 2015
+    /// (Link: https://stackoverflow.com/questions/30958745/how-to-detect-which-image-has-been-tapped-in-swift)
+    ///
+    ///  - Parameters: gesture: The type of gesture that was conducted
+    ///
     @objc func imageTapped(gesture: UIGestureRecognizer) {
+        
         // if the tapped view is a UIImageView then set it to imageview
         if (gesture.view as? UIImageView) != nil {
             let imageTag = gesture.view!.tag
@@ -94,7 +105,6 @@ class PickCharacterViewController: UIViewController {
             }
             chosenChar.image = image
             buttonText.setTitle("Choose \(chosenCharName!)", for: buttonText.state)
-            //Here you can initiate your new ViewController
         }
     }
 

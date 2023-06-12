@@ -217,6 +217,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         else{
             self.performSegue(withIdentifier: "allTaskSegue", sender: nil)
             }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Collection View

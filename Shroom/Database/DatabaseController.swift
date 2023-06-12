@@ -342,7 +342,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         getLast7Days()
         
         // MARK: For testing purposes logs out of current signed in controller
-        /*do {
+            /*do {
             try authController.signOut()
         } catch {
             print("could not sign out")
@@ -450,7 +450,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 let authDetail = try await authController.signIn(withEmail: email, password: password)
                 print("User Logged in")
                 currentUser = authDetail.user
-                try await setUpUser()
+                //try await setUpUser()
             }
             catch {
                 print("Log in failed with error \(String(describing: error))")
@@ -650,12 +650,14 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     /// - Parameters: task: TaskItem - the task that is being added to the user's list
     ///               user: User - The user the task is being added to
     ///
-    func removeTaskFromList(task: TaskItem, user: User) {
-        if allTasksList.contains(task), let taskID = task.id , let user = currentUser?.uid {
-            if let removedTaskRef = tasksRef?.document(taskID) {
-            userRef?.document(user).updateData(["taskList": FieldValue.arrayRemove([removedTaskRef])])
-            }
+    func removeTaskFromList(task: TaskItem, user: User) -> Bool {
+        guard let taskID = task.id, let userID = currentUser?.uid else{
+            return false
         }
+        if let removeTask = tasksRef?.document(taskID) {
+            userRef?.document(userID).updateData(["taskList" : FieldValue.arrayRemove([removeTask])])
+        }
+        return true
     }
     
     /// Gets the task from the user's task list

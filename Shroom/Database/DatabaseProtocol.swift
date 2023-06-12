@@ -69,7 +69,7 @@ protocol DatabaseProtocol: AnyObject {
     func setUpUser() async throws
     
     func deleteTask(task: TaskItem)
-    func removeTaskFromList(task: TaskItem, user: User)
+    func removeTaskFromList(task: TaskItem, user: User) -> Bool
     
     func addCompletedTaskToProgress(date: String, user: String)
     func updateInventoryTasks() -> Inventory

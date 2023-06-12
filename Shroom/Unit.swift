@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FirebaseFirestoreSwift
 
+/// Unit NSObject Codeable that gets parsed into the firebase when created
 class Unit: NSObject, Codable {
     @DocumentID var id: String?
     var unitCode: String?
@@ -17,6 +18,7 @@ class Unit: NSObject, Codable {
     var colour: Int?
 }
 
+/// Extension that allows colours to be converted to indexes when parsed into the firebase
 extension Unit{
     func getColor(index: Int?) -> UIColor?{
         switch index {

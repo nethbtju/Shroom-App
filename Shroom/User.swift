@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseFirestoreSwift
 
+/// NSObject class that determines the user and all the data that goes into the User object
+/// when parsed into the Firebase
 class User: NSObject, Codable {
     @DocumentID var id: String?
     var taskList: [TaskItem] = []
