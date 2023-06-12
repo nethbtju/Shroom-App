@@ -379,10 +379,10 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
             self.tasksRef = self.database.collection("tasks")
             Task{
                 do {
+                    self.setupCharacterListener()
                     self.setupUnitListener()
                     self.setupTaskListener()
                     self.setupUserListener()
-                    self.setupCharacterListener()
                 }
             }
             self.setupInventory()
@@ -485,7 +485,6 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         if listener.listenerType == .badges || listener.listenerType == .all {
             listener.onBadgeChange(change: .update, badges: fetchAllBadges())
-            listener.onBadgeChange(change: .update, badges: fetchAllBadges())
         }
         if listener.listenerType == ListenerType.guild || listener.listenerType == ListenerType.all {
             listener.onGuildChange(change: .update, guild: thisUser.guild)
@@ -544,6 +543,12 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return char
     }
     
+    /// Adds the character to the user's guild
+    ///
+    /// - Parameters: uniqueID: String - The uniqueID of the user to add the character to their guild and vice versa
+    ///
+    /// - Returns: Bool: whether the user ID was valid to add the player
+    ///
     func addCharacterToGuild(uniqueID: String) -> Bool {
         guard let userID = currentUser?.uid else{
             return false
@@ -570,12 +575,12 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     ///
     /// - Throws: 'Error' - If the character could not be updated
     ///
-    func updateCharacterStats(char: Character, user: String){
+    func updateCharacterStats(char: Character, user: String) {
         do {
-            _ = try characterRef?.document(user).setData(from: char)
+            try characterRef?.document(user).setData(from: char)
         } catch {
             print("Could not update character")
-            return
+            return 
         }
     }
     
@@ -1004,7 +1009,9 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if let charReference = snapshotData["guild"] as? [DocumentReference]{
             for reference in charReference {
                 if let char = getCharacterByID(reference.documentID){
-                    thisUser.guild.append(char)
+                    if thisUser.guild.contains(char) == false {
+                        thisUser.guild.append(char)
+                    }
                 }
             }
             listeners.invoke { (listener) in

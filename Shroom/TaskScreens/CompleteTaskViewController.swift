@@ -87,6 +87,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
         let currentDateString: String = dateFormatter.string(from: Date())
         databaseController?.addCompletedTaskToProgress(date: currentDateString, user: thisUser)
         let _ = databaseController?.updateInventoryTasks()
+        pauseTimer()
         checkUserBadges()
         return true
     }
@@ -139,8 +140,8 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
             // setting up the timer
             setUpTimer()
         } else {
-            progressView.progress = 0
-            progressView.timeToFill = Double(time! -  timeRemaining!)
+            progressView.progress = Float(time! -  timeRemaining!)
+            progressView.timeToFill = 0
             buttonName.setTitle("Start Timer", for: UIControl.State.normal)
             pauseTimer()
         }
@@ -148,7 +149,7 @@ class CompleteTaskViewController: UIViewController, DatabaseListener, CurrentTas
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        buttonName.tintColor = UIColor(named: "CoralColor")
+        buttonName.tintColor = UIColor(named: "SkyColor")
         completeTaskName.tintColor = UIColor(named: "LilacColor")
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate

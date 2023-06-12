@@ -1030,7 +1030,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="sNM-ck-J9r"/>
                                 </constraints>
-                                <color key="tintColor" red="0.39729952439999999" green="0.70576803480000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" name="SkyColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
                                     <attributedString key="attributedTitle">
@@ -1046,17 +1046,10 @@
                                     <action selector="setTimerButton:" destination="Mz8-iN-QT6" eventType="touchUpInside" id="3iI-NH-JGO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqt-uw-SzK">
-                                <rect key="frame" x="60" y="338" width="273" height="70.666666666666686"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="3:59">
-                                        <attributes>
-                                            <color key="NSColor" red="0.81329393489261093" green="0.57030390825038024" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="64" name="ConnectionBold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqt-uw-SzK">
+                                <rect key="frame" x="60" y="338" width="273" height="69.333333333333314"/>
+                                <fontDescription key="fontDescription" name="ConnectionBold" family="Connection" pointSize="63"/>
+                                <color key="textColor" name="CoralColor"/>
                                 <nil key="highlightedColor"/>
                                 <lineBreakStrategy key="lineBreakStrategy" pushOut="YES"/>
                             </label>
@@ -1307,7 +1300,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="50" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3h-uY-QgJ">
                                 <rect key="frame" x="10" y="108" width="373" height="284.33333333333331"/>
-                                <mutableString key="text">"These Google Cloud Platform Terms of Service (together, the 'Agreement') are entered into by Google and the entity or person agreeing to these terms ('Customer') and govern Customer's access to and use of the Services. 'Google' has the meaning given at https://cloud.google.com/terms/google-entity. \(/n/)This Agreement is effective when Customer clicks to accept it (the 'Effective Date'). If you are accepting on behalf of Customer, you represent and warrant that (i) you have full legal authority to bind Customer to this Agreement; (ii) you have read and understand this Agreement; and (iii) you agree, on behalf of Customer, to this Agreement."</mutableString>
+                                <string key="text">"These Google Cloud Platform Terms of Service (together, the 'Agreement') are entered into by Google and the entity or person agreeing to these terms ('Customer') and govern Customer's access to and use of the Services. 'Google' has the meaning given at https://cloud.google.com/terms/google-entity. \(/n/)This Agreement is effective when Customer clicks to accept it (the 'Effective Date'). If you are accepting on behalf of Customer, you represent and warrant that (i) you have full legal authority to bind Customer to this Agreement; (ii) you have read and understand this Agreement; and (iii) you agree, on behalf of Customer, to this Agreement."</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1338,17 +1331,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="separatorColor" red="0.81329393490000002" green="0.5703039083" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Shroom" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tWJ-W9-Agt">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="54"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="opW-dd-kXi">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="82"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" name="SkyColor"/>
-                            <fontDescription key="fontDescription" name="ConnectionBold" family="Connection" pointSize="17"/>
-                            <color key="textColor" systemColor="systemBackgroundColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Shroom" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIZ-HA-0aC">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="40"/>
+                                    <color key="backgroundColor" name="SkyColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="d3p-Dh-KOg"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="ConnectionBold" family="Connection" pointSize="19"/>
+                                    <color key="textColor" systemColor="systemBackgroundColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="BIZ-HA-0aC" secondAttribute="trailing" id="gJD-x6-tb9"/>
+                                <constraint firstItem="BIZ-HA-0aC" firstAttribute="top" secondItem="opW-dd-kXi" secondAttribute="top" id="hx2-8l-huu"/>
+                                <constraint firstItem="BIZ-HA-0aC" firstAttribute="leading" secondItem="opW-dd-kXi" secondAttribute="leading" id="tCR-4C-fl7"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="firebase" textLabel="CkH-Yv-ODt" style="IBUITableViewCellStyleDefault" id="TI9-mr-6ds">
-                                <rect key="frame" x="20" y="109.33333206176758" width="353" height="43.666667938232422"/>
+                                <rect key="frame" x="20" y="137.33333206176758" width="353" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TI9-mr-6ds" id="KCo-JQ-BRL">
                                     <rect key="frame" x="0.0" y="0.0" width="290.66666666666669" height="43.666667938232422"/>
@@ -1365,7 +1372,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="siesta" textLabel="Y0C-Ii-fYv" style="IBUITableViewCellStyleDefault" id="DFg-9s-UPp">
-                                <rect key="frame" x="20" y="153" width="353" height="43.666667938232422"/>
+                                <rect key="frame" x="20" y="181" width="353" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DFg-9s-UPp" id="mfF-fe-H7W">
                                     <rect key="frame" x="0.0" y="0.0" width="290.66666666666669" height="43.666667938232422"/>
@@ -1382,7 +1389,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="tutorials" textLabel="OlF-f2-VTz" style="IBUITableViewCellStyleDefault" id="L1P-E6-ePN">
-                                <rect key="frame" x="20" y="196.66666793823242" width="353" height="43.666667938232422"/>
+                                <rect key="frame" x="20" y="224.66666793823242" width="353" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="L1P-E6-ePN" id="GZP-cj-Agy">
                                     <rect key="frame" x="0.0" y="0.0" width="290.66666666666669" height="43.666667938232422"/>
@@ -1399,7 +1406,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="images" textLabel="FrU-Qy-wSW" style="IBUITableViewCellStyleDefault" id="31Y-sz-Ebt">
-                                <rect key="frame" x="20" y="240.33333587646484" width="353" height="43.666667938232422"/>
+                                <rect key="frame" x="20" y="268.33333587646484" width="353" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="31Y-sz-Ebt" id="FGU-zb-Fld">
                                     <rect key="frame" x="0.0" y="0.0" width="290.66666666666669" height="43.666667938232422"/>
@@ -3045,6 +3052,9 @@
         <image name="tray.fill" catalog="system" width="128" height="88"/>
         <namedColor name="AccentColor">
             <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="CoralColor">
+            <color red="0.40000000000000002" green="0.83137254901960789" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LilacColor">
             <color red="0.86500000953674316" green="0.4440000057220459" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

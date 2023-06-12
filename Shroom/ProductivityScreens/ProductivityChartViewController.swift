@@ -11,7 +11,7 @@ import Charts
 
 class ProductivityChartViewController: UIViewController, DatabaseListener {
     
-    var listenerType = ListenerType.all
+    var listenerType = ListenerType.progress
     
     var days: [String] = []
     
@@ -20,6 +20,8 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     var data: [WeeklyProgress] = []
     
     var tasksCompletedToday: Int?
+    
+    var chart: ChartUIView?
     
     let progressViewBar = CircularProgressBarView(frame: CGRect(x: 5, y: 5, width: 220, height: 220), lineWidth: 30, rounded: false)
     
@@ -56,7 +58,7 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     /// - Parameters: data - an array of the weekly progress numbers stored in the database
     func setUpChart(data: [WeeklyProgress]){
         
-        let chart = ChartUIView(data: data)
+        chart = ChartUIView(data: data)
         
         let controller = UIHostingController(rootView: chart)
         
@@ -94,6 +96,7 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     ///
     /// - Parameters: weeklyData - Date string and number of tasks completed per day in dictionary
     func setupProgressChart(weeklydata: [String: Int]){
+        data = []
         for day in days {
             data.append(.init(dayOfWeek: day, taskCount: progressList[day]!))
         }
@@ -125,7 +128,9 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     /// the data it just recieved. It will then set the progress bar to the amount of tasks completed today
     func onProgressChange(change: DatabaseChange, progress: [String : Int]) {
         progressList = progress
-        getLast7Days()
+        if days.isEmpty {
+            getLast7Days()
+        }
         setupProgressChart(weeklydata: progressList)
         setUpChart(data: data)
         
@@ -148,6 +153,7 @@ class ProductivityChartViewController: UIViewController, DatabaseListener {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {

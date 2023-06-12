@@ -14,7 +14,6 @@
 		C708ADF02A21E23F00127CB2 /* AddNewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADEF2A21E23F00127CB2 /* AddNewTask.swift */; };
 		C708ADF22A23472300127CB2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF12A23472300127CB2 /* TabBarViewController.swift */; };
 		C708ADF42A23492B00127CB2 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF32A23492B00127CB2 /* SocialViewController.swift */; };
-		C708ADF62A23494300127CB2 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF52A23494300127CB2 /* ShopViewController.swift */; };
 		C708ADF82A2369D900127CB2 /* CompleteTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */; };
 		C708ADFA2A2378EF00127CB2 /* HolidayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */; };
 		C708ADFD2A2379C700127CB2 /* Siesta in Frameworks */ = {isa = PBXBuildFile; productRef = C708ADFC2A2379C700127CB2 /* Siesta */; };
@@ -74,7 +73,6 @@
 		C708ADEF2A21E23F00127CB2 /* AddNewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTask.swift; sourceTree = "<group>"; };
 		C708ADF12A23472300127CB2 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		C708ADF32A23492B00127CB2 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
-		C708ADF52A23494300127CB2 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTaskViewController.swift; sourceTree = "<group>"; };
 		C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayAPI.swift; sourceTree = "<group>"; };
 		C708AE002A24645900127CB2 /* CircularProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBarView.swift; sourceTree = "<group>"; };
@@ -164,8 +162,6 @@
 				C7433DB229E17DCB00B16B52 /* Font */,
 				C7433D9729E17AF400B16B52 /* AppDelegate.swift */,
 				C7433D9929E17AF400B16B52 /* SceneDelegate.swift */,
-				C7433D9B29E17AF400B16B52 /* ViewController.swift */,
-				C708ADF12A23472300127CB2 /* TabBarViewController.swift */,
 				C7433D9D29E17AF400B16B52 /* Main.storyboard */,
 				C7433DA029E17AF600B16B52 /* Assets.xcassets */,
 				C7433DA229E17AF600B16B52 /* LaunchScreen.storyboard */,
@@ -175,35 +171,16 @@
 				C779D9132A1B73DD00D96570 /* Unit.swift */,
 				C735D4E229EFBEAE009DF770 /* TaskItem.swift */,
 				C708ADEF2A21E23F00127CB2 /* AddNewTask.swift */,
-				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
-				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
+				C7433D9B29E17AF400B16B52 /* ViewController.swift */,
+				C708ADF12A23472300127CB2 /* TabBarViewController.swift */,
 				C735D4EC29F12DB2009DF770 /* BreakdownViewController.swift */,
-				C732931A2A049E48006966B7 /* AuthenticationViewController.swift */,
-				C732931C2A04AE4B006966B7 /* SignUpViewController.swift */,
-				C732931E2A04AE59006966B7 /* LogInViewController.swift */,
-				C708ADEB2A21A8D900127CB2 /* TaskTableViewCell.swift */,
-				C708ADED2A21D8EB00127CB2 /* AddTaskViewController.swift */,
-				C708ADE92A21A8BF00127CB2 /* AllTasksTableViewController.swift */,
-				C779D9072A19F51300D96570 /* TodayTableViewController.swift */,
-				C779D90B2A19F57A00D96570 /* UpcomingViewController.swift */,
-				C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */,
-				C779D9112A1A464F00D96570 /* UnitTableViewController.swift */,
-				C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */,
-				C708ADE72A21A86100127CB2 /* ProductivityChartViewController.swift */,
-				C723E9622A30CBD100066E3F /* GuildTableViewCell.swift */,
-				C708ADF32A23492B00127CB2 /* SocialViewController.swift */,
-				C7F1C0CA2A34785500F61B5E /* AddMemberViewController.swift */,
-				C708ADF52A23494300127CB2 /* ShopViewController.swift */,
-				C708AE002A24645900127CB2 /* CircularProgressBarView.swift */,
-				C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */,
-				C708AE042A26144600127CB2 /* CurrentTaskDelegate.swift */,
-				C7EFD9142A2B57F4006CA613 /* SegmentedViewController.swift */,
-				C723E9522A2F7AB800066E3F /* BadgesViewController.swift */,
-				C723E9542A2F86AC00066E3F /* BadgeCollectionViewCell.swift */,
-				C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */,
-				C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */,
-				C7B0825C2A3596D10056BF3F /* AboutPageTableViewController.swift */,
-				C7B0825E2A3596F10056BF3F /* AcknowledgementViewController.swift */,
+				C78D25AF2A36F58B0005431A /* AuthenticationScreens */,
+				C78D25B02A36F60C0005431A /* TaskScreens */,
+				C78D25B12A36F64C0005431A /* UnitScreens */,
+				C78D25B42A36F6E90005431A /* GuildScreens */,
+				C78D25B52A36F71D0005431A /* ProductivityScreens */,
+				C78D25B32A36F6A90005431A /* APIs and Web Services */,
+				C78D25B22A36F68B0005431A /* AboutScreens */,
 			);
 			path = Shroom;
 			sourceTree = "<group>";
@@ -225,6 +202,82 @@
 				C735D4E429EFC0FC009DF770 /* DatabaseController.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		C78D25AF2A36F58B0005431A /* AuthenticationScreens */ = {
+			isa = PBXGroup;
+			children = (
+				C732931A2A049E48006966B7 /* AuthenticationViewController.swift */,
+				C732931C2A04AE4B006966B7 /* SignUpViewController.swift */,
+				C732931E2A04AE59006966B7 /* LogInViewController.swift */,
+				C7433DAE29E17B3900B16B52 /* ChooseNameViewController.swift */,
+				C7433DB029E17B4F00B16B52 /* PickCharacterViewController.swift */,
+			);
+			path = AuthenticationScreens;
+			sourceTree = "<group>";
+		};
+		C78D25B02A36F60C0005431A /* TaskScreens */ = {
+			isa = PBXGroup;
+			children = (
+				C708ADEB2A21A8D900127CB2 /* TaskTableViewCell.swift */,
+				C708ADED2A21D8EB00127CB2 /* AddTaskViewController.swift */,
+				C708ADE92A21A8BF00127CB2 /* AllTasksTableViewController.swift */,
+				C779D9072A19F51300D96570 /* TodayTableViewController.swift */,
+				C779D90B2A19F57A00D96570 /* UpcomingViewController.swift */,
+				C708ADF72A2369D900127CB2 /* CompleteTaskViewController.swift */,
+				C708AE042A26144600127CB2 /* CurrentTaskDelegate.swift */,
+			);
+			path = TaskScreens;
+			sourceTree = "<group>";
+		};
+		C78D25B12A36F64C0005431A /* UnitScreens */ = {
+			isa = PBXGroup;
+			children = (
+				C779D90F2A1A2F8800D96570 /* UnitCollectionViewCell.swift */,
+				C779D9112A1A464F00D96570 /* UnitTableViewController.swift */,
+				C70F4E472A1F52BD009696BB /* AddUnitViewController.swift */,
+			);
+			path = UnitScreens;
+			sourceTree = "<group>";
+		};
+		C78D25B22A36F68B0005431A /* AboutScreens */ = {
+			isa = PBXGroup;
+			children = (
+				C7B0825C2A3596D10056BF3F /* AboutPageTableViewController.swift */,
+				C7B0825E2A3596F10056BF3F /* AcknowledgementViewController.swift */,
+			);
+			path = AboutScreens;
+			sourceTree = "<group>";
+		};
+		C78D25B32A36F6A90005431A /* APIs and Web Services */ = {
+			isa = PBXGroup;
+			children = (
+				C708ADF92A2378EF00127CB2 /* HolidayAPI.swift */,
+				C7CCFACD2A2AD5B300821E10 /* ChartUIView.swift */,
+				C708AE002A24645900127CB2 /* CircularProgressBarView.swift */,
+			);
+			path = "APIs and Web Services";
+			sourceTree = "<group>";
+		};
+		C78D25B42A36F6E90005431A /* GuildScreens */ = {
+			isa = PBXGroup;
+			children = (
+				C708ADF32A23492B00127CB2 /* SocialViewController.swift */,
+				C723E9622A30CBD100066E3F /* GuildTableViewCell.swift */,
+				C7F1C0CA2A34785500F61B5E /* AddMemberViewController.swift */,
+			);
+			path = GuildScreens;
+			sourceTree = "<group>";
+		};
+		C78D25B52A36F71D0005431A /* ProductivityScreens */ = {
+			isa = PBXGroup;
+			children = (
+				C708ADE72A21A86100127CB2 /* ProductivityChartViewController.swift */,
+				C7EFD9142A2B57F4006CA613 /* SegmentedViewController.swift */,
+				C723E9542A2F86AC00066E3F /* BadgeCollectionViewCell.swift */,
+				C723E9522A2F7AB800066E3F /* BadgesViewController.swift */,
+			);
+			path = ProductivityScreens;
 			sourceTree = "<group>";
 		};
 		C7CCFACF2A2B066C00821E10 /* CoreData */ = {
@@ -357,7 +410,6 @@
 				C779D9082A19F51300D96570 /* TodayTableViewController.swift in Sources */,
 				C7EFD9152A2B57F4006CA613 /* SegmentedViewController.swift in Sources */,
 				C708ADEC2A21A8D900127CB2 /* TaskTableViewCell.swift in Sources */,
-				C708ADF62A23494300127CB2 /* ShopViewController.swift in Sources */,
 				C732931F2A04AE59006966B7 /* LogInViewController.swift in Sources */,
 				C7433D9A29E17AF400B16B52 /* SceneDelegate.swift in Sources */,
 				C779D9102A1A2F8800D96570 /* UnitCollectionViewCell.swift in Sources */,

@@ -47,7 +47,7 @@ class SocialViewController: UIViewController, UITableViewDataSource, UITableView
         currentGuild = guild
     }
 
-    var currentGuild = [Character]()
+    var currentGuild: [Character] = []
     
     var currentCharacter: Character?
     

@@ -110,14 +110,14 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func loadCharacter(char: Character?){
-        guard let shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let player = currentPlayer, let image = shroom.charImage else {
+        guard var shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let player = currentPlayer, let image = shroom.charImage else {
             return
         }
         let shroomImage = UIImage(named: image)
         let totalExp = Float(shroomLevel) * 100.00
         let totalHealth = Float(shroomLevel) * 200.00
         
-        checkShroomStats(char: shroom, totalExp: totalExp, totalHealth: totalHealth)
+        shroom = checkShroomStats(char: shroom, totalExp: totalExp, totalHealth: totalHealth)
         
         shroomNameLabel.text = shroomName
         levelLabel.text = "lvl \(shroomLevel)"
@@ -137,18 +137,23 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     /// - Parameters: char: Character - The current character that needs to be update
     ///               totalExp: Float - The total number of EXP points possible for the character at that level
     ///               totalHealth: Float -
-    func checkShroomStats(char: Character, totalExp: Float, totalHealth: Float){
-        guard var level = char.level else {
-            return
+    func checkShroomStats(char: Character, totalExp: Float, totalHealth: Float) -> Character {
+        guard let user = currentPlayer?.uid else {
+            return char
         }
+        
         if Float(char.exp!) > totalExp {
-            level += 1
-            databaseController?.updateCharacterStats(char: char, user: currentPlayer!.uid)
+            char.level! += 1
+            char.exp! -= Int32(totalExp)
+            databaseController?.updateCharacterStats(char: char, user: user)
         }
+        
         if Float(char.health!) <= 0 {
-            level -= 1
-            databaseController?.updateCharacterStats(char: char, user: currentPlayer!.uid)
+            char.level! -= 1
+            databaseController?.updateCharacterStats(char: char, user: user)
         }
+        
+        return char
     }
     
     // MARK: Table View
