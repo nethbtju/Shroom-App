@@ -266,7 +266,6 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 if listener.listenerType == .badges
                     || listener.listenerType == .all {
                     listener.onBadgeChange(change: .update, badges: fetchAllBadges())
-                    
                 }
             }
         }
@@ -429,7 +428,7 @@ class DatabaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 let authDetails = try await authController.createUser(withEmail: email, password: password)
                 print("User creation successfully completed")
                 currentUser = authDetails.user
-                try await setUpUser()
+                //try await setUpUser()
             }
             catch {
                 print("User creation failed with error \(String(describing: error))")

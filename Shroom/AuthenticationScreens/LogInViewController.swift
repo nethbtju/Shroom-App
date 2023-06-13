@@ -14,7 +14,7 @@ class LogInViewController: UIViewController, DatabaseListener{
     var authHandle: AuthStateDidChangeListenerHandle?
     weak var databaseController: DatabaseProtocol?
     
-    var listenerType = ListenerType.character
+    var listenerType = ListenerType.player
     
     @IBOutlet weak var username: UITextField!
     
@@ -38,6 +38,7 @@ class LogInViewController: UIViewController, DatabaseListener{
         }
         Task {
             try await databaseController?.logInToAccount(email: emailAdd, password: pass)
+            navigationController?.popToRootViewController(animated: true)
         }
     }
     
@@ -78,9 +79,7 @@ class LogInViewController: UIViewController, DatabaseListener{
     
     /// If there exists a character it will pop the controller back to the root of it to allow the game to segue into the main screen
     func onCharacterChange(change: DatabaseChange, character: Character) {
-        if databaseController?.currentCharacter?.charName != nil{
-            navigationController?.popToRootViewController(animated: true)
-        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -50,7 +50,7 @@ class AuthenticationViewController: UIViewController, DatabaseListener {
     ///
     func onCharacterChange(change: DatabaseChange, character: Character) {
         if databaseController?.currentCharacter?.charName != nil {
-            self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
+            //self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
         }
     }
 
@@ -74,20 +74,21 @@ class AuthenticationViewController: UIViewController, DatabaseListener {
 
     /// Checks if the state of the authenicator is already logged into user and if so calls the set up user function to run and
     /// create the user
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
         authHandle = authController?.addStateDidChangeListener{ auth, user in
             if self.authController?.currentUser != nil {
                 Task {
                     try await self.databaseController?.setUpUser()
+                    self.performSegue(withIdentifier: "mainScreenSegue", sender: nil)
                 }
             }
         }
     }
     
     /// When the view is about the disappear it will remove the active listeners from this screen
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         authController?.removeStateDidChangeListener(authHandle!)
         databaseController?.removeListener(listener: self)

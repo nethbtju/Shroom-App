@@ -67,6 +67,7 @@ class BadgesViewController: UIViewController, UICollectionViewDelegate, UICollec
         guard var badgeID = badgeFromAll.badgeID, let badgeName = badgeFromAll.badgeID else {
             return badgeCell
         }
+        
         if badges.contains(badgeFromAll) == false {
             badgeID = "Locked\(badgeID)"
         }

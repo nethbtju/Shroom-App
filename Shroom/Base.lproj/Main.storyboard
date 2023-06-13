@@ -205,7 +205,7 @@
                                     <constraint firstAttribute="width" constant="100" id="SKH-xf-IuL"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinkshroom" translatesAutoresizingMaskIntoConstraints="NO" id="vV3-O5-gXK">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinkShroom" translatesAutoresizingMaskIntoConstraints="NO" id="vV3-O5-gXK">
                                 <rect key="frame" x="40" y="388" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="FtG-4T-17d"/>
@@ -2700,7 +2700,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILe-Qg-jKO">
-                                <rect key="frame" x="35" y="20" width="85" height="20"/>
+                                <rect key="frame" x="35" y="20" width="375" height="20"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Daily Goal">
                                         <attributes>
@@ -2785,7 +2785,6 @@
                         <viewLayoutGuide key="safeArea" id="9jY-6N-kcW"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ILe-Qg-jKO" secondAttribute="trailing" constant="310" id="26J-qq-Fpf"/>
                             <constraint firstItem="O3c-wj-MlQ" firstAttribute="leading" secondItem="2Es-qS-Ru1" secondAttribute="leadingMargin" constant="20" id="4cV-Wa-l64"/>
                             <constraint firstAttribute="trailing" secondItem="O3c-wj-MlQ" secondAttribute="trailing" constant="20" id="8rI-PF-KNB"/>
                             <constraint firstItem="Mem-7c-gQj" firstAttribute="leading" secondItem="9jY-6N-kcW" secondAttribute="leading" constant="35" id="9lh-IO-O0m"/>
@@ -2798,6 +2797,7 @@
                             <constraint firstItem="tA1-kE-u0J" firstAttribute="top" secondItem="xgi-UI-dNe" secondAttribute="bottom" constant="15" id="jHE-40-JTn"/>
                             <constraint firstItem="ILe-Qg-jKO" firstAttribute="top" secondItem="2Es-qS-Ru1" secondAttribute="top" constant="20" id="mBB-pN-1Rm"/>
                             <constraint firstItem="tA1-kE-u0J" firstAttribute="centerX" secondItem="2Es-qS-Ru1" secondAttribute="centerX" id="owX-KL-hUh"/>
+                            <constraint firstAttribute="trailing" secondItem="ILe-Qg-jKO" secondAttribute="trailing" constant="20" id="tnK-Fr-yzG"/>
                             <constraint firstItem="ILe-Qg-jKO" firstAttribute="leading" secondItem="2Es-qS-Ru1" secondAttribute="leading" constant="35" id="yH3-v1-VsR"/>
                         </constraints>
                     </view>
@@ -3071,7 +3071,7 @@
         <image name="paintpalette.fill" catalog="system" width="128" height="105"/>
         <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="pinkshroom" width="659" height="782"/>
+        <image name="pinkShroom" width="659" height="782"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="purpleShroom" width="659" height="782"/>
         <image name="redShroom" width="659" height="782"/>
