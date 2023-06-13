@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n0W-7h-EqN">
-    <device id="retina6_72" orientation="portrait" appearance="dark"/>
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
@@ -480,7 +480,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="\ level 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGv-E4-cmK">
-                                <rect key="frame" x="248.99999999999997" y="161.66666666666666" width="70.666666666666657" height="18.333333333333343"/>
+                                <rect key="frame" x="249.00000000000003" y="161.66666666666666" width="70.333333333333343" height="18.333333333333343"/>
                                 <fontDescription key="fontDescription" name="PixelGameFont" family="PixelGameFont" pointSize="17"/>
                                 <color key="textColor" red="0.88724226799999995" green="0.84877820770000001" blue="0.33740534960000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -512,19 +512,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PlayerName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37z-bY-E0b">
-                                <rect key="frame" x="25" y="111" width="144" height="25.666666666666657"/>
+                                <rect key="frame" x="25" y="111" width="143.66666666666666" height="25.333333333333343"/>
                                 <fontDescription key="fontDescription" name="ConnectionBold" family="Connection" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAY-M5-Yzq">
-                                <rect key="frame" x="367" y="227.66666666666666" width="28" height="7.3333333333333428"/>
+                                <rect key="frame" x="367.33333333333331" y="227.66666666666666" width="27.666666666666686" height="7.3333333333333428"/>
                                 <fontDescription key="fontDescription" name="PixelGameFont" family="PixelGameFont" pointSize="7"/>
                                 <color key="textColor" red="0.88724226799999995" green="0.84877820770000001" blue="0.33740534960000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blueShroom" translatesAutoresizingMaskIntoConstraints="NO" id="gz3-1E-bYr">
-                                <rect key="frame" x="55" y="156.66666666666666" width="65" height="76"/>
+                                <rect key="frame" x="55" y="156.33333333333334" width="65" height="76"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="76" id="G7h-qk-dFh"/>
                                     <constraint firstAttribute="width" constant="65" id="kuE-Nl-HTS"/>
@@ -1055,7 +1055,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqt-uw-SzK">
-                                <rect key="frame" x="60" y="338" width="310" height="69.666666666666686"/>
+                                <rect key="frame" x="60" y="338" width="310" height="69.333333333333314"/>
                                 <fontDescription key="fontDescription" name="ConnectionBold" family="Connection" pointSize="63"/>
                                 <color key="textColor" name="CoralColor"/>
                                 <nil key="highlightedColor"/>
@@ -1167,7 +1167,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="smb-5e-BVQ">
-                                <rect key="frame" x="135" y="149" width="260" height="36"/>
+                                <rect key="frame" x="135" y="149.33333333333334" width="260" height="36"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="284032800">
                                     <!--2010-01-01 10:00:00 +0000-->
@@ -1473,13 +1473,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBt-BQ-RGs">
-                                <rect key="frame" x="350" y="232.66666666666666" width="28" height="7.3333333333333428"/>
+                                <rect key="frame" x="350.33333333333331" y="232.66666666666666" width="27.666666666666686" height="7.3333333333333428"/>
                                 <fontDescription key="fontDescription" name="PixelGameFont" family="PixelGameFont" pointSize="7"/>
                                 <color key="textColor" red="0.88724226799999995" green="0.84877820770000001" blue="0.33740534960000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="\ level 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVB-il-Lhi">
-                                <rect key="frame" x="238.99999999999997" y="166.66666666666666" width="70.666666666666657" height="18.333333333333343"/>
+                                <rect key="frame" x="239.00000000000003" y="166.66666666666666" width="70.333333333333343" height="18.333333333333343"/>
                                 <fontDescription key="fontDescription" name="PixelGameFont" family="PixelGameFont" pointSize="17"/>
                                 <color key="textColor" red="0.88724226799999995" green="0.84877820770000001" blue="0.33740534960000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -1524,7 +1524,7 @@
                                 <rect key="frame" x="10" y="283" width="410" height="556"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guild Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EmO-oQ-0Md">
-                                        <rect key="frame" x="10.000000000000007" y="10" width="122.66666666666669" height="19"/>
+                                        <rect key="frame" x="9.9999999999999929" y="10" width="122.33333333333331" height="19"/>
                                         <fontDescription key="fontDescription" name="ConnectionBold" family="Connection" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1595,7 +1595,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="\ level 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mAE-mx-6Gn">
-                                                            <rect key="frame" x="222.99999999999997" y="49.666666666666664" width="70.666666666666657" height="18.333333333333336"/>
+                                                            <rect key="frame" x="223.00000000000003" y="49.666666666666664" width="70.333333333333343" height="18.333333333333336"/>
                                                             <fontDescription key="fontDescription" name="PixelGameFont" family="PixelGameFont" pointSize="17"/>
                                                             <color key="textColor" red="0.88724226799999995" green="0.84877820770000001" blue="0.33740534960000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
@@ -2182,10 +2182,24 @@
                                         <color key="baseBackgroundColor" red="0.38823530080000002" green="0.69411766529999996" blue="0.97254908080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </buttonConfiguration>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKI-hE-OPP">
+                                    <rect key="frame" x="250" y="10" width="80" height="24"/>
+                                    <menu key="menu" id="02M-w4-v29">
+                                        <children>
+                                            <command title="Item 1" id="UcU-Jf-M0w"/>
+                                            <command title="Item 2" id="sx8-EP-2Kg"/>
+                                        </children>
+                                    </menu>
+                                    <state key="normal">
+                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray5Color"/>
                             <constraints>
                                 <constraint firstItem="496-Cg-GUE" firstAttribute="top" secondItem="VxL-1R-Qlx" secondAttribute="top" constant="10" id="DfL-61-ydz"/>
+                                <constraint firstItem="gKI-hE-OPP" firstAttribute="top" secondItem="Q6Z-wi-Vbr" secondAttribute="top" id="HB3-e6-ZSo"/>
                                 <constraint firstItem="496-Cg-GUE" firstAttribute="leading" secondItem="Q6Z-wi-Vbr" secondAttribute="trailing" constant="10" id="Hp8-tZ-doP"/>
                                 <constraint firstItem="496-Cg-GUE" firstAttribute="bottom" secondItem="Q6Z-wi-Vbr" secondAttribute="bottom" id="J6E-5a-Bou"/>
                                 <constraint firstItem="496-Cg-GUE" firstAttribute="top" secondItem="Q6Z-wi-Vbr" secondAttribute="top" id="K0K-AE-zer"/>
@@ -2193,6 +2207,9 @@
                                 <constraint firstItem="496-Cg-GUE" firstAttribute="centerY" secondItem="mWw-nE-zjA" secondAttribute="centerY" id="Owv-rK-Hf3"/>
                                 <constraint firstAttribute="bottom" secondItem="496-Cg-GUE" secondAttribute="bottom" constant="10" id="TZa-WI-6DF"/>
                                 <constraint firstItem="Q6Z-wi-Vbr" firstAttribute="centerY" secondItem="mWw-nE-zjA" secondAttribute="centerY" id="e3z-3g-WOc"/>
+                                <constraint firstItem="gKI-hE-OPP" firstAttribute="leading" secondItem="Q6Z-wi-Vbr" secondAttribute="leading" id="imR-h7-Vom"/>
+                                <constraint firstItem="gKI-hE-OPP" firstAttribute="trailing" secondItem="Q6Z-wi-Vbr" secondAttribute="trailing" id="o0W-jv-wbe"/>
+                                <constraint firstItem="gKI-hE-OPP" firstAttribute="bottom" secondItem="Q6Z-wi-Vbr" secondAttribute="bottom" id="pnN-tt-Li5"/>
                                 <constraint firstItem="mWw-nE-zjA" firstAttribute="leading" secondItem="VxL-1R-Qlx" secondAttribute="leading" constant="20" id="qFk-IO-KZf"/>
                             </constraints>
                         </view>
@@ -2295,10 +2312,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="5ah-QD-XOZ"/>
+                    <connections>
+                        <outlet property="dropDownMenu" destination="gKI-hE-OPP" id="siW-Yy-0oB"/>
+                        <outlet property="sortByLabel" destination="mWw-nE-zjA" id="1d6-mn-2ua"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4a-96-pXy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5552" y="1748"/>
+            <point key="canvasLocation" x="5550.6976744186049" y="1747.854077253219"/>
         </scene>
         <!--Authentication View Controller-->
         <scene sceneID="ofq-F1-f1q">
@@ -2679,7 +2700,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILe-Qg-jKO">
-                                <rect key="frame" x="35" y="20" width="84" height="20"/>
+                                <rect key="frame" x="35" y="20" width="85" height="20"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Daily Goal">
                                         <attributes>
@@ -2729,7 +2750,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mem-7c-gQj">
-                                <rect key="frame" x="35" y="341" width="216" height="20"/>
+                                <rect key="frame" x="35" y="341" width="365" height="20"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Progress in the last 7 days">
                                         <attributes>
@@ -2764,14 +2785,16 @@
                         <viewLayoutGuide key="safeArea" id="9jY-6N-kcW"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ILe-Qg-jKO" secondAttribute="trailing" constant="310" id="26J-qq-Fpf"/>
                             <constraint firstItem="O3c-wj-MlQ" firstAttribute="leading" secondItem="2Es-qS-Ru1" secondAttribute="leadingMargin" constant="20" id="4cV-Wa-l64"/>
                             <constraint firstAttribute="trailing" secondItem="O3c-wj-MlQ" secondAttribute="trailing" constant="20" id="8rI-PF-KNB"/>
+                            <constraint firstItem="Mem-7c-gQj" firstAttribute="leading" secondItem="9jY-6N-kcW" secondAttribute="leading" constant="35" id="9lh-IO-O0m"/>
                             <constraint firstItem="xgi-UI-dNe" firstAttribute="leading" secondItem="ILe-Qg-jKO" secondAttribute="leading" id="AY3-fC-mz1"/>
                             <constraint firstItem="O3c-wj-MlQ" firstAttribute="top" secondItem="Mem-7c-gQj" secondAttribute="bottom" constant="5" id="EKj-LK-7A2"/>
                             <constraint firstItem="Mem-7c-gQj" firstAttribute="top" secondItem="tA1-kE-u0J" secondAttribute="bottom" constant="30" id="FH4-NI-YbW"/>
                             <constraint firstAttribute="trailing" secondItem="xgi-UI-dNe" secondAttribute="trailing" constant="30" id="LuZ-KT-BBY"/>
-                            <constraint firstItem="Mem-7c-gQj" firstAttribute="leading" secondItem="ILe-Qg-jKO" secondAttribute="leading" id="d2S-nF-CJn"/>
                             <constraint firstItem="xgi-UI-dNe" firstAttribute="top" secondItem="ILe-Qg-jKO" secondAttribute="bottom" constant="5" id="es0-K7-ONw"/>
+                            <constraint firstItem="9jY-6N-kcW" firstAttribute="trailing" secondItem="Mem-7c-gQj" secondAttribute="trailing" constant="30" id="ieE-ME-oyW"/>
                             <constraint firstItem="tA1-kE-u0J" firstAttribute="top" secondItem="xgi-UI-dNe" secondAttribute="bottom" constant="15" id="jHE-40-JTn"/>
                             <constraint firstItem="ILe-Qg-jKO" firstAttribute="top" secondItem="2Es-qS-Ru1" secondAttribute="top" constant="20" id="mBB-pN-1Rm"/>
                             <constraint firstItem="tA1-kE-u0J" firstAttribute="centerX" secondItem="2Es-qS-Ru1" secondAttribute="centerX" id="owX-KL-hUh"/>
@@ -2972,7 +2995,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cS-qv-W6D">
-                                                    <rect key="frame" x="21" y="67" width="76" height="23"/>
+                                                    <rect key="frame" x="21" y="67" width="76.333333333333329" height="23"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Stone Badge">
                                                             <attributes>

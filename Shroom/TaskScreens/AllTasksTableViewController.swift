@@ -10,6 +10,10 @@ import SwiftUI
 
 class AllTasksTableViewController: UITableViewController, DatabaseListener {
     
+    @IBOutlet var sortByLabel: UILabel!
+    
+    @IBOutlet var dropDownMenu: UIButton!
+    
     weak var currentTaskDelegate: CurrentTaskDelegate?
     
     let SECTION_TASKS = 0
@@ -17,6 +21,8 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
     let CELL_TASKS = "taskCell"
     
     var allTasks: [TaskItem] = []
+    
+    var sortedByTasks: [TaskItem] = []
 
     var listenerType = ListenerType.all
     
@@ -34,6 +40,13 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         databaseController = appDelegate?.databaseController
         self.navigationItem.title = "All Tasks"
         
+        setUpSortByButton()
+        
+        guard let current = dropDownMenu.currentTitle, current != "" else {
+            sortByLabel.text = "Default"
+            return
+        }
+        sortByLabel.text = current
     }
     
     func onInventoryChange(change: DatabaseChange, inventory: Inventory) {
@@ -65,6 +78,7 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
     /// reloads to reflect the changes
     func onTaskChange(change: DatabaseChange, tasks: [TaskItem]) {
         allTasks = tasks
+        sortList(list: allTasks)
         tableView.reloadData()
     }
     
@@ -87,7 +101,7 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          // Configure and return a task cell
         let taskCell = tableView.dequeueReusableCell(withIdentifier: CELL_TASKS, for: indexPath) as! TaskTableViewCell
-        let task = allTasks[indexPath.row]
+        let task = sortedByTasks[indexPath.row]
         taskCell.nameText.text = task.name
         
         let inputFormatter = DateFormatter()
@@ -123,7 +137,7 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "showTaskCompletion")
         self.currentTaskDelegate = vc as? any CurrentTaskDelegate
-        let currentTask = allTasks[indexPath.row]
+        let currentTask = sortedByTasks[indexPath.row]
         
         if let taskDelegate = currentTaskDelegate {
             if taskDelegate.currentTaskIs(currentTask) {
@@ -137,13 +151,56 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if editingStyle == .delete && indexPath.section == SECTION_TASKS {
-                let task = allTasks[indexPath.row]
+                let task = sortedByTasks[indexPath.row]
                 let _  = databaseController?.removeTaskFromList(task: allTasks[indexPath.row], user: databaseController!.thisUser)
                 databaseController?.deleteTask(task: task)
             }
         }
     }
-
+    
+    func setUpSortByButton(){
+        dropDownMenu.showsMenuAsPrimaryAction = true
+        dropDownMenu.changesSelectionAsPrimaryAction = true
+        
+        let optionClosure = {(action: UIAction) in
+            if ((action.index(ofAccessibilityElement: (Any).self)) != 0){
+                self.changeSortLabel()
+                self.sortList(list: self.sortedByTasks)
+            }
+        }
+        dropDownMenu.menu = UIMenu(children: [
+            UIAction(title: "Default", state: .on, handler: optionClosure),
+            UIAction(title: "Priority", handler: optionClosure),
+            UIAction(title: "Due Date", handler: optionClosure),
+            UIAction(title: "Name", handler: optionClosure),
+        ])
+        
+    }
+    
+    
+    func changeSortLabel(){
+        sortByLabel.text = dropDownMenu.currentTitle
+    }
+    
+    func sortList(list: [TaskItem]){
+        let drop = dropDownMenu.currentTitle
+        switch drop {
+        case "Default":
+            sortedByTasks = list
+        case "Priority":
+            sortedByTasks = list.sorted(by: {$1.priority! < $0.priority!})
+        case "Due Date":
+            sortedByTasks = list.sorted(by: {$0.dueDate! < $1.dueDate!})
+        case "Name":
+            sortedByTasks = list.sorted(by: {$0.name! < $1.name!})
+        case .none:
+            sortedByTasks = list
+        case .some(_):
+            sortedByTasks = list
+        }
+        tableView.reloadData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)

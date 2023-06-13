@@ -167,6 +167,7 @@ class AddTaskViewController: UIViewController, DatabaseListener {
                 
             }
         }
+        
         repeatButton.menu = UIMenu(children: [
             UIAction(title: "Never Repeat", state: .on, handler: optionClosure),
             UIAction(title: "Repeat Daily", handler: optionClosure),
@@ -178,6 +179,7 @@ class AddTaskViewController: UIViewController, DatabaseListener {
         repeatButton.layer.cornerRadius = 5
         repeatButton.layer.masksToBounds = true
     }
+
     
     /// Sets up the menu for the buttons that determine the units that the user can pick between. This uses the unit list that
     /// was parsed during the database change to show the options from the user input
