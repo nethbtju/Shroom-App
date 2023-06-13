@@ -36,9 +36,12 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
 
     var progress: [String: Int] = [:]
     
+    
     func onInventoryBadgeChange(change: DatabaseChange, badges: [Badge]) {
-        print("Badges: \(badges.count)")
+        // Do nothing
     }
+    
+    // When the user clicks the add task button the view controller pops up to allow for adding tasks
     @IBAction func addTask(_ sender: Any) {
         showMyViewControllerInACustomizedSheet(controller: self)
     }
@@ -49,6 +52,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    // When the list changes the lists get updated and the collection view is reloaded
     func onListChange(change: DatabaseChange, unitList: [Unit]) {
         units = unitList
         collectionView.reloadData()
@@ -60,6 +64,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         // do nothing
     }
     
+    /// When the character gets updates the current current is loaded again
     func onCharacterChange(change: DatabaseChange, character: Character) {
         currentChar = character
         loadCharacter(char: currentChar)
@@ -104,11 +109,12 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
         databaseController = appDelegate?.databaseController
         self.navigationItem.hidesBackButton = true
         currentPlayer = databaseController?.currentUser
-        //getLast7Days()
-        // Lets assume for now the user has JUST set their things up and the current character is in current Char variable
-        //currentCharacterImage.image = shroomImage
     }
     
+    /// Loads the current character to the top display of the user's current character
+    ///
+    /// - Parameters: char: Character - The current character that needs to be loaded
+    ///
     func loadCharacter(char: Character?){
         guard var shroom = char, let shroomName = shroom.charName, let shroomLevel = shroom.level, let shroomExp = shroom.exp, let shroomHealth = shroom.health, let player = currentPlayer, let image = shroom.charImage else {
             return
@@ -136,7 +142,7 @@ class BreakdownViewController: UIViewController, UITableViewDataSource, UITableV
     ///
     /// - Parameters: char: Character - The current character that needs to be update
     ///               totalExp: Float - The total number of EXP points possible for the character at that level
-    ///               totalHealth: Float -
+    ///               totalHealth: Float - the total number of health points
     func checkShroomStats(char: Character, totalExp: Float, totalHealth: Float) -> Character {
         guard let user = currentPlayer?.uid else {
             return char

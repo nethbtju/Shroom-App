@@ -152,12 +152,13 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         if editingStyle == .delete {
             if editingStyle == .delete && indexPath.section == SECTION_TASKS {
                 let task = sortedByTasks[indexPath.row]
-                let _  = databaseController?.removeTaskFromList(task: allTasks[indexPath.row], user: databaseController!.thisUser)
+                let _  = databaseController?.removeTaskFromList(task: task, user: databaseController!.thisUser)
                 databaseController?.deleteTask(task: task)
             }
         }
     }
     
+    /// Sets up the drop down menu of the sorting button
     func setUpSortByButton(){
         dropDownMenu.showsMenuAsPrimaryAction = true
         dropDownMenu.changesSelectionAsPrimaryAction = true
@@ -177,11 +178,15 @@ class AllTasksTableViewController: UITableViewController, DatabaseListener {
         
     }
     
-    
+    // When the user selects an item from the drop down menu, it changes the label of the sorting
     func changeSortLabel(){
         sortByLabel.text = dropDownMenu.currentTitle
     }
     
+    /// Depending on the menu from the drop down box the user selects the table will sort itself and reload into
+    /// a list where the tasks are arranged in that order
+    ///
+    /// - Parameters: list: [TaskItem] - original list that needs to be sorted
     func sortList(list: [TaskItem]){
         let drop = dropDownMenu.currentTitle
         switch drop {
